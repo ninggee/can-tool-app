@@ -1,7 +1,7 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.transmission.Entity;
 
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameDirection;
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameDirection;
+import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

@@ -2,10 +2,8 @@ package engineering.software.advanced.cantoolapp.test.Converter;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.Converter.Sender;
-import engineering.software.advanced.cantoolapp.Converter.SenderImpl;
-
-import static org.junit.Assert.*;
+import engineering.software.advanced.cantoolapp.Converter.transmission.Sender;
+import engineering.software.advanced.cantoolapp.Converter.transmission.Impl.SenderImpl;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

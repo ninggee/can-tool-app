@@ -1,4 +1,6 @@
-package engineering.software.advanced.cantoolapp.Converter;
+package engineering.software.advanced.cantoolapp.Converter.transmission.Impl;
+
+import engineering.software.advanced.cantoolapp.Converter.transmission.Sender;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.
