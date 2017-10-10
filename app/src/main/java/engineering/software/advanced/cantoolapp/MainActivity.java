@@ -11,9 +11,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 import app.akexorcist.bluetotohspp.library.DeviceList;
+import engineering.software.advanced.cantoolapp.Connector.Connector;
+import engineering.software.advanced.cantoolapp.Connector.SerialPortConnector;
 
 public class MainActivity extends SerialPortActivity {
 
@@ -26,20 +31,37 @@ public class MainActivity extends SerialPortActivity {
         Context context = getApplicationContext();
         bt = new BluetoothSPP(context);
 
+        // check if device has bluetooth
         if (!bt.isBluetoothAvailable()) {
             Log.i("debug", "bluetooth is not available");
-        }
-
-        if (bt.isBluetoothEnabled()) {
-            Log.i("Debug", "bluetooth is enabled");
-            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
-            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
-
 
         } else {
-            Log.i("Debug", "bluetooth is not enabled");
+            // device has bluetooth
+
+            // check if device open bluetooth
+            if (bt.isBluetoothEnabled()) {
+                Log.i("Debug", "bluetooth is enabled");
+                Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+                startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+
+            } else {
+                Log.i("Debug", "bluetooth is not enabled");
+            }
+
         }
 
+
+        Connector connector = new SerialPortConnector();
+
+        Map ports = connector.listPort();
+
+        Iterator port = ports.entrySet().iterator();
+
+        while (port.hasNext()) {
+            Map.Entry entry = (Map.Entry) port.next();
+
+            Log.i("port info", (String)entry.getKey() + " : " + (String)entry.getValue());
+        }
 
         setContentView(R.layout.activity_main);
         mEditTextEmission = (EditText) findViewById(R.id.editTextEmission);
@@ -62,6 +84,9 @@ public class MainActivity extends SerialPortActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if(mEditTextEmission != null) {
+                    mEditTextEmission.append(new String(buffer, 0 , size));
+                }
                 Toast.makeText(mApplication, "收到消息：" + new String(buffer) + "  size = " + size, Toast.LENGTH_SHORT).show();
             }
         });

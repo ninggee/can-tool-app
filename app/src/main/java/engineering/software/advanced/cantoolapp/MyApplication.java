@@ -24,7 +24,7 @@ public class MyApplication extends Application {
 
     public SerialPort getSerialPort() throws SecurityException, IOException, InvalidParameterException {
         if (mSerialPort == null) {
-            mSerialPort = new SerialPort(new File("/dev/ttyS2"), 115200, 0);
+            mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
         }
         return mSerialPort;
     }
