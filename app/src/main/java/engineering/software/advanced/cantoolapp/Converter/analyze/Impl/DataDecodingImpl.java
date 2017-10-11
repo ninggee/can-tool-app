@@ -44,10 +44,10 @@ public class DataDecodingImpl implements DataDecoding {
         Matcher matcher = pattern.matcher(signal);
         if (matcher.find()) {
 
-            System.out.println(matcher.groupCount());
-            for (int i = 0; i <= matcher.groupCount(); i++) {
-                System.out.println("group " + i + ": " + matcher.group(i));
-            }
+//            System.out.println(matcher.groupCount());
+//            for (int i = 0; i <= matcher.groupCount(); i++) {
+//                System.out.println("group " + i + ": " + matcher.group(i));
+//            }
 
             CanSignal canSignal = new CanSignal(
                     matcher.group(1),

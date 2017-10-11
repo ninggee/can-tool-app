@@ -25,6 +25,7 @@ public class DataEncodingImpl implements DataEncoding {
                 signal.getUnit(), signal.getNodeName());
     }
 
+    //去除浮点数后面多余的零，并转为字符串
     private String deleteZeroAndDot(double floatNumber) {
         String s = String.valueOf(floatNumber);
 //        System.out.println("before delete: " + s);

@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.transmission.Entity;
 
+import java.text.MessageFormat;
+
 import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameDirection;
 import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameType;
 
@@ -56,5 +58,10 @@ public abstract class Frame {
 
     public FrameDirection getDirection() {
         return direction;
+    }
+
+    public String toString() {
+        return String.format("%s {\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n}",
+                type.toString(), raw, id,length, data, period, direction.toString());
     }
 }
