@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.test.Converter;
+package engineering.software.advanced.cantoolapp.test.Converter.analyze;
 
 import org.junit.Test;
 

@@ -14,5 +14,6 @@ public interface DataConverter {
     //使用Intel的Little Endian方式将data解析为signal
     public int littleEndianConvertSignal(Data data, int start, int length);
 
+    //将信号值换算为变量值
     public double signalToValue(int signal, int a, int b);
 }
