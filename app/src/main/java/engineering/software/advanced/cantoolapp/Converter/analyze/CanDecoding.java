@@ -4,14 +4,14 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMess
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
 
 /**
- * Created by Zhang Dongdi on 2017/10/10.
+ * Created by Zhang Dongdi on 2017/10/11.
  */
 
-public interface DataEncoding {
+public interface CanDecoding {
 
-    //CAN信息编码
-    public String messageEncoding(CanMessage message);
+    //CAN信息解析
+    public CanMessage messageDecoding(String message);
 
-    //CAN信号编码
-    public String signalEncoding(CanSignal signal);
+    //CAN信号解析
+    public CanSignal signalDecoding(String signal);
 }

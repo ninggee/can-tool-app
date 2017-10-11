@@ -1,6 +1,6 @@
 package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.DataEncoding;
+import engineering.software.advanced.cantoolapp.Converter.analyze.CanEncoding;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
 
@@ -8,7 +8,7 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSign
  * Created by Zhang Dongdi on 2017/10/11.
  */
 
-public class DataEncodingImpl implements DataEncoding {
+public class CanEncodingImpl implements CanEncoding {
     @Override
     public String messageEncoding(CanMessage message) {
         return String.format("%s %d %s%s %s %s",

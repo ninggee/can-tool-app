@@ -3,15 +3,15 @@ package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.DataDecoding;
+import engineering.software.advanced.cantoolapp.Converter.analyze.CanDecoding;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
 
 /**
- * Created by Zhang Dongdi on 2017/10/10.
+ * Created by Zhang Dongdi on 2017/10/11.
  */
 
-public class DataDecodingImpl implements DataDecoding {
+public class CanDecodingImpl implements CanDecoding {
     @Override
     public CanMessage messageDecoding(String message) {
         Pattern pattern = Pattern.compile("^(.*) (\\d+) (.*) ?(:) ?(\\d+) (.*)$");

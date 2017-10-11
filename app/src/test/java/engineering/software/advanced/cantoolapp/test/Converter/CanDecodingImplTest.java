@@ -2,17 +2,18 @@ package engineering.software.advanced.cantoolapp.test.Converter;
 
 import org.junit.Test;
 
+import engineering.software.advanced.cantoolapp.Converter.analyze.CanDecoding;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataDecodingImpl;
+import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.CanDecodingImpl;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by Zhang Dongdi on 2017/10/10.
+ * Created by Zhang Dongdi on 2017/10/11.
  */
-public class DataDecodingImplTest {
-    DataDecodingImpl decoding = new DataDecodingImpl();
+public class CanDecodingImplTest {
+    CanDecoding decoding = new CanDecodingImpl();
     @Test
     public void messageDecoding() throws Exception {
         CanMessage message = decoding.messageDecoding("BO_ 2148606241 Ext1: 8 Node_Body");
