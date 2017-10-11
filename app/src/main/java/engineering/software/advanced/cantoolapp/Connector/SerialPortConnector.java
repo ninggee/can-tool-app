@@ -14,6 +14,8 @@ import engineering.software.advanced.cantoolapp.libs.SerialPortFinder;
 
 /**
  * Created by ningge on 2017/10/10.
+ *
+ * connect device by serial port
  */
 
 public class SerialPortConnector implements Connector {

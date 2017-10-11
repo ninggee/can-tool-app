@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * Created by ningge on 2017/10/10.
+ *
+ * connect device by bluetooth
  */
 
 public class BuletoothConnector implements Connector {
