@@ -14,6 +14,8 @@ import engineering.software.advanced.cantoolapp.libs.SerialPortFinder;
 
 /**
  * Created by ningge on 2017/10/10.
+ *
+ * connect device by serial port
  */
 
 public class SerialPortConnector implements Connector {
@@ -38,7 +40,7 @@ public class SerialPortConnector implements Connector {
     }
 
     @Override
-    public Map listPort() {
+    public Map listAll() {
         Map ports = new HashMap<>();
         String[] devices = serialPortFinder.getAllDevices();
         String[] path = serialPortFinder.getAllDevicesPath();
