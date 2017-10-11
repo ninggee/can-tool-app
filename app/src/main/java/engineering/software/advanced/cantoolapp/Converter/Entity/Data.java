@@ -1,6 +1,8 @@
 package engineering.software.advanced.cantoolapp.Converter.Entity;
 
 import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
+import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
+import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConverterImpl;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.
@@ -8,8 +10,10 @@ import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
 
 public class Data {
     private int[] data;
+    private DataConverter converter;
 
     public Data(String dataStr) {
+        converter = new DataConverterImpl();
         int length = dataStr.length() / 2;
         data = new int[length];
         for (int i = 0; i < length; i++) {
@@ -37,15 +41,24 @@ public class Data {
 
     public int getSignal(int start, int length, Endian endian) {
         if (endian.equals(Endian.BIG_ENDIAN)) {
-            //TODO 大端方法取数据
-            return -1;
+            return converter.bigEndianConvertSignal(this, start, length);
         }
         else if (endian.equals(Endian.LITTLE_ENDIAN)) {
-            //TODO 小端方法取数据
-            return -1;
+            return converter.littleEndianConvertSignal(this, start, length);
         }
         else {
             throw new RuntimeException("the type of endian is not set yet.");
         }
+    }
+
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < data.length * 8; i++) {
+            result += this.getBit(i);
+            if (i % 8 == 7) {
+                result += "\n";
+            }
+        }
+        return result;
     }
 }
