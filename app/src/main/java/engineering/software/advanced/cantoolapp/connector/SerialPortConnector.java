@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.Connector;
+package engineering.software.advanced.cantoolapp.connector;
 
 import android.util.Log;
 

@@ -17,15 +17,11 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.UUID;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 import app.akexorcist.bluetotohspp.library.DeviceList;
-import engineering.software.advanced.cantoolapp.Connector.Connector;
-import engineering.software.advanced.cantoolapp.Connector.SerialPortConnector;
 
 public class MainActivity extends SerialPortActivity {
 
