@@ -50,7 +50,7 @@ public class MainActivity extends SerialPortActivity {
 
         }
 
-
+//        connector example code
 //        Connector connector = new SerialPortConnector();
 //
 //        Map ports = connector.listPort();
@@ -97,8 +97,10 @@ public class MainActivity extends SerialPortActivity {
             if(resultCode == Activity.RESULT_OK) {
                 bt.setupService();
                 bt.startService(BluetoothState.DEVICE_OTHER);
+                Log.i("data", data.getDataString());
                 bt.connect(data);
                 bt.send("你好", true);
+                Log.i("bluetooth", bt.getServiceState() + "");
 //                Log.i("bluetooth", bt.getConnectedDeviceName());
             }
         } else if(requestCode == BluetoothState.REQUEST_ENABLE_BT) {
