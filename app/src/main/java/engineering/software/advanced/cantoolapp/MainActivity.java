@@ -51,20 +51,20 @@ public class MainActivity extends SerialPortActivity {
         }
 
 
-        Connector connector = new SerialPortConnector();
-
-        Map ports = connector.listPort();
-
-        Iterator port = ports.entrySet().iterator();
-
-        while (port.hasNext()) {
-            Map.Entry entry = (Map.Entry) port.next();
-
-            Log.i("port info", (String)entry.getKey() + " : " + (String)entry.getValue());
-        }
-
-        setContentView(R.layout.activity_main);
-        mEditTextEmission = (EditText) findViewById(R.id.editTextEmission);
+//        Connector connector = new SerialPortConnector();
+//
+//        Map ports = connector.listPort();
+//
+//        Iterator port = ports.entrySet().iterator();
+//
+//        while (port.hasNext()) {
+//            Map.Entry entry = (Map.Entry) port.next();
+//
+//            Log.i("port info", (String)entry.getKey() + " : " + (String)entry.getValue());
+//        }
+//
+//        setContentView(R.layout.activity_main);
+//        mEditTextEmission = (EditText) findViewById(R.id.editTextEmission);
 
 
     }
@@ -94,8 +94,13 @@ public class MainActivity extends SerialPortActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
-            if(resultCode == Activity.RESULT_OK)
+            if(resultCode == Activity.RESULT_OK) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER);
                 bt.connect(data);
+                bt.send("你好", true);
+//                Log.i("bluetooth", bt.getConnectedDeviceName());
+            }
         } else if(requestCode == BluetoothState.REQUEST_ENABLE_BT) {
             if(resultCode == Activity.RESULT_OK) {
                 bt.setupService();
