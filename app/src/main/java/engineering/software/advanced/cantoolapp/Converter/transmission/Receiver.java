@@ -1,7 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.transmission;
 
-import engineering.software.advanced.cantoolapp.Converter.transmission.Entity.ExtensionFrame;
-import engineering.software.advanced.cantoolapp.Converter.transmission.Entity.StandardFrame;
+import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
+import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

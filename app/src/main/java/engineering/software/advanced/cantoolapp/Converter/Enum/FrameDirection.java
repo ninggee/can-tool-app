@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.Converter.transmission.Enum;
+package engineering.software.advanced.cantoolapp.Converter.Enum;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

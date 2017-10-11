@@ -1,12 +1,12 @@
-package engineering.software.advanced.cantoolapp.Converter.analyze.Entity;
+package engineering.software.advanced.cantoolapp.Converter.Entity;
 
-import java.text.MessageFormat;
+import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.
  */
 
-//CAN信息实体
+//CAN信息
 public class CanMessage {
 
     //BO_
@@ -59,6 +59,29 @@ public class CanMessage {
 
     public String getNodeName() {
         return nodeName;
+    }
+
+    public FrameType getFrameType() {
+        //System.out.println(String.format("id: %d to Hex: %x msb: %d", id, id, id >> 31));
+        long msb = id >> 31;
+        if (msb == 1) {
+            return FrameType.ExtensionFrame;
+        }
+        else if (msb == 0) {
+            return FrameType.StandardFrame;
+        }
+        else {
+            throw new RuntimeException("Id might be illegal.");
+        }
+    }
+
+    public long getActualId() {
+        if (getFrameType().equals(FrameType.ExtensionFrame)) {
+            return id - ((long)1 << 31);
+        }
+        else {
+            return id;
+        }
     }
 
     public String toString() {

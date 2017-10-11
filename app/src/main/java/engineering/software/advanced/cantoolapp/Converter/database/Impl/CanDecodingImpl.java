@@ -1,11 +1,11 @@
-package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
+package engineering.software.advanced.cantoolapp.Converter.database.Impl;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.CanDecoding;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.database.CanDecoding;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

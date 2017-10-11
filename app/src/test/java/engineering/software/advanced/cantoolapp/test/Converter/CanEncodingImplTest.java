@@ -2,12 +2,10 @@ package engineering.software.advanced.cantoolapp.test.Converter;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.CanEncoding;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.CanEncodingImpl;
-
-import static org.junit.Assert.*;
+import engineering.software.advanced.cantoolapp.Converter.database.CanEncoding;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.database.Impl.CanEncodingImpl;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

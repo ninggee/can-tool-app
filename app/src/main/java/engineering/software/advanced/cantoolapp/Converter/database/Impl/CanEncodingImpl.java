@@ -1,8 +1,8 @@
-package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
+package engineering.software.advanced.cantoolapp.Converter.database.Impl;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.CanEncoding;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.database.CanEncoding;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.
