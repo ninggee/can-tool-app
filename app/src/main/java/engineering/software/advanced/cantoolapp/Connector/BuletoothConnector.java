@@ -8,7 +8,9 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -36,7 +38,7 @@ public class BuletoothConnector implements Connector {
             socket = device.createRfcommSocketToServiceRecord(OTHER_DEVICE);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("log", "获取Socket失败");
+            Log.d(TAG, "获取Socket失败");
             return;
         }
         try {
@@ -57,7 +59,15 @@ public class BuletoothConnector implements Connector {
 
     @Override
     public Map listAll() {
-        return null;
+        Map devices = new HashMap();
+        Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                devices.put(device.getName(), device.getAddress());
+                Log.i(TAG,device.getName() + "\n" + device.getAddress());
+            }
+        }
+        return devices;
     }
 
     @Override
