@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.Entity;
 
+import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
+
 /**
  * Created by Zhang Dongdi on 2017/10/10.
  */
@@ -87,6 +89,25 @@ public class CanSignal {
 
     public String getNodeName() {
         return nodeName;
+    }
+
+    public Endian getEndian() {
+        String sym = slt.substring(slt.indexOf("@") + 1);
+        if (sym.equals("0+")) {
+            return Endian.BIG_ENDIAN;
+        }
+        else if (sym.equals("1+")) {
+            return Endian.LITTLE_ENDIAN;
+        }
+        else if (sym.equals("0-")) {
+            return Endian.ZERO_MINUS;
+        }
+        else if (sym.equals("1-")) {
+            return Endian.ONE_MINUS;
+        }
+        else {
+            throw new RuntimeException("The type is illegal.");
+        }
     }
 
     public String toString() {

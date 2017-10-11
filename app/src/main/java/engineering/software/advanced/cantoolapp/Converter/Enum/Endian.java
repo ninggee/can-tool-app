@@ -6,5 +6,7 @@ package engineering.software.advanced.cantoolapp.Converter.Enum;
 
 public enum Endian {
     BIG_ENDIAN,
-    LITTLE_ENDIAN
+    LITTLE_ENDIAN,
+    ZERO_MINUS,
+    ONE_MINUS
 }
