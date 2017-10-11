@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +22,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 public class DatabseImpl implements DataBase {
 
     CanDecoding decoding = new CanDecodingImpl();
+
     @Override
     public CanMessage searchMessageUseId(Long id) {
         File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
@@ -34,7 +37,7 @@ public class DatabseImpl implements DataBase {
                 Pattern pattern = Pattern.compile("^BO_.*");
                 Matcher m1 = pattern.matcher(line);
                 message = decoding.messageDecoding(line);
-                if(m1.matches() && message.getId() == id){
+                if (m1.matches() && message.getId() == id) {
                     return message;
                 }
             }
@@ -50,31 +53,44 @@ public class DatabseImpl implements DataBase {
     }
 
     @Override
-    public CanSignal searchSignalUseMessage(CanMessage message) {
+    public List<CanSignal> searchSignalUseMessage(CanMessage message) {
         File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
         CanSignal signal = null;
+        CanMessage messageStart = null;
+        int start = 0;//表示开始
+        List<CanSignal> signalList = new ArrayList<CanSignal>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
-//                System.out.println(line);
-                //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
-                Pattern pattern = Pattern.compile("^BO_.*");
-                Matcher m1 = pattern.matcher(line);
-                message = decoding.messageDecoding(line);
-                if(m1.matches() && message.getId() == id){
-                    return message;
+                //寻找message
+                Pattern patternMessage = Pattern.compile("^BO_.*");
+                Matcher mMessage = patternMessage.matcher(line);
+                messageStart = decoding.messageDecoding(line);
+                if (mMessage.matches() && messageStart.getId() == message.getId()) {
+                    start = 1;
+                }
+                if(start == 1){
+                    //去除空格
+                    line = line.substring(1);
+                    //寻找message以下 的signal
+                    Pattern patternSignal = Pattern.compile("^SG_.*");
+                    Matcher mSignal = patternSignal.matcher(line);
+                    if (!mSignal.matches()) {
+                        start = 0;
+                        break;
+                    }
+                    signal = decoding.signalDecoding(line);
+                    signalList.add(signal);
                 }
             }
             bufferedReader.close();// 关闭输入流
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
-        return signal;
+        return signalList;
     }
 }

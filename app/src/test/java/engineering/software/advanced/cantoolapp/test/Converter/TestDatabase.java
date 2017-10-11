@@ -2,6 +2,9 @@ package engineering.software.advanced.cantoolapp.test.Converter;
 
 import org.junit.Test;
 
+import java.util.List;
+
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
 import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 import engineering.software.advanced.cantoolapp.Converter.database.Impl.DatabseImpl;
 
@@ -14,5 +17,10 @@ public class TestDatabase {
     public void testDatabase(){
         DatabseImpl db = new DatabseImpl();
         System.out.println(db.searchMessageUseId((long)61));
+        System.out.println("----------------------");
+        List<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)61));
+        System.out.println(list.size());
+        for(CanSignal cs : list)
+            System.out.println(cs);
     }
 }

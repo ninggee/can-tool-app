@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,21 +26,23 @@ public class Testlhr {
     CanDecoding decoding = new CanDecodingImpl();
     @Test
     public void database(){
-        CanMessage message = null;
         File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
+        CanMessage messageStart = null;
+        CanMessage messageEnd = null;
         CanSignal signal = null;
+        List<CanSignal> signalList = new ArrayList<CanSignal>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
-
-                //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
-                Pattern pattern = Pattern.compile("^BO_.*");
+                //寻找message以下 的signal
+                Pattern pattern = Pattern.compile("^SG_.*");
                 Matcher m1 = pattern.matcher(line);
-                message = decoding.messageDecoding(line);
-                if(m1.matches() && message.getId() == id){
-                    return message;
+                if(!m1.matches())
+                    break;
+                signal = decoding.signalDecoding(line);
+                signalList.add(signal);
             }
             bufferedReader.close();// 关闭输入流
         } catch (FileNotFoundException e) {
@@ -48,5 +52,6 @@ public class Testlhr {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return signal;    }
+
+    }
 }
