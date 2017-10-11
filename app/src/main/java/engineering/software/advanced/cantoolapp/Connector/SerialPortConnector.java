@@ -16,6 +16,8 @@ import engineering.software.advanced.cantoolapp.libs.SerialPortFinder;
  * Created by ningge on 2017/10/10.
  *
  * connect device by serial port
+ *
+ * warning: this class can only support Android API Level below 23(Android 6.0)
  */
 
 public class SerialPortConnector implements Connector {
