@@ -49,6 +49,46 @@ public class CanSignal {
         this.nodeName = nodeName;
     }
 
+    public String getSg() {
+        return sg;
+    }
+
+    public String getSignalName() {
+        return signalName;
+    }
+
+    public String getDivide() {
+        return divide;
+    }
+
+    public String getSlt() {
+        return slt;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public double getC() {
+        return c;
+    }
+
+    public double getD() {
+        return d;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public String getNodeName() {
+        return nodeName;
+    }
+
     public String toString() {
         return String.format(
                 "CanMessage {\n\b%s\n\b%s\n\b%s\n\b%s\n\b%f\n\b%f\n\b%f\n\b%f\n\b%s\n\b%s\n}",
