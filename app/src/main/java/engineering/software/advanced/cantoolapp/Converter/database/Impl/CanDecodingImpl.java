@@ -1,17 +1,17 @@
-package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
+package engineering.software.advanced.cantoolapp.Converter.database.Impl;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.DataDecoding;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.database.CanDecoding;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
 
 /**
- * Created by Zhang Dongdi on 2017/10/10.
+ * Created by Zhang Dongdi on 2017/10/11.
  */
 
-public class DataDecodingImpl implements DataDecoding {
+public class CanDecodingImpl implements CanDecoding {
     @Override
     public CanMessage messageDecoding(String message) {
         Pattern pattern = Pattern.compile("^(.*) (\\d+) (.*) ?(:) ?(\\d+) (.*)$");
@@ -44,10 +44,10 @@ public class DataDecodingImpl implements DataDecoding {
         Matcher matcher = pattern.matcher(signal);
         if (matcher.find()) {
 
-            System.out.println(matcher.groupCount());
-            for (int i = 0; i <= matcher.groupCount(); i++) {
-                System.out.println("group " + i + ": " + matcher.group(i));
-            }
+//            System.out.println(matcher.groupCount());
+//            for (int i = 0; i <= matcher.groupCount(); i++) {
+//                System.out.println("group " + i + ": " + matcher.group(i));
+//            }
 
             CanSignal canSignal = new CanSignal(
                     matcher.group(1),

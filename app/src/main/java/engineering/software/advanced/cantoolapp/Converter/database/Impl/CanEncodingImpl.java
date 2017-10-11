@@ -1,14 +1,14 @@
-package engineering.software.advanced.cantoolapp.Converter.analyze.Impl;
+package engineering.software.advanced.cantoolapp.Converter.database.Impl;
 
-import engineering.software.advanced.cantoolapp.Converter.analyze.DataEncoding;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.analyze.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.database.CanEncoding;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.
  */
 
-public class DataEncodingImpl implements DataEncoding {
+public class CanEncodingImpl implements CanEncoding {
     @Override
     public String messageEncoding(CanMessage message) {
         return String.format("%s %d %s%s %s %s",
@@ -25,6 +25,7 @@ public class DataEncodingImpl implements DataEncoding {
                 signal.getUnit(), signal.getNodeName());
     }
 
+    //去除浮点数后面多余的零，并转为字符串
     private String deleteZeroAndDot(double floatNumber) {
         String s = String.valueOf(floatNumber);
 //        System.out.println("before delete: " + s);

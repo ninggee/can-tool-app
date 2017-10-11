@@ -1,5 +1,8 @@
 package engineering.software.advanced.cantoolapp.Converter.transmission;
 
+import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
+import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
+
 /**
  * Created by Zhang Dongdi on 2017/10/10.
  */
@@ -16,8 +19,8 @@ public interface Receiver {
     public String parseVersion(String message);
 
     //解析标准帧应答
-    public String parseStandardFrame(String message);
+    public StandardFrame parseStandardFrame(String message);
 
     //解析扩展帧应答
-    public String parseExtensionFrame(String message);
+    public ExtensionFrame parseExtensionFrame(String message);
 }

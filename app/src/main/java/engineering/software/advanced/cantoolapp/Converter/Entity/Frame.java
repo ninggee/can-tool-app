@@ -1,7 +1,7 @@
-package engineering.software.advanced.cantoolapp.Converter.transmission.Entity;
+package engineering.software.advanced.cantoolapp.Converter.Entity;
 
-import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameDirection;
-import engineering.software.advanced.cantoolapp.Converter.transmission.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.Enum.FrameDirection;
+import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.
@@ -56,5 +56,10 @@ public abstract class Frame {
 
     public FrameDirection getDirection() {
         return direction;
+    }
+
+    public String toString() {
+        return String.format("%s {\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n}",
+                type.toString(), raw, id,length, data, period, direction.toString());
     }
 }
