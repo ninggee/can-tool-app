@@ -11,14 +11,18 @@ import static org.junit.Assert.*;
  * Created by Zhang Dongdi on 2017/10/11.
  */
 public class ReceiverImplTest {
+
+    Receiver receiver = new ReceiverImpl();
+
     @Test
     public void identifyType() throws Exception {
-
+        System.out.println(receiver.identifyType("T12F4112233F40110\\r"));
     }
 
     @Test
     public void parseYN() throws Exception {
-
+        System.out.println(receiver.parseYN("\\r"));
+        System.out.println(receiver.parseYN("\\BEL"));
     }
 
     @Test
@@ -28,7 +32,6 @@ public class ReceiverImplTest {
 
     @Test
     public void parseStandardFrame() throws Exception {
-        Receiver receiver = new ReceiverImpl();
         System.out.println(receiver.parseStandardFrame("t12F4112233F40110\\r"));
     }
 

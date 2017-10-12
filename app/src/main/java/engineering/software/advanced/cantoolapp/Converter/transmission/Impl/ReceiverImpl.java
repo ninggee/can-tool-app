@@ -1,8 +1,12 @@
 package engineering.software.advanced.cantoolapp.Converter.transmission.Impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
 import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
 import engineering.software.advanced.cantoolapp.Converter.Enum.FrameDirection;
+import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
 import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
 
 /**
@@ -11,8 +15,21 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
 
 public class ReceiverImpl implements Receiver {
     @Override
-    public String identifyType(String message) {
-        return null;
+    public FrameType identifyType(String message) {
+        Pattern pattern = Pattern.compile(
+                "^[t|T]");
+        Matcher matcher = pattern.matcher(message);
+        if (matcher.find()) {
+            if (matcher.group().equals("t")) {
+                return FrameType.StandardFrame;
+            }
+            else {
+                return FrameType.ExtensionFrame;
+            }
+        }
+        else {
+            throw new RuntimeException("Unknown frame type.");
+        }
     }
 
     @Override

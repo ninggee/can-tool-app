@@ -2,6 +2,7 @@ package engineering.software.advanced.cantoolapp.Converter.transmission;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
 import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
+import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.
@@ -10,7 +11,7 @@ import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
 public interface Receiver {
 
     //解析收到的信号属于哪一类指令
-    public String identifyType(String message);
+    public FrameType identifyType(String message);
 
     //解析是否类应答
     public boolean parseYN(String message);
