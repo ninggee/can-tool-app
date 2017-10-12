@@ -19,13 +19,13 @@ import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
  * Created by lhr on 2017/10/11.
  */
 
-public class DatabseImpl implements DataBase {
+public class DatabaseImpl implements DataBase {
 
     CanDecoding decoding = new CanDecodingImpl();//解析用
 
-    String messagePa = "^BO_.*";//需要匹配的message信息
+    String messagePa = "^BO_.*$";//需要匹配的message信息
 
-    String signalPa = "^ SG_.*";//需要匹配的signal信息
+    String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
     File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
 

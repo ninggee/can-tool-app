@@ -5,8 +5,7 @@ import org.junit.Test;
 import java.util.List;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
-import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.Converter.database.Impl.DatabseImpl;
+import engineering.software.advanced.cantoolapp.Converter.database.Impl.DatabaseImpl;
 
 /**
  * Created by lhr on 2017/10/11.
@@ -15,7 +14,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.Impl.DatabseI
 public class TestDatabase {
     @Test
     public void testDatabase(){
-        DatabseImpl db = new DatabseImpl();
+        DatabaseImpl db = new DatabaseImpl();
         System.out.println(db.searchMessageUseId((long)1056));
         System.out.println("----------------------");
         List<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)1056));
