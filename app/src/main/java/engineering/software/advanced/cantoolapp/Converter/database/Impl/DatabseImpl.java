@@ -27,7 +27,7 @@ public class DatabseImpl implements DataBase {
 
     String signalPa = "^ SG_.*";//需要匹配的signal信息
 
-    File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");//读取文件
+    File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
 
     @Override
     public CanMessage searchMessageUseId(Long id) {
