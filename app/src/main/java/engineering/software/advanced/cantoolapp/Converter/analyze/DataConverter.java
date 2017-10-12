@@ -15,5 +15,5 @@ public interface DataConverter {
     public int littleEndianConvertSignal(Data data, int start, int length);
 
     //将信号值换算为变量值
-    public double signalToValue(int signal, int a, int b);
+    public double signalToValue(int signal, double a, double b);
 }
