@@ -27,9 +27,11 @@ public class DatabseImpl implements DataBase {
 
     String signalPa = "^ SG_.*";//需要匹配的signal信息
 
+    File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");//读取文件
+
     @Override
     public CanMessage searchMessageUseId(Long id) {
-        File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
+
         CanMessage message = null;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
@@ -58,7 +60,6 @@ public class DatabseImpl implements DataBase {
 
     @Override
     public List<CanSignal> searchSignalUseMessage(CanMessage message) {
-        File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
