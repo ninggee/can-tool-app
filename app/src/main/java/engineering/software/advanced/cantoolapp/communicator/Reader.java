@@ -5,6 +5,6 @@ package engineering.software.advanced.cantoolapp.communicator;
  */
 
 public interface Reader {
-
-   void read();
+    // read from some input source
+    void read();
 }
