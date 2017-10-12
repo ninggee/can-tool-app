@@ -1,5 +1,10 @@
 package engineering.software.advanced.cantoolapp.Converter.Entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
 
 /**
@@ -91,6 +96,15 @@ public class CanSignal {
         return nodeName;
     }
 
+    public Set<String> getNodes() {
+        String[] strs = nodeName.split(",");
+        Set<String> nodes = new HashSet<String>();
+        for (String str : strs) {
+            nodes.add(str);
+        }
+        return nodes;
+    }
+
     public Endian getEndian() {
         String sym = slt.substring(slt.indexOf("@") + 1);
         if (sym.equals("0+")) {
@@ -107,6 +121,31 @@ public class CanSignal {
         }
         else {
             throw new RuntimeException("The type is illegal.");
+        }
+    }
+
+    public int getStart() {
+        //System.out.println(slt);
+        Pattern pattern = Pattern.compile(
+                "^(\\d+)\\|\\d+@");
+        Matcher matcher = pattern.matcher(slt);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        else {
+            throw new RuntimeException("Error. Not Matched.");
+        }
+    }
+
+    public int getLength() {
+        Pattern pattern = Pattern.compile(
+                "^\\d+\\|(\\d+)@");
+        Matcher matcher = pattern.matcher(slt);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        else {
+            throw new RuntimeException("Error. Not Matched.");
         }
     }
 

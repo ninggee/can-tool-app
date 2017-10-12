@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +20,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
  * Created by lhr on 2017/10/11.
  */
 
-public class DatabaseImpl implements DataBase {
+public class DataBaseImpl implements DataBase {
 
     CanDecoding decoding = new CanDecodingImpl();//解析用
 
@@ -60,11 +61,11 @@ public class DatabaseImpl implements DataBase {
     }
 
     @Override
-    public List<CanSignal> searchSignalUseMessage(CanMessage message) {
+    public Set<CanSignal> searchSignalUseMessage(CanMessage message) {
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
-        List<CanSignal> signalList = new ArrayList<CanSignal>();
+        Set<CanSignal> signalList = new HashSet<CanSignal>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = "";
