@@ -12,13 +12,15 @@ import static org.junit.Assert.*;
 public class DataTest {
     @Test
     public void getData() throws Exception {
-        Data data = new Data("FFF0981442145612");
-        for (int i = 0; i < data.getData().length; i++) {
-            System.out.println(data.getData()[i]);
-            for (int j = 0; j < 8; j++) {
-                System.out.println("\t" + data.getBit(i * 8 + j));
-            }
-        }
+
+    }
+
+    @Test
+    public void testToString() throws Exception {
+        Data data = new Data("F03245FF00348D1A");
+        System.out.println(data.toString());
+        System.out.println(String.format("%x", data.getByte(2)));
+        System.out.println(data.getBit(17));
     }
 
 }
