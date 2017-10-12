@@ -73,7 +73,7 @@ public class DataConverterImpl implements DataConverter {
     }
 
     @Override
-    public double signalToValue(int signal, int a, int b) {
-        return 0;
+    public double signalToValue(int signal, double a, double b) {
+        return a * signal + b;
     }
 }
