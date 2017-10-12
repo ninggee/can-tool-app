@@ -27,11 +27,12 @@ public class DatabaseImpl implements DataBase {
 
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
-    File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
+//    File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
+
+    File filename = new File(System.getProperty("user.dir") + "/app/sql/canmsg-sample.dbc");//读取文件
 
     @Override
     public CanMessage searchMessageUseId(Long id) {
-
         CanMessage message = null;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
