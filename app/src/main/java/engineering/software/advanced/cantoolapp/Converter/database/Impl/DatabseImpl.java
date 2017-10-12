@@ -21,11 +21,17 @@ import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 
 public class DatabseImpl implements DataBase {
 
-    CanDecoding decoding = new CanDecodingImpl();
+    CanDecoding decoding = new CanDecodingImpl();//解析用
+
+    String messagePa = "^BO_.*";//需要匹配的message信息
+
+    String signalPa = "^ SG_.*";//需要匹配的signal信息
+
+    File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");//读取文件
 
     @Override
     public CanMessage searchMessageUseId(Long id) {
-        File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
+
         CanMessage message = null;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
@@ -34,7 +40,7 @@ public class DatabseImpl implements DataBase {
             while ((line = bufferedReader.readLine()) != null) {
 //                System.out.println(line);
                 //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
-                Pattern pattern = Pattern.compile("^BO_.*");
+                Pattern pattern = Pattern.compile(messagePa);
                 Matcher m1 = pattern.matcher(line);
                 message = decoding.messageDecoding(line);
                 if (m1.matches() && message.getId() == id) {
@@ -54,7 +60,6 @@ public class DatabseImpl implements DataBase {
 
     @Override
     public List<CanSignal> searchSignalUseMessage(CanMessage message) {
-        File filename = new File("C:\\Users\\lhr\\Desktop\\a.txt");
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
@@ -64,18 +69,17 @@ public class DatabseImpl implements DataBase {
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
-                //寻找message
-                Pattern patternMessage = Pattern.compile("^BO_.*");
+                //寻找对应的message
+                Pattern patternMessage = Pattern.compile(messagePa);
                 Matcher mMessage = patternMessage.matcher(line);
                 messageStart = decoding.messageDecoding(line);
-                if (mMessage.matches() && messageStart.getId() == message.getId()) {
+                if (mMessage.matches() && messageStart.getId() == message.getId() && start == 0) {
                     start = 1;
+                    continue;
                 }
                 if(start == 1){
-                    //去除空格
-                    line = line.substring(1);
                     //寻找message以下 的signal
-                    Pattern patternSignal = Pattern.compile("^SG_.*");
+                    Pattern patternSignal = Pattern.compile(signalPa);
                     Matcher mSignal = patternSignal.matcher(line);
                     if (!mSignal.matches()) {
                         start = 0;
