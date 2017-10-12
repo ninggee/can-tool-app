@@ -2,9 +2,11 @@ package engineering.software.advanced.cantoolapp.Converter.database.Impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,13 +32,17 @@ public class DataBaseImpl implements DataBase {
 
 //    File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
 
-    File filename = new File(System.getProperty("user.dir") + "/app/sql/canmsg-sample.dbc");//读取文件
+    File filename = new File("app/sql/canmsg-sample.dbc");//读取文件
 
     @Override
     public CanMessage searchMessageUseId(Long id) {
+
         CanMessage message = null;
+        InputStreamReader isr = null;
+        BufferedReader bufferedReader = null;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
@@ -49,25 +55,35 @@ public class DataBaseImpl implements DataBase {
                     return message;
                 }
             }
-            bufferedReader.close();// 关闭输入流
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally {
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return message;
     }
 
     @Override
-    public Set<CanSignal> searchSignalUseMessage(CanMessage message) {
+    public Set<CanSignal> searchSignalUseMessage(CanMessage message)  {
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
         Set<CanSignal> signalList = new HashSet<CanSignal>();
+        InputStreamReader isr = null;
+        BufferedReader bufferedReader = null;
+
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
@@ -91,11 +107,17 @@ public class DataBaseImpl implements DataBase {
                     signalList.add(signal);
                 }
             }
-            bufferedReader.close();// 关闭输入流
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
+        }finally {
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return signalList;
     }

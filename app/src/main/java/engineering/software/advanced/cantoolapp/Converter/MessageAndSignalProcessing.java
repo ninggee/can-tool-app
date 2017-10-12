@@ -1,5 +1,6 @@
 package engineering.software.advanced.cantoolapp.Converter;
 
+import java.io.IOException;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
@@ -26,7 +27,7 @@ public class MessageAndSignalProcessing {
     private DataConverter converter = new DataConverterImpl();
 
     //将接收到的总线数据一步步处理，最终变成信息信号
-    public Message decode(String canMessageStr) {
+    public Message decode(String canMessageStr) throws IOException {
         FrameType canMessageType = receiver.identifyType(canMessageStr);
         Frame frame;
         switch (canMessageType) {
