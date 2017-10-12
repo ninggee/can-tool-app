@@ -15,9 +15,9 @@ public class TestDatabase {
     @Test
     public void testDatabase(){
         DatabaseImpl db = new DatabaseImpl();
-        System.out.println(db.searchMessageUseId((long)1056));
+        System.out.println(db.searchMessageUseId((long)856));
         System.out.println("----------------------");
-        List<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)1056));
+        List<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
         System.out.println(list.size());
         for(CanSignal cs : list)
             System.out.println(cs);
