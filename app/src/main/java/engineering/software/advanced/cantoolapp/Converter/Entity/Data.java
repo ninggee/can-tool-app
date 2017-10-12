@@ -9,34 +9,33 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConve
  */
 
 public class Data {
-    private int[] data;
+    private long data;
+    private int length;
     private DataConverter converter;
 
     public Data(String dataStr) {
         converter = new DataConverterImpl();
-        int length = dataStr.length() / 2;
-        data = new int[length];
+        length = dataStr.length() / 2;
+        data = 0;
         for (int i = 0; i < length; i++) {
+            //s为两位16进制的数字
             String s = dataStr.substring(i * 2, i * 2 + 2);
-            data[i] = Integer.parseInt(s, 16);
+            int val = Integer.parseInt(s, 16);
+            data = (data << 8) | val;
         }
     }
 
-    public int[] getData() {
+    public long getData() {
         return data;
     }
 
     public int getByte(int i) {
-        return data[i];
+        return (int)((data >> ((length - i - 1) * 8)) & 255);
     }
 
     public int getBit(int i) {
-        int by = data[i / 8];
-        int index = i % 8;
-//        System.out.println(String.format("by: %x, index: %d",by, index));
-//        System.out.println(String.format("%x", 1 << index));
-//        System.out.println(String.format("%x", by & (1 << index)));
-        return (by & (1 << index)) >> index;
+        int index = length * 8 - i - 1;
+        return (int)((data >> index) & 1);
     }
 
     public int getSignal(int start, int length, Endian endian) {
@@ -52,13 +51,18 @@ public class Data {
     }
 
     public String toString() {
-        String result = "";
-        for (int i = 0; i < data.length * 8; i++) {
-            result += this.getBit(i);
-            if (i % 8 == 7) {
-                result += "\n";
+        String result = "Data {\n";
+        for (int i = 0; i < length; i++) {
+            int by = (int)((data >> ((length - i - 1) * 8)) & 255);
+            String byStr = "";
+            for (int j = 0; j < 8; j++) {
+                byStr = byStr + " " + (by & 1);
+                by = by >> 1;
             }
+            result += "\t" + byStr + "\n";
         }
+        result += "}";
+
         return result;
     }
 }
