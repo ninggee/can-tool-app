@@ -86,7 +86,7 @@ public class CanMessage {
 
     public String toString() {
         return String.format(
-                "CanMessage {\n\b%s\n\b%d\n\b%s\n\b%s\n\b%d\n\b%s\n}",
+                "CanMessage {\n\t%s\n\t%d\n\t%s\n\t%s\n\t%d\n\t%s\n}",
                 bo, id, messageName, divide, dlc, nodeName
         );
     }

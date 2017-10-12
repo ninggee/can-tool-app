@@ -59,7 +59,7 @@ public abstract class Frame {
     }
 
     public String toString() {
-        return String.format("%s {\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n\b%s\n}",
+        return String.format("%s {\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n}",
                 type.toString(), raw, id,length, data, period, direction.toString());
     }
 }

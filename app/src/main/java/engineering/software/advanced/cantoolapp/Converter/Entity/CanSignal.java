@@ -112,7 +112,7 @@ public class CanSignal {
 
     public String toString() {
         return String.format(
-                "CanMessage {\n\b%s\n\b%s\n\b%s\n\b%s\n\b%f\n\b%f\n\b%f\n\b%f\n\b%s\n\b%s\n}",
+                "CanMessage {\n\t%s\n\t%s\n\t%s\n\t%s\n\t%f\n\t%f\n\t%f\n\t%f\n\t%s\n\t%s\n}",
                 sg, signalName, divide, slt, a, b, c, d, unit, nodeName
         );
     }
