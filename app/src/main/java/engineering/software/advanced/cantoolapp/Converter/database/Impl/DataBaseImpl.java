@@ -77,7 +77,7 @@ public class DataBaseImpl implements DataBase {
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
-        Set<CanSignal> signalList = new HashSet<CanSignal>();
+        Set<CanSignal> signalList = new HashSet<CanSignal>();//用于存放所有查找到的signal信息
         InputStreamReader isr = null;
         BufferedReader bufferedReader = null;
 
