@@ -9,7 +9,7 @@ import engineering.software.advanced.cantoolapp.Converter.MessageAndSignalProces
 /**
  * Created by Zhang Dongdi on 2017/10/14.
  */
-public class MessageAndSignalProcessingTest {
+public class MessageAndSignalProcessorTest {
     MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
     @Test
     public void decode() throws Exception {
