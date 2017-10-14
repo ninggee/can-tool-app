@@ -8,19 +8,19 @@ import java.util.Set;
 
 //解析后的信息，其中包含多个信号
 public class Message {
-    private int id;
+    private long id;
     private String name;
     private String nodeName;
     private Set<Signal> signals;
 
-    public Message(int id, String name, String nodeName, Set<Signal> signals) {
+    public Message(long id, String name, String nodeName, Set<Signal> signals) {
         this.id = id;
         this.name = name;
         this.nodeName = nodeName;
         this.signals = signals;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

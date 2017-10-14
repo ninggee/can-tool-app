@@ -1,6 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
@@ -21,7 +22,7 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
  * Created by Zhang Dongdi on 2017/10/12.
  */
 
-public class MessageAndSignalProcessing {
+public class MessageAndSignalProcessor {
     private Receiver receiver = new ReceiverImpl();
     private DataBase dataBase = new DataBaseImpl();
     private DataConverter converter = new DataConverterImpl();
@@ -41,11 +42,12 @@ public class MessageAndSignalProcessing {
                 throw new RuntimeException("Unknown message type.");
         }
 
-        Long frameId = Long.parseLong(frame.getId());
+        Long frameId = Long.parseLong(frame.getId(), 16);
 
         CanMessage canMessage = dataBase.searchMessageUseId(frameId);
         Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
 
+        Set<Signal> signals = new HashSet<Signal>();
         for (CanSignal canSignal : canSignals) {
             int origin;
             switch (canSignal.getEndian()) {
@@ -63,8 +65,11 @@ public class MessageAndSignalProcessing {
 
             Signal signal = new Signal(canSignal.getSignalName(), value, origin, canSignal.getC(), canSignal.getD(), canSignal.getNodes());
 
-            //TODO
+            signals.add(signal);
         }
-        return null;
+
+        Message message = new Message(canMessage.getId(), canMessage.getMessageName(), canMessage.getNodeName(), signals);
+
+        return message;
     }
 }

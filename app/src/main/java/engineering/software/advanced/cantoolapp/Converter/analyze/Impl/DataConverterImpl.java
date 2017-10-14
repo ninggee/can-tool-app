@@ -10,6 +10,9 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
 public class DataConverterImpl implements DataConverter {
     @Override
     public int bigEndianConvertSignal(Data data, int start, int length) {
+        System.out.println(data);
+        System.out.println("start: " + start + ", length: " + length);
+
         if (start / 8 == (start - length  + 1) / 8) {
             //数据同一个字节中，那么可以简单求出signal的值
 
