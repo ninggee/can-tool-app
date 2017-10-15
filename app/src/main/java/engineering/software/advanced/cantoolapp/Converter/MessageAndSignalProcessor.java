@@ -49,17 +49,18 @@ public class MessageAndSignalProcessor {
 
         Set<Signal> signals = new HashSet<Signal>();
         for (CanSignal canSignal : canSignals) {
-            int origin;
-            switch (canSignal.getEndian()) {
-                case BIG_ENDIAN:
-                    origin = converter.bigEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
-                    break;
-                case LITTLE_ENDIAN:
-                    origin = converter.littleEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
-                    break;
-                default:
-                    throw new RuntimeException("this kind of endian is not set yet.");
-            }
+//            int origin;
+//            switch (canSignal.getEndian()) {
+//                case BIG_ENDIAN:
+//                    origin = converter.bigEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
+//                    break;
+//                case LITTLE_ENDIAN:
+//                    origin = converter.littleEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
+//                    break;
+//                default:
+//                    throw new RuntimeException("this kind of endian is not set yet.");
+//            }
+            int origin = new Data(frame.getData()).getSignal(canSignal.getStart(), canSignal.getLength(), canSignal.getEndian());
 
             double value = converter.signalToValue(origin, canSignal.getA(), canSignal.getB());
 

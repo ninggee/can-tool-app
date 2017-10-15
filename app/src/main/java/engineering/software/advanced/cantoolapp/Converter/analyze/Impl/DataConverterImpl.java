@@ -19,6 +19,7 @@ public class DataConverterImpl implements DataConverter {
             int signal = 0;
             int by = data.getByte(start / 8);
             for (int i = start; i >= start - length + 1; i--) {
+                System.out.println("statements: 1");
                 System.out.println("next bit: " + data.getBit(i));
                 signal = (signal << 1) + data.getBit(i);
             }
@@ -39,7 +40,8 @@ public class DataConverterImpl implements DataConverter {
             int signal = data.getBit(start);
 
             //第一步是完成第一行未占满的byte的计算
-            for (int i = start - 1; i % 8 != 7; i--) {
+            for (int i = start - 1; i % 8 != 7 && i >= 0; i--) {
+                System.out.println("statements: 2");
                 System.out.println("next bit: " + data.getBit(i));
                 signal = (signal << 1) + data.getBit(i);
             }
@@ -48,6 +50,7 @@ public class DataConverterImpl implements DataConverter {
             for (int i = start / 8 + 1; i <= last / 8 - 1; i++) {
                 //i表示行，i遍历所有满行
                 for (int j = (i + 1) * 8 - 1; j >= i * 8; j--) {
+                    System.out.println("statements: 3");
                     System.out.println("next bit: " + data.getBit(j));
                     signal = (signal << 1) + data.getBit(j);
                 }
@@ -55,6 +58,7 @@ public class DataConverterImpl implements DataConverter {
 
             //第三步 完成最后一行的计算
             for (int i = (last / 8 + 1) * 8 - 1; i >= last; i--) {
+                System.out.println("statements: 4");
                 System.out.println("next bit: " + data.getBit(i));
                 signal = (signal << 1) + data.getBit(i);
             }
