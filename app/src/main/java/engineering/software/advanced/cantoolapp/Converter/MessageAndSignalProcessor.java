@@ -52,10 +52,10 @@ public class MessageAndSignalProcessor {
 //            int origin;
 //            switch (canSignal.getEndian()) {
 //                case BIG_ENDIAN:
-//                    origin = converter.bigEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
+//                    origin = converter.bigEndianDecodeSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
 //                    break;
 //                case LITTLE_ENDIAN:
-//                    origin = converter.littleEndianConvertSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
+//                    origin = converter.littleEndianDecodeSignal(new Data(frame.getData()), canSignal.getStart(), canSignal.getLength());
 //                    break;
 //                default:
 //                    throw new RuntimeException("this kind of endian is not set yet.");
@@ -72,5 +72,11 @@ public class MessageAndSignalProcessor {
         Message message = new Message(canMessage.getId(), canMessage.getMessageName(), canMessage.getNodeName(), signals);
 
         return message;
+    }
+
+    public String encode(Message message) {
+
+
+        return null;
     }
 }

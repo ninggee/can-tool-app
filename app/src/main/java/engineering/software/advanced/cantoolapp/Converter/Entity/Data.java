@@ -13,6 +13,13 @@ public class Data {
     private int length;
     private DataConverter converter;
 
+    //初始化data为全零
+    public Data(int length) {
+        this.data = 0;
+        this.length = length;
+        this.converter = new DataConverterImpl();
+    }
+
     public Data(String dataStr) {
         converter = new DataConverterImpl();
         length = dataStr.length() / 2;
@@ -41,13 +48,25 @@ public class Data {
 
     public int getSignal(int start, int length, Endian endian) {
         if (endian.equals(Endian.BIG_ENDIAN)) {
-            return converter.bigEndianConvertSignal(this, start, length);
+            return converter.bigEndianDecodeSignal(this, start, length);
         }
         else if (endian.equals(Endian.LITTLE_ENDIAN)) {
-            return converter.littleEndianConvertSignal(this, start, length);
+            return converter.littleEndianDecodeSignal(this, start, length);
         }
         else {
-            throw new RuntimeException("the type of endian is not set yet.");
+            throw new RuntimeException("this type of endian is not set yet.");
+        }
+    }
+
+    public int setSignal(int start, int length, Endian endian, int value) {
+        if (endian.equals(Endian.BIG_ENDIAN)) {
+            return 0;
+        }
+        else if (endian.equals(Endian.LITTLE_ENDIAN)) {
+            return 0;
+        }
+        else {
+            throw new RuntimeException("this type of endian is not set yet.");
         }
     }
 

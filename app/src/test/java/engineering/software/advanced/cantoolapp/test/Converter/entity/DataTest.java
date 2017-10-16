@@ -25,6 +25,8 @@ public class DataTest {
         System.out.println(data.toString());
         System.out.println(String.format("%x", data.getByte(2)));
         System.out.println(data.getBit(17));
+        data = new Data(3);
+        System.out.println(data.toString());
     }
 
     @Test

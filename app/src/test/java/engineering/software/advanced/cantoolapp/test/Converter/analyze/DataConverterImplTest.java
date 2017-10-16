@@ -6,8 +6,6 @@ import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
 import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConverterImpl;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Zhang Dongdi on 2017/10/11.
  */
@@ -19,8 +17,9 @@ public class DataConverterImplTest {
         Data data = new Data("0011121314151617");
         System.out.println(data);
         System.out.println(data.getBit(17));
-        int ans = converter.bigEndianConvertSignal(data, 8, 10);
+        int ans = converter.bigEndianDecodeSignal(data, 8, 13);
         System.out.println(ans);
+        //TODO need more test
     }
 
     @Test
