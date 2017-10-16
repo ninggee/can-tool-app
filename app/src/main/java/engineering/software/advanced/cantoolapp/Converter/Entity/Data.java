@@ -34,8 +34,9 @@ public class Data {
     }
 
     public int getBit(int i) {
-        int index = length * 8 - i - 1;
-        return (int)((data >> index) & 1);
+        int by = this.getByte(i / 8);
+
+        return (by >> (i % 8)) & 1;
     }
 
     public int getSignal(int start, int length, Endian endian) {
@@ -53,13 +54,13 @@ public class Data {
     public String toString() {
         String result = "Data {\n";
         for (int i = 0; i < length; i++) {
-            int by = (int)((data >> ((length - i - 1) * 8)) & 255);
-            String byStr = "";
+            int by = this.getByte(i);
+
+            String byStr = "\t";
             for (int j = 0; j < 8; j++) {
-                byStr = byStr + " " + (by & 1);
-                by = by >> 1;
+                byStr += ((by >> (7 - j)) & 1) + " ";
             }
-            result += "\t" + byStr + "\n";
+            result += byStr + "\n";
         }
         result += "}";
 

@@ -33,4 +33,11 @@ public class DataTest {
         int signal = data.getSignal(0, 10, Endian.BIG_ENDIAN);
         System.out.println(signal);
     }
+
+    @Test
+    public void testGetByte() throws Exception {
+        Data data = new Data("F03245FF00348D1F");
+        int by = data.getByte(0);
+        System.out.println(String.format("%x", by));
+    }
 }
