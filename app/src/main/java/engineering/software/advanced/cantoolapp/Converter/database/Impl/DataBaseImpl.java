@@ -30,8 +30,6 @@ public class DataBaseImpl implements DataBase {
 
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
-//    File filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
-
     File filename = new File("app/sql/canmsg-sample.dbc");//读取文件
 
     @Override
@@ -46,7 +44,6 @@ public class DataBaseImpl implements DataBase {
             String line = "";
             //读取一行
             while ((line = bufferedReader.readLine()) != null) {
-//                System.out.println(line);
                 //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
                 Pattern pattern = Pattern.compile(messagePa);
                 Matcher m1 = pattern.matcher(line);
