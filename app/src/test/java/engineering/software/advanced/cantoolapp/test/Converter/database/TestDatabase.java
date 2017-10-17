@@ -2,8 +2,6 @@ package engineering.software.advanced.cantoolapp.test.Converter.database;
 
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
@@ -16,7 +14,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.Impl.DataBase
 
 public class TestDatabase {
     @Test
-    public void testDatabase() throws IOException {
+    public void testDatabase() throws Exception {
         DataBase db = DataBaseImpl.getInstance();
         System.out.println(db.searchMessageUseId((long)856));
         System.out.println("----------------------");

@@ -1,7 +1,6 @@
 package engineering.software.advanced.cantoolapp.Converter.database;
 
 
-import java.io.IOException;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
@@ -16,6 +15,6 @@ public interface DataBase {
     public CanMessage searchMessageUseId(Long id);
 
     //根据message寻找后面的signal
-    public Set<CanSignal> searchSignalUseMessage(CanMessage message) throws IOException;
+    public Set<CanSignal> searchSignalUseMessage(CanMessage message);
 
 }

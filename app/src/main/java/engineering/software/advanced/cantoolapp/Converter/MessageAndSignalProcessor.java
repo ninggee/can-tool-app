@@ -1,6 +1,5 @@
 package engineering.software.advanced.cantoolapp.Converter;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,13 +21,12 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
  * Created by Zhang Dongdi on 2017/10/12.
  */
 
-public class MessageAndSignalProcessor {
+public class MessageAndSignalProcessor implements Processor {
     private Receiver receiver = ReceiverImpl.getInstance();
     private DataBase dataBase = DataBaseImpl.getInstance();
     private DataConverter converter = DataConverterImpl.getInstance();
 
-    //将接收到的总线数据一步步处理，最终变成信息信号
-    public Message decode(String canMessageStr) throws IOException {
+    public Message decode(String canMessageStr) {
         FrameType canMessageType = receiver.identifyType(canMessageStr);
         Frame frame;
         switch (canMessageType) {
@@ -74,7 +72,7 @@ public class MessageAndSignalProcessor {
         return message;
     }
 
-    public String encode(long messageId, Set<Signal> signals, int period) throws IOException {
+    public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
         CanMessage canMessage = dataBase.searchMessageUseId(messageId);
         Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
