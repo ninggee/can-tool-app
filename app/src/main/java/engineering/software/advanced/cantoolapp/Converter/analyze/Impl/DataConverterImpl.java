@@ -138,7 +138,9 @@ public class DataConverterImpl implements DataConverter {
             System.out.println("last value:" + lastValue);
 
             for (int i = features.getLastLow(); i <= features.getLastHigh(); i++) {
-                data.setBit(i, lastValue & 1);
+                if (!data.setBit(i, lastValue & 1)) {
+                    return false;
+                }
                 lastValue = lastValue >> 1;
             }
         }
