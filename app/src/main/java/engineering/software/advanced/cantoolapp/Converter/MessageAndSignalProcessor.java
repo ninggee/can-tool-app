@@ -25,7 +25,7 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
 public class MessageAndSignalProcessor {
     private Receiver receiver = new ReceiverImpl();
     private DataBase dataBase = new DataBaseImpl();
-    private DataConverter converter = new DataConverterImpl();
+    private DataConverter converter = DataConverterImpl.getInstance();
 
     //将接收到的总线数据一步步处理，最终变成信息信号
     public Message decode(String canMessageStr) throws IOException {

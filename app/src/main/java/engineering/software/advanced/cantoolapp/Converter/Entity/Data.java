@@ -17,11 +17,11 @@ public class Data {
     public Data(int length) {
         this.data = 0;
         this.length = length;
-        this.converter = new DataConverterImpl();
+        this.converter = DataConverterImpl.getInstance();
     }
 
     public Data(String dataStr) {
-        converter = new DataConverterImpl();
+        converter = DataConverterImpl.getInstance();
         length = dataStr.length() / 2;
         data = 0;
         for (int i = 0; i < length; i++) {
@@ -40,10 +40,27 @@ public class Data {
         return (int)((data >> ((length - i - 1) * 8)) & 255);
     }
 
+    private void setByte(int i, int value) {
+        data = data | ((value & 255) << ((length - i - 1) * 8));
+    }
+
     public int getBit(int i) {
         int by = this.getByte(i / 8);
 
         return (by >> (i % 8)) & 1;
+    }
+
+    public boolean setBit(int i, int value) {
+        if (this.getBit(i) != 0) {
+            return false;
+        }
+
+        System.out.println("set bit: " + i + " value: " + value);
+
+        int by = this.getByte(i / 8);
+        by = by | ((value & 1) << (i % 8));
+        this.setByte(i / 8, by);
+        return true;
     }
 
     public int getSignal(int start, int length, Endian endian) {
@@ -52,18 +69,6 @@ public class Data {
         }
         else if (endian.equals(Endian.LITTLE_ENDIAN)) {
             return converter.littleEndianDecodeSignal(this, start, length);
-        }
-        else {
-            throw new RuntimeException("this type of endian is not set yet.");
-        }
-    }
-
-    public int setSignal(int start, int length, Endian endian, int value) {
-        if (endian.equals(Endian.BIG_ENDIAN)) {
-            return 0;
-        }
-        else if (endian.equals(Endian.LITTLE_ENDIAN)) {
-            return 0;
         }
         else {
             throw new RuntimeException("this type of endian is not set yet.");

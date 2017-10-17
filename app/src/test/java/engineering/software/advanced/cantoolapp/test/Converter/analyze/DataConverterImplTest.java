@@ -10,10 +10,10 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConve
  * Created by Zhang Dongdi on 2017/10/11.
  */
 public class DataConverterImplTest {
-    DataConverter converter = new DataConverterImpl();
+    DataConverter converter = DataConverterImpl.getInstance();
 
     @Test
-    public void bigEndianConvertSignal() throws Exception {
+    public void bigEndianDecodeSignal() throws Exception {
         Data data = new Data("0011121314151617");
         System.out.println(data);
         System.out.println(data.getBit(17));
@@ -23,8 +23,17 @@ public class DataConverterImplTest {
     }
 
     @Test
-    public void littleEndianConvertSignal() throws Exception {
+    public void littleEndianDecodeSignal() throws Exception {
 
+    }
+
+    @Test
+    public void littleEndianEncodeSignal() throws Exception {
+        Data data = new Data("FF00000000000000");
+        System.out.println(data);
+        boolean result = converter.littleEndianEncodeSignal(data, 8, 8, 254);
+        System.out.println("result: " + result);
+        System.out.println(data);
     }
 
     @Test

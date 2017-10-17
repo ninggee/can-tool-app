@@ -10,6 +10,15 @@ import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
  */
 
 public class DataConverterImpl implements DataConverter {
+
+    private static DataConverter converter = new DataConverterImpl();
+
+    private DataConverterImpl() {}
+
+    public static DataConverter getInstance() {
+        return converter;
+    }
+
     @Override
     public int bigEndianDecodeSignal(Data data, int start, int length) {
 //        System.out.println(data);
@@ -122,7 +131,12 @@ public class DataConverterImpl implements DataConverter {
 
     @Override
     public boolean littleEndianEncodeSignal(Data data, int start, int length, int value) {
-        return false;
+        for (int i = start; i <= start + length - 1; i++) {
+            if (!data.setBit(i, (value >> (i - start)) & 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
