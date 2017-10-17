@@ -3,8 +3,8 @@ package engineering.software.advanced.cantoolapp.Converter.database;
 
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 
 /**
  * Created by lhr on 2017/10/11.

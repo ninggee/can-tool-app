@@ -1,7 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.database;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

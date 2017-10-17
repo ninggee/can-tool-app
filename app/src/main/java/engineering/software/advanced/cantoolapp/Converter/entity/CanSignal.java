@@ -1,11 +1,11 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.entity;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.Endian;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

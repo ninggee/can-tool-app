@@ -3,8 +3,8 @@ package engineering.software.advanced.cantoolapp.test.Converter.database;
 import org.junit.Test;
 
 import engineering.software.advanced.cantoolapp.Converter.database.CanEncoding;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.Converter.database.Impl.CanEncodingImpl;
 
 /**

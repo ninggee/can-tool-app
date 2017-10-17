@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.entity;
 
 import java.util.Set;
 

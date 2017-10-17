@@ -2,11 +2,9 @@ package engineering.software.advanced.cantoolapp.test.Converter.entity;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.Converter.database.CanDecoding;
 import engineering.software.advanced.cantoolapp.Converter.database.Impl.CanDecodingImpl;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Zhang Dongdi on 2017/10/12.

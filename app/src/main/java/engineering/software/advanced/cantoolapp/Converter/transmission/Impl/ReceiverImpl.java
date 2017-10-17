@@ -3,10 +3,10 @@ package engineering.software.advanced.cantoolapp.Converter.transmission.Impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
-import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameDirection;
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.entity.ExtensionFrame;
+import engineering.software.advanced.cantoolapp.Converter.entity.StandardFrame;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameDirection;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameType;
 import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
 
 /**

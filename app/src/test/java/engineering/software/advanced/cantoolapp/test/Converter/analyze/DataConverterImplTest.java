@@ -2,7 +2,7 @@ package engineering.software.advanced.cantoolapp.test.Converter.analyze;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
+import engineering.software.advanced.cantoolapp.Converter.entity.Data;
 import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConverterImpl;
 

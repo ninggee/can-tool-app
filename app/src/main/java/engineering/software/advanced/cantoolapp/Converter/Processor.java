@@ -1,10 +1,9 @@
 package engineering.software.advanced.cantoolapp.Converter;
 
-import java.io.IOException;
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.Message;
-import engineering.software.advanced.cantoolapp.Converter.Entity.Signal;
+import engineering.software.advanced.cantoolapp.Converter.entity.Message;
+import engineering.software.advanced.cantoolapp.Converter.entity.Signal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/17.

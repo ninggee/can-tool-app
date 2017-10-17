@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import engineering.software.advanced.cantoolapp.Converter.database.CanDecoding;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

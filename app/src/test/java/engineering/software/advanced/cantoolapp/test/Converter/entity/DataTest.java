@@ -2,10 +2,8 @@ package engineering.software.advanced.cantoolapp.test.Converter.entity;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
-import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
-
-import static org.junit.Assert.*;
+import engineering.software.advanced.cantoolapp.Converter.entity.Data;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.Endian;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

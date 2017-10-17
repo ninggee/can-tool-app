@@ -1,7 +1,7 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.entity;
 
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameDirection;
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameDirection;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.
@@ -17,7 +17,5 @@ public class StandardFrame extends Frame {
         this.period = period;
         this.type = FrameType.StandardFrame;
         this.direction = direction;
-
-        //TODO 检查新建的标准帧是否是合法的(不包括检查raw的转换是否正确）
     }
 }

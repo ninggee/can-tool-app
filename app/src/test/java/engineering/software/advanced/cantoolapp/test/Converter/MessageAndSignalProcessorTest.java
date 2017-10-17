@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.Message;
-import engineering.software.advanced.cantoolapp.Converter.Entity.Signal;
+import engineering.software.advanced.cantoolapp.Converter.entity.Message;
+import engineering.software.advanced.cantoolapp.Converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.Converter.MessageAndSignalProcessor;
 
 /**

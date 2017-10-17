@@ -1,7 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.analyze;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
-import engineering.software.advanced.cantoolapp.Converter.Entity.Features;
+import engineering.software.advanced.cantoolapp.Converter.entity.Data;
+import engineering.software.advanced.cantoolapp.Converter.entity.Features;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

@@ -1,6 +1,6 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.entity;
 
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

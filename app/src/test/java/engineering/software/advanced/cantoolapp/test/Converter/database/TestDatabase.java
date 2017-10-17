@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 import engineering.software.advanced.cantoolapp.Converter.database.Impl.DataBaseImpl;
 

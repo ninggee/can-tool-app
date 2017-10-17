@@ -1,8 +1,8 @@
 package engineering.software.advanced.cantoolapp.Converter.transmission;
 
-import engineering.software.advanced.cantoolapp.Converter.Entity.ExtensionFrame;
-import engineering.software.advanced.cantoolapp.Converter.Entity.StandardFrame;
-import engineering.software.advanced.cantoolapp.Converter.Enum.FrameType;
+import engineering.software.advanced.cantoolapp.Converter.entity.ExtensionFrame;
+import engineering.software.advanced.cantoolapp.Converter.entity.StandardFrame;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.FrameType;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

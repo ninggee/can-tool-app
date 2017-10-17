@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.Converter.Enum;
+package engineering.software.advanced.cantoolapp.Converter.enumeration;
 
 /**
  * Created by Zhang Dongdi on 2017/10/10.

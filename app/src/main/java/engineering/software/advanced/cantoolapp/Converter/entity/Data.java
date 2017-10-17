@@ -1,6 +1,6 @@
-package engineering.software.advanced.cantoolapp.Converter.Entity;
+package engineering.software.advanced.cantoolapp.Converter.entity;
 
-import engineering.software.advanced.cantoolapp.Converter.Enum.Endian;
+import engineering.software.advanced.cantoolapp.Converter.enumeration.Endian;
 import engineering.software.advanced.cantoolapp.Converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.Converter.analyze.Impl.DataConverterImpl;
 
