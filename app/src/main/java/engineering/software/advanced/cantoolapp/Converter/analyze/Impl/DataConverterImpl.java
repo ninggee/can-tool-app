@@ -181,7 +181,7 @@ public class DataConverterImpl implements DataConverter {
         return a * signal + b;
     }
 
-    private Features getBigEndianFeatures(int start, int length) {
+    public Features getBigEndianFeatures(int start, int length) {
         int firstLow;
         int firstHigh;
         int midStartByte;
@@ -201,7 +201,16 @@ public class DataConverterImpl implements DataConverter {
         else {
             hasFirst = true;
             firstHigh = start;
-            firstLow = start / 8 * 8;
+            if (start % 8 >= length) {
+                firstLow = start - length + 1;
+                hasMid = hasLast = false;
+                midStartByte = midEndByte = lastHigh = lastLow = 0;
+                return new Features(firstLow, firstHigh, midStartByte, midEndByte, lastLow,
+                        lastHigh, hasFirst, hasMid, hasLast);
+            }
+            else {
+                firstLow = start / 8 * 8;
+            }
         }
 
         //second step
@@ -226,7 +235,7 @@ public class DataConverterImpl implements DataConverter {
         }
 
         //third step
-        if (leftLength != 0 && leftLength % 8 == 0) {
+        if (leftLength % 8 == 0) {
             hasLast = false;
             lastHigh = lastLow = 0;
         }
@@ -241,7 +250,7 @@ public class DataConverterImpl implements DataConverter {
                 lastHigh, hasFirst, hasMid, hasLast);
     }
 
-    //得到低n位全位1的数
+    //得到低n位全为1的数
     private int getAllOneMask(int n) {
         int mask = 1;
         for (int i = 1; i < n; ++i) {

@@ -1,6 +1,7 @@
 package engineering.software.advanced.cantoolapp.Converter.analyze;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
+import engineering.software.advanced.cantoolapp.Converter.Entity.Features;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.
@@ -22,4 +23,7 @@ public interface DataConverter {
 
     //将信号值换算为变量值
     public double signalToValue(int signal, double a, double b);
+
+    //在使用大端排序的情况下，计算出一些排列特征，便于之后的计算
+    public Features getBigEndianFeatures(int start, int length);
 }

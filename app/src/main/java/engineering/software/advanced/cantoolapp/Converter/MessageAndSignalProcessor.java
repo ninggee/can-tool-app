@@ -64,7 +64,7 @@ public class MessageAndSignalProcessor {
 
             double value = converter.signalToValue(origin, canSignal.getA(), canSignal.getB());
 
-            Signal signal = new Signal(canSignal.getSignalName(), value, origin, canSignal);
+            Signal signal = new Signal(canSignal.getSignalName(), value);
 
             signals.add(signal);
         }
@@ -74,9 +74,68 @@ public class MessageAndSignalProcessor {
         return message;
     }
 
-    public String encode(Message message) {
+    public String encode(long messageId, Set<Signal> signals, int period) throws IOException {
+        String result = "";
+        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        if (signals.size() != canSignals.size()) {
+            throw new RuntimeException("The number of signals doesn't fit the number in the database.");
+        }
 
+        switch (canMessage.getFrameType()) {
+            case StandardFrame:
+                result += "t";
+                break;
+            case ExtensionFrame:
+                result += "T";
+                break;
+            default:
+                throw new RuntimeException("this type of frame is not set yet.");
+        }
+        String idStr;
+        switch (canMessage.getFrameType()) {
+            case StandardFrame:
+                idStr = String.format("%03x", messageId);
+                break;
+            case ExtensionFrame:
+                idStr = String.format("%08x", messageId);
+                break;
+            default:
+                throw new RuntimeException("this type of frame is not set yet.");
+        }
+        System.out.println(idStr);
 
-        return null;
+        result += idStr;
+
+        result += canMessage.getDlc();
+
+        Data data = new Data(canMessage.getDlc());
+//        for (Signal signal : message.getSignals()) {
+//            CanSignal canSignal = signal.getCanSignal();
+//            int originValue = (int)((signal.getValue() - canSignal.getB()) / canSignal.getA() + 0.5);
+//            if (!data.setSignal(canSignal.getStart(), canSignal.getLength(), originValue, canSignal.getEndian())) {
+//                return null;
+//            }
+//        }
+        for (Signal signal : signals) {
+            for (CanSignal canSignal : canSignals) {
+                //System.out.println(canSignal.getSignalName() + " " + signal.getName());
+                if (canSignal.getSignalName().equals(signal.getName())) {
+                    int originValue = (int)((signal.getValue() - canSignal.getB()) / canSignal.getA() + 0.5);
+                    System.out.println("signal: " + signal.getName() + " value: " + signal.getValue() + " origin: " + originValue);
+                    if (!data.setSignal(canSignal.getStart(), canSignal.getLength(), originValue, canSignal.getEndian())) {
+                        return null;
+                    }
+                    break;
+                }
+            }
+        }
+        System.out.println(data.toString());
+
+        result += data.toHexString();
+
+        result += String.format("%04x", period);
+
+        return result;
     }
 }

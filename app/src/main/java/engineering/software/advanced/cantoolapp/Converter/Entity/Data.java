@@ -49,7 +49,8 @@ public class Data {
     }
 
     private void setByteWithoutCheck(int i, int value) {
-        data = data | ((value & 255) << ((length - i - 1) * 8));
+        System.out.println("set " + i + " to " + value);
+        data = data | (((long)value & 255) << ((length - i - 1) * 8));
     }
 
     public int getBit(int i) {
@@ -83,6 +84,17 @@ public class Data {
         }
     }
 
+    public boolean setSignal(int start, int length, int value, Endian endian) {
+        switch (endian) {
+            case BIG_ENDIAN:
+                return converter.bigEndianEncodeSignal(this, start, length, value);
+            case LITTLE_ENDIAN:
+                return converter.littleEndianEncodeSignal(this, start, length, value);
+            default:
+                throw new RuntimeException("this type of endian is not set yet.");
+        }
+    }
+
     public String toString() {
         String result = "Data {\n";
         for (int i = 0; i < length; i++) {
@@ -96,6 +108,15 @@ public class Data {
         }
         result += "}";
 
+        return result;
+    }
+
+    public String toHexString() {
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            int by = this.getByte(i);
+            result += String.format("%02x", by);
+        }
         return result;
     }
 }

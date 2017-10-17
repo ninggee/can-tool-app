@@ -7,14 +7,10 @@ package engineering.software.advanced.cantoolapp.Converter.Entity;
 public class Signal {
     private String name;
     private double value;
-    private int origin;
-    private CanSignal canSignal;
 
-    public Signal(String name, double value, int origin, CanSignal canSignal) {
+    public Signal(String name, double value) {
         this.name = name;
         this.value = value;
-        this.origin = origin;
-        this.canSignal = canSignal;
     }
 
     public String getName() {
@@ -23,13 +19,5 @@ public class Signal {
 
     public double getValue() {
         return value;
-    }
-
-    public int getOrigin() {
-        return origin;
-    }
-
-    public CanSignal getCanSignal() {
-        return canSignal;
     }
 }

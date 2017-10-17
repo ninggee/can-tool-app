@@ -42,4 +42,17 @@ public class DataTest {
         int by = data.getByte(0);
         System.out.println(String.format("%x", by));
     }
+
+    @Test
+    public void testSetSignal() throws Exception {
+        Data data = new Data(8);
+        data.setSignal(1, 2, 3, Endian.BIG_ENDIAN);
+        System.out.println(data);
+    }
+    @Test
+    public void testSetBit() throws Exception {
+        Data data = new Data(8);
+        data.setBit(1, 1);
+        System.out.println(data);
+    }
 }
