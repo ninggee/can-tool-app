@@ -11,7 +11,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.Impl.CanDecod
  * Created by Zhang Dongdi on 2017/10/11.
  */
 public class CanDecodingImplTest {
-    CanDecoding decoding = new CanDecodingImpl();
+    CanDecoding decoding = CanDecodingImpl.getInstance();
     @Test
     public void messageDecoding() throws Exception {
         CanMessage message = decoding.messageDecoding("BO_ 2148606241 Ext1: 8 Node_Body");

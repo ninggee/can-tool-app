@@ -9,6 +9,15 @@ import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
  */
 
 public class CanEncodingImpl implements CanEncoding {
+
+    private static CanEncoding encoding = new CanEncodingImpl();
+
+    private CanEncodingImpl() {}
+
+    public static CanEncoding getInstance() {
+        return encoding;
+    }
+
     @Override
     public String messageEncoding(CanMessage message) {
         return String.format("%s %d %s%s %s %s",

@@ -8,6 +8,14 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Sender;
 
 public class SenderImpl implements Sender {
 
+    private static Sender sender = new SenderImpl();
+
+    private SenderImpl() {}
+
+    public static Sender getInstance() {
+        return sender;
+    }
+
     public String requestVersion() {
         return "V\\r";
     }

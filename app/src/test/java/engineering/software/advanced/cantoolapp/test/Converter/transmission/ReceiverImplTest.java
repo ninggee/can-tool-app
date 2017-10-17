@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  */
 public class ReceiverImplTest {
 
-    Receiver receiver = new ReceiverImpl();
+    Receiver receiver = ReceiverImpl.getInstance();
 
     @Test
     public void identifyType() throws Exception {
@@ -37,7 +37,6 @@ public class ReceiverImplTest {
 
     @Test
     public void parseExtensionFrame() throws Exception {
-        Receiver receiver = new ReceiverImpl();
         System.out.println(receiver.parseExtensionFrame("T1234567F81122334455667788\\r"));
     }
 

@@ -40,7 +40,15 @@ public class Data {
         return (int)((data >> ((length - i - 1) * 8)) & 255);
     }
 
-    private void setByte(int i, int value) {
+    public boolean setByte(int i, int value) {
+        if (this.getByte(i) != 0) {
+            return false;
+        }
+        data = data | ((value & 255) << ((length - i - 1) * 8));
+        return true;
+    }
+
+    private void setByteWithoutCheck(int i, int value) {
         data = data | ((value & 255) << ((length - i - 1) * 8));
     }
 
@@ -59,7 +67,7 @@ public class Data {
 
         int by = this.getByte(i / 8);
         by = by | ((value & 1) << (i % 8));
-        this.setByte(i / 8, by);
+        this.setByteWithoutCheck(i / 8, by);
         return true;
     }
 

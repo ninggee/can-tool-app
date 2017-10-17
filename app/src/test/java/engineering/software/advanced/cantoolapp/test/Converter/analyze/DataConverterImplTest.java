@@ -23,6 +23,15 @@ public class DataConverterImplTest {
     }
 
     @Test
+    public void bigEndianEncodeSignal() throws Exception {
+        Data data = new Data("0000000000000000");
+        System.out.println(data);
+        boolean result = converter.bigEndianEncodeSignal(data, 9, 11, 2047);
+        System.out.println("result: " + result);
+        System.out.println(data);
+    }
+
+    @Test
     public void littleEndianDecodeSignal() throws Exception {
 
     }

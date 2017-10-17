@@ -11,7 +11,7 @@ import engineering.software.advanced.cantoolapp.Converter.database.Impl.CanEncod
  * Created by Zhang Dongdi on 2017/10/11.
  */
 public class CanEncodingImplTest {
-    CanEncoding encoding = new CanEncodingImpl();
+    CanEncoding encoding = CanEncodingImpl.getInstance();
 
     @Test
     public void messageEncoding() throws Exception {

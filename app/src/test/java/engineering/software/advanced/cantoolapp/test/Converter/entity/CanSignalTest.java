@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Created by Zhang Dongdi on 2017/10/12.
  */
 public class CanSignalTest {
-    CanDecoding canDecoding = new CanDecodingImpl();
+    CanDecoding canDecoding = CanDecodingImpl.getInstance();
     CanSignal canSignal = canDecoding.signalDecoding("SG_ ESC_VehSpd : 36|13@0+ (0.05625,0) [0|240] \"\"  BCM,PEPS,ICM,AVM,CDU");
     @Test
     public void getEndian() throws Exception {

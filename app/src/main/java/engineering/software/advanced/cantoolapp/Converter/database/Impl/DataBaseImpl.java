@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanMessage;
 import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
+import engineering.software.advanced.cantoolapp.Converter.Entity.Data;
 import engineering.software.advanced.cantoolapp.Converter.database.CanDecoding;
 import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 
@@ -24,13 +25,21 @@ import engineering.software.advanced.cantoolapp.Converter.database.DataBase;
 
 public class DataBaseImpl implements DataBase {
 
-    CanDecoding decoding = new CanDecodingImpl();//解析用
+    CanDecoding decoding = CanDecodingImpl.getInstance();//解析用
 
     String messagePa = "^BO_.*$";//需要匹配的message信息
 
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
     File filename = new File("app/sql/canmsg-sample.dbc");//读取文件
+
+    private static DataBase dataBase = new DataBaseImpl();
+
+    private DataBaseImpl() {}
+
+    public static DataBase getInstance() {
+        return dataBase;
+    }
 
     @Override
     public CanMessage searchMessageUseId(Long id) {

@@ -14,6 +14,15 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Receiver;
  */
 
 public class ReceiverImpl implements Receiver {
+
+    private static Receiver receiver = new ReceiverImpl();
+
+    private ReceiverImpl() {}
+
+    public static Receiver getInstance() {
+        return receiver;
+    }
+
     @Override
     public FrameType identifyType(String message) {
         Pattern pattern = Pattern.compile(

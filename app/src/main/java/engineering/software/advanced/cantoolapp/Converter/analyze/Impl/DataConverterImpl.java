@@ -108,7 +108,42 @@ public class DataConverterImpl implements DataConverter {
 
     @Override
     public boolean bigEndianEncodeSignal(Data data, int start, int length, int value) {
-        return false;
+        Features features = getBigEndianFeatures(start, length);
+
+        if (features.isHasFirst()) {
+            System.out.println("has first. high - low: " + features.getFirstHigh() + " - " + features.getFirstLow());
+            int firstValue = value >> (length - (features.getFirstHigh() - features.getFirstLow() + 1));
+            System.out.println("first value: " + firstValue);
+
+            for (int i = features.getFirstLow(); i <= features.getFirstHigh(); i++) {
+                if (!data.setBit(i, firstValue & 1)) {
+                    return false;
+                }
+                firstValue = firstValue >> 1;
+            }
+        }
+        if (features.isHasMid()) {
+            for (int i = features.getMidStartByte(); i <= features.getMidEndByte(); i++) {
+                int rMove = length - (features.getFirstHigh() - features.getFirstLow() + 1)
+                        - (i - features.getMidStartByte() + 1) * 8;
+                int by = (value >> rMove) & 255;
+                System.out.println("rMove: " + rMove + " byte: " + by);
+                if (!data.setByte(i, by)) {
+                    return false;
+                }
+            }
+        }
+        if (features.isHasLast()) {
+            int lastValue = value & getAllOneMask(features.getLastHigh() - features.getLastLow() + 1);
+            System.out.println("last value:" + lastValue);
+
+            for (int i = features.getLastLow(); i <= features.getLastHigh(); i++) {
+                data.setBit(i, lastValue & 1);
+                lastValue = lastValue >> 1;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -202,5 +237,14 @@ public class DataConverterImpl implements DataConverter {
 
         return new Features(firstLow, firstHigh, midStartByte, midEndByte, lastLow,
                 lastHigh, hasFirst, hasMid, hasLast);
+    }
+
+    //得到低n位全位1的数
+    private int getAllOneMask(int n) {
+        int mask = 1;
+        for (int i = 1; i < n; ++i) {
+            mask = (mask << 1) + 1;
+        }
+        return mask;
     }
 }

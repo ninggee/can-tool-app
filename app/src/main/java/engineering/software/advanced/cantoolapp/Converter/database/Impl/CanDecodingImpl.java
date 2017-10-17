@@ -12,6 +12,15 @@ import engineering.software.advanced.cantoolapp.Converter.Entity.CanSignal;
  */
 
 public class CanDecodingImpl implements CanDecoding {
+
+    private static CanDecoding decoding = new CanDecodingImpl();
+
+    private CanDecodingImpl() {}
+
+    public static CanDecoding getInstance() {
+        return decoding;
+    }
+
     @Override
     public CanMessage messageDecoding(String message) {
         Pattern pattern = Pattern.compile("^(.*) (\\d+) (.*) ?(:) ?(\\d+) (.*)$");

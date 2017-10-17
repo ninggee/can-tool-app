@@ -9,7 +9,7 @@ import engineering.software.advanced.cantoolapp.Converter.transmission.Impl.Send
  * Created by Zhang Dongdi on 2017/10/10.
  */
 public class SenderImplTest {
-    private Sender sender = new SenderImpl();
+    private Sender sender = SenderImpl.getInstance();
 
     @Test
     public void requestVersion() throws Exception {
