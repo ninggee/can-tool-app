@@ -3,6 +3,7 @@ package engineering.software.advanced.cantoolapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.Set;
+
+import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +48,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View.OnClickListener onClickListener=new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Toast.makeText(MainActivity.this,"Button点击事件1", Toast.LENGTH_LONG).show();
+                DataBase db = DataBaseImpl.getInstance();
+                Set<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
+                System.out.println(list.size());
+                Log.i("tag",String.valueOf(list.size()));
+            }
+        };
+        findViewById(R.id.b1).setOnClickListener(onClickListener);
+
     }
 
     @Override

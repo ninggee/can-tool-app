@@ -28,11 +28,18 @@ public class DataBaseImpl implements DataBase {
 
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
-    File filename = new File("app/sql/canmsg-sample.dbc");//读取文件
 
     private static DataBase dataBase = new DataBaseImpl();
 
-    private DataBaseImpl() {}
+    File filename = null;
+
+    DataBaseImpl() {
+        filename = new File("app/sql/canmsg-sample.dbc");//读取文件
+    }
+
+    DataBaseImpl(String  path) {
+        filename = new File(path);//读取文件
+    }
 
     public static DataBase getInstance() {
         return dataBase;
