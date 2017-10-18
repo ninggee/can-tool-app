@@ -1,5 +1,9 @@
 package engineering.software.advanced.cantoolapp.converter.database.Impl;
 
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,13 +50,12 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public CanMessage searchMessageUseId(Long id) {
+    public CanMessage searchMessageUseId(Long id, InputStreamReader isr) {
 
         CanMessage message = null;
-        InputStreamReader isr = null;
         BufferedReader bufferedReader = null;
         try {
-            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+//            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
             bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
@@ -83,16 +86,15 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public Set<CanSignal> searchSignalUseMessage(CanMessage message)  {
+    public Set<CanSignal> searchSignalUseMessage(CanMessage message, InputStreamReader isr)  {
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始
         Set<CanSignal> signalList = new HashSet<CanSignal>();//用于存放所有查找到的signal信息
-        InputStreamReader isr = null;
         BufferedReader bufferedReader = null;
 
         try {
-            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+//            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
             bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
@@ -131,4 +133,6 @@ public class DataBaseImpl implements DataBase {
         }
         return signalList;
     }
+
+
 }

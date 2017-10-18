@@ -1,5 +1,10 @@
 package engineering.software.advanced.cantoolapp.converter;
 
+import android.content.res.AssetManager;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +30,7 @@ public class MessageAndSignalProcessor implements Processor {
     private Receiver receiver = ReceiverImpl.getInstance();
     private DataBase dataBase = DataBaseImpl.getInstance();
     private DataConverter converter = DataConverterImpl.getInstance();
-
+    InputStreamReader isr = null;//需要修改
     public Message decode(String canMessageStr) {
         FrameType canMessageType = receiver.identifyType(canMessageStr);
         Frame frame;
@@ -42,8 +47,10 @@ public class MessageAndSignalProcessor implements Processor {
 
         Long frameId = Long.parseLong(frame.getId(), 16);
 
-        CanMessage canMessage = dataBase.searchMessageUseId(frameId);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+
+
+        CanMessage canMessage = dataBase.searchMessageUseId(frameId, isr);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage, isr);
 
         Set<Signal> signals = new HashSet<Signal>();
         for (CanSignal canSignal : canSignals) {
@@ -74,8 +81,8 @@ public class MessageAndSignalProcessor implements Processor {
 
     public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
-        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        CanMessage canMessage = dataBase.searchMessageUseId(messageId, isr);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage, isr);
         if (signals.size() != canSignals.size()) {
             throw new RuntimeException("The number of signals doesn't fit the number in the database.");
         }
