@@ -11,10 +11,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
 import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
 /**
  * Created by lhr on 2017/10/11.

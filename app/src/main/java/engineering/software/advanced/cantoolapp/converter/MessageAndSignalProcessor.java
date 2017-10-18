@@ -3,6 +3,10 @@ package engineering.software.advanced.cantoolapp.converter;
 import java.util.HashSet;
 import java.util.Set;
 
+import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
+import engineering.software.advanced.cantoolapp.converter.analyze.Impl.DataConverterImpl;
+import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Data;
@@ -10,10 +14,6 @@ import engineering.software.advanced.cantoolapp.converter.entity.Frame;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.converter.enumeration.FrameType;
-import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
-import engineering.software.advanced.cantoolapp.converter.analyze.Impl.DataConverterImpl;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.ReceiverImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Receiver;
 

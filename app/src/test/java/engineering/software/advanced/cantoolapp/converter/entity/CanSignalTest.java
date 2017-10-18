@@ -1,8 +1,7 @@
-package engineering.software.advanced.cantoolapp.test.converter.entity;
+package engineering.software.advanced.cantoolapp.converter.entity;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.CanDecodingImpl;
 

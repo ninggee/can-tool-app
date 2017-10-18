@@ -1,11 +1,10 @@
-package engineering.software.advanced.cantoolapp.test.converter.database;
+package engineering.software.advanced.cantoolapp.converter.database;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.converter.database.CanEncoding;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.CanEncodingImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.CanEncodingImpl;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

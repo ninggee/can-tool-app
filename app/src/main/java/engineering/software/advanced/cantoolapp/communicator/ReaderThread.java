@@ -11,7 +11,7 @@ import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
  * Created by ningge on 2017/10/12.
  */
 
-public class ReaderThread extends Thread implements Reader  {
+public class ReaderThread extends Thread implements Reader {
 
 
     private InputStream in = null;
@@ -32,7 +32,7 @@ public class ReaderThread extends Thread implements Reader  {
         try {
 
             bytes = in.read(buffer);
-            handler.handle(new String (buffer, 0, bytes));
+            handler.handle(new String(buffer, 0, bytes));
 
         } catch (IOException e){
             e.printStackTrace();

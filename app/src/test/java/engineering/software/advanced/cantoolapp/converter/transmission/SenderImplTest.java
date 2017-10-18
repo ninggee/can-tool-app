@@ -1,8 +1,7 @@
-package engineering.software.advanced.cantoolapp.test.converter.transmission;
+package engineering.software.advanced.cantoolapp.converter.transmission;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.converter.transmission.Sender;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.SenderImpl;
 
 /**

@@ -1,10 +1,9 @@
-package engineering.software.advanced.cantoolapp.test.converter.analyze;
+package engineering.software.advanced.cantoolapp.converter.analyze;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.converter.entity.Data;
-import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.converter.analyze.Impl.DataConverterImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.Data;
 
 /**
  * Created by Zhang Dongdi on 2017/10/11.

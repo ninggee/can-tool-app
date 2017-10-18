@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.test.converter;
+package engineering.software.advanced.cantoolapp.converter;
 
 import org.junit.Test;
 
@@ -7,7 +7,6 @@ import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
-import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 
 /**
  * Created by Zhang Dongdi on 2017/10/14.

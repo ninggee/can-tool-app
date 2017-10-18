@@ -9,7 +9,7 @@ import engineering.software.advanced.cantoolapp.converter.enumeration.FrameType;
 
 public class ExtensionFrame extends Frame {
     public ExtensionFrame(String raw, String id, String length, String data, String period,
-                         FrameDirection direction) {
+                          FrameDirection direction) {
         this.raw = raw;
         this.id = id;
         this.length = length;

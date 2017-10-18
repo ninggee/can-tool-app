@@ -1,12 +1,11 @@
-package engineering.software.advanced.cantoolapp.test.converter.database;
+package engineering.software.advanced.cantoolapp.converter.database;
 
 import org.junit.Test;
 
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
 /**
  * Created by lhr on 2017/10/11.
