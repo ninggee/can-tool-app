@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/can-tool-app.iml" filepath="$PROJECT_DIR$/can-tool-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cantoolapp.iml" filepath="$PROJECT_DIR$/cantoolapp.iml" />
     </modules>
   </component>
