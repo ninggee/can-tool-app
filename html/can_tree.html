@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>CanToolAPP</title>
+
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+ 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<!-- 引入自定义的css文件 -->
+<link rel="stylesheet" href="style.css">
+
+<!-- 引入D3资源 -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+</head>
+<body>
+	<div class="container container_sc">
+
+    <script>
+
+      var width = 500,  
+      height = 500;  
+        
+      var tree = d3.layout.tree()  
+          .size([width, height-200])  
+          .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });  
+        
+      var diagonal = d3.svg.diagonal()  
+          .projection(function(d) { return [d.y, d.x]; });  
+        
+      var svg = d3.select("body").append("svg")  
+          .attr("width", width)  
+          .attr("height", height)  
+          .append("g")  
+          .attr("transform", "translate(80,0)");  
+        
+        
+          root = {  
+                  "name":"   can信息",  
+                  "children":  
+                  [  
+                      {   
+                        "name":"predefined events" ,   
+                        "children": 
+                        [
+                          {
+                            "name":"CAN",
+                            "children":
+                            [
+                                {
+                                "name":"events",
+                                "children":
+                                  [
+                                      {
+                                        "name":"errorframe"
+                                      }
+                                  ]
+                                }
+                            ]
+                          }
+                        ]  
+                      },  
+                        
+                      
+                       {   
+                        "name":"bus statistic signals" ,   
+                        "children":  
+                        [  
+                              {
+                                "name":"CAN",
+                                "children":
+                                [
+                                    {
+                                      "name":"CAN 1"
+                                    }
+                                ]
+                              } 
+                        ]   
+                      },  
+                        
+                      
+                  ]  
+                  }  
+          var nodes = tree.nodes(root);  
+          var links = tree.links(nodes);  
+            
+          console.log(nodes);  
+          console.log(links);  
+            
+          var link = svg.selectAll(".link")  
+            .data(links)  
+            .enter()  
+            .append("path")  
+            .attr("class", "link")  
+            .attr("d", diagonal);  
+            
+          var node = svg.selectAll(".node")  
+            .data(nodes)  
+            .enter()  
+            .append("g")  
+            .attr("class", "node")  
+            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })  
+            
+          node.append("circle")  
+            .attr("r", 4.5);  
+            
+          node.append("text")  
+            .attr("dx", function(d) { return d.children ? -8 : 8; })  
+            .attr("dy", 3)  
+            .style("text-anchor", function(d) { return d.children ? "end" : "start"; })  
+            .text(function(d) { return d.name; });  
+
+
+    </script>
+
+  </div>
+</body>
+</html>  
