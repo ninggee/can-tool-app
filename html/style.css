@@ -4,3 +4,32 @@
 .jumbotron_sc{
     padding: 1rem 1rem;
 }
+
+
+/*---------------can_display page----------------*/
+.table thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dddddd;
+}
+.table tbody > tr > td {
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+/*svg*/
+.node circle {  
+  fill: #fff;  
+  stroke: steelblue;  
+  stroke-width: 1.5px;  
+}  
+  
+.node {  
+  font: 12px sans-serif;  
+}  
+  
+.link {  
+  fill: none;  
+  stroke: #ccc;  
+  stroke-width: 1.5px;  
+}  
