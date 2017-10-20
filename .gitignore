@@ -1,9 +1,0 @@
-*.iml
-.gradle
-/local.properties
-/.idea/libraries
-/.idea/workspace.xml
-/build
-/captures
-.externalNativeBuild
-/.idea/vcs.xml
