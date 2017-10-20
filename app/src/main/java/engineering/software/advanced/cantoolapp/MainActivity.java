@@ -1,6 +1,5 @@
 package engineering.software.advanced.cantoolapp;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,21 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Set;
-
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
-import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
+import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +27,12 @@ public class MainActivity extends AppCompatActivity
 
         //init drawer compontent
         __initDrawer();
+
+        WebView myWebView = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        myWebView.addJavascriptInterface(new TestInterface(this), "Android");
+        myWebView.loadUrl("file:///android_asset/html/setting.html");
 
 
 
@@ -121,30 +118,5 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View.OnClickListener onClickListener=new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Toast.makeText(MainActivity.this,"Button点击事件1", Toast.LENGTH_LONG).show();
-                InputStreamReader isr = null;
-                try {
-                    AssetManager am = getResources().getAssets();
-                    //打开assets中文件
-                    InputStream is = am.open("canmsg-sample.dbc");
-                    isr =new InputStreamReader(is,"GBK");
-                    DataBase db = DataBaseImpl.getInstance();
-                    CanMessage cm = db.searchMessageUseId((long)856, isr);
-                    Log.i("tag", String.valueOf(cm.getId()));
-                    is = am.open("canmsg-sample.dbc");
-                    isr =new InputStreamReader(is,"GBK");
-                    Set<CanSignal> list = db.searchSignalUseMessage(cm,isr);
-                    for(CanSignal cs : list)
-                        Log.i("tag", cs.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-        findViewById(R.id.b1).setOnClickListener(onClickListener);
     }
 }

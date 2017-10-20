@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.web_app_interfaces;
+package engineering.software.advanced.cantoolapp.webinterfaces;
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;
