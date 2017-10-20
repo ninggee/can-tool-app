@@ -12,7 +12,7 @@ public class TestInterface {
 
     Context __context;
 
-    TestInterface(Context c) {
+    public TestInterface(Context c) {
         __context = c;
     }
 
