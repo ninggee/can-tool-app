@@ -17,6 +17,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Set;
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void writeDBC() {
+
+        File f= new File("/data/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");
+        if(f.exists()){
+            return;
+        }
+
         try{
 
             AssetManager am = getResources().getAssets();
