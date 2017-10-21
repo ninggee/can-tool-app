@@ -38,18 +38,27 @@
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label">Baud rate</label>
-                    <input class="uk-input" type="text" placeholder="Input">
+                    <label class="uk-form-label">Data bits</label>
+                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                    </select>
                 </div>
 
-                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                    <label><input class="uk-radio" type="radio" name="radio2" checked> A</label>
-                    <label><input class="uk-radio" type="radio" name="radio2"> B</label>
+                <div class="uk-margin">
+                    <label class="uk-form-label">Stop bits</label>
+                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                    </select>
                 </div>
 
-                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                    <label><input class="uk-checkbox" type="checkbox" checked> A</label>
-                    <label><input class="uk-checkbox" type="checkbox"> B</label>
+                <div class="uk-margin">
+                    <label class="uk-form-label">Parity</label>
+                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                    </select>
                 </div>
 
                 <div class="uk-margin">
@@ -87,7 +96,10 @@
              38400,
              57600,
              115200
-            ]
+            ],
+           data_bits: [5, 6, 7 , 8],
+           stop_bits: [1, 1.5, 2],
+           parity: ['None', 'Even', 'Odd', 'Mark', 'Space']
           },
           methods: {
             selectCom: function(e) {
