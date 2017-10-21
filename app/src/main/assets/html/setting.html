@@ -1,55 +1,101 @@
 <html>
 <head>
     <script src="file:///android_asset/js/vue.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+    <!--<script src="file:///android_asset/js/vue.js">-->
+
+
 </head>
 <body>
 
-<div id="app">
-    {{ message }}
-</div>
+    <div  id="app" class="uk-flex uk-flex-center">
+        <form class="uk-width-5-6 uk-form-stacked">
+            <fieldset class="uk-fieldset uk-margin-medium-top">
+                <legend class="uk-legend ">Send/Receive On Comm.</legend>
+                <div class="uk-margin">
+                    <label class="uk-form-label">选择COM口</label>
+                    <select class="uk-select" v-model="form.com"  v-on:change="selectCom(form.com)">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="com in coms" v-bind:value="com.value">{{com.name}}</option>
+                    </select>
+                </div>
+                <div class="uk-comment-body uk-margin-medium-bottom">
+                    <p>Choose a COM port(e.g. COM3) or specify a network connection. See the Online Help(F1) for details.</p>
+                </div>
 
-<div id="app-2">
-  <span v-bind:title="message">
-    Hover your mouse over me for a few seconds
-    to see my dynamically bound title!
-  </span>
-</div>
-<div id="app-5">
-    <p>{{ message }}</p>
-    <button v-on:click="reverseMessage">Reverse Message</button>
-</div>
+                <legend class="uk-legend">COM Port Settings </legend>
+                <div class="uk-margin">
+                    <label class="uk-form-label">Baud rate</label>
+                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                        <option value="" disabled selected>请选择</option>
+                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                    </select>
+                </div>
 
-<input type="button" value="Say hello" onClick="showAndroidToast('Hello Android!')" />
+                <div class="uk-margin">
+                    <label class="uk-form-label">Baud rate</label>
+                    <input class="uk-input" type="text" placeholder="Input">
+                </div>
 
-<script type="text/javascript">
-    function showAndroidToast(toast) {
-        Android.showToast(toast);
-    }
-   var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue!'
-      }
-   })
-   var app2 = new Vue({
-      el: '#app-2',
-      data: {
-        message: 'You loaded this page on ' + new Date().toLocaleString()
-      }
-})
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <label><input class="uk-radio" type="radio" name="radio2" checked> A</label>
+                    <label><input class="uk-radio" type="radio" name="radio2"> B</label>
+                </div>
 
-var app5 = new Vue({
-  el: '#app-5',
-  data: {
-    message: 'Hello Vue.js!'
-  },
-  methods: {
-    reverseMessage: function () {
-      this.message = this.message.split('').reverse().join('')
-    }
-  }
-})
-</script>
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <label><input class="uk-checkbox" type="checkbox" checked> A</label>
+                    <label><input class="uk-checkbox" type="checkbox"> B</label>
+                </div>
+
+                <div class="uk-margin">
+                    <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+          el: '#app',
+          data: {
+            form: {
+                com: '',
+                baud: 9600
+            },
+            coms: [{
+                name:'com1',
+                value:'com1'
+            }, {
+                name: 'com2',
+                value: 'com2'
+            }],
+            baud_rates: [
+             300,
+             1200,
+             2400,
+             4800,
+             9600,
+             14400,
+             19200,
+             28800,
+             38400,
+             57600,
+             115200
+            ]
+          },
+          methods: {
+            selectCom: function(e) {
+            Android.showToast(e)
+            }
+          }
+         })
+    </script>
 
 </body>
 </html>
