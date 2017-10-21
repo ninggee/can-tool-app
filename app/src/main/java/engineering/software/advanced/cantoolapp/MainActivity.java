@@ -1,5 +1,6 @@
 package engineering.software.advanced.cantoolapp;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,12 +10,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.Set;
+
+import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
 public class MainActivity extends AppCompatActivity
@@ -34,7 +44,39 @@ public class MainActivity extends AppCompatActivity
         myWebView.addJavascriptInterface(new TestInterface(this), "Android");
         myWebView.loadUrl("file:///android_asset/html/setting.html");
 
+        //wtrie dbc file
+        writeDBC();
+        //test can delete
+        DataBase db = DataBaseImpl.getInstance();
+        Set<CanSignal> set = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
+        for(CanSignal cs : set){
+            Log.e("ttt",cs.toString());
+        }
 
+
+    }
+
+    private void writeDBC() {
+        try{
+
+            AssetManager am = getResources().getAssets();
+            InputStream is = am.open("canmsg-sample.dbc");
+
+            FileOutputStream fout =openFileOutput("canmsg-sample.dbc", MODE_PRIVATE);
+
+            byte[] buffer = new byte[is.available()];
+            int byteCount = 0;
+            while((byteCount=is.read(buffer))!=-1) {//循环从输入流读取 buffer字节
+                fout.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
+            }
+            fout.flush();
+            is.close();
+            fout.close();
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
