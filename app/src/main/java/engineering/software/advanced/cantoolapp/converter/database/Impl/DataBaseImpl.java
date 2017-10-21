@@ -36,6 +36,7 @@ public class DataBaseImpl implements DataBase {
     private static DataBase dataBase = new DataBaseImpl();
 
     File filename = null;
+    InputStreamReader isr = null;
 
     DataBaseImpl() {
         filename = new File("app/sql/canmsg-sample.dbc");//读取文件
@@ -50,7 +51,7 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public CanMessage searchMessageUseId(Long id, InputStreamReader isr) {
+    public CanMessage searchMessageUseId(Long id) {
 
         CanMessage message = null;
         BufferedReader bufferedReader = null;
@@ -86,7 +87,7 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public Set<CanSignal> searchSignalUseMessage(CanMessage message, InputStreamReader isr)  {
+    public Set<CanSignal> searchSignalUseMessage(CanMessage message)  {
         CanSignal signal = null;
         CanMessage messageStart = null;
         int start = 0;//表示开始

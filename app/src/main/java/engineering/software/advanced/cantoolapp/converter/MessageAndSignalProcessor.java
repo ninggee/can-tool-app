@@ -30,7 +30,7 @@ public class MessageAndSignalProcessor implements Processor {
     private Receiver receiver = ReceiverImpl.getInstance();
     private DataBase dataBase = DataBaseImpl.getInstance();
     private DataConverter converter = DataConverterImpl.getInstance();
-    InputStreamReader isr = null;//需要修改
+//    InputStreamReader isr = null;//需要修改
     public Message decode(String canMessageStr) {
         FrameType canMessageType = receiver.identifyType(canMessageStr);
         Frame frame;
@@ -49,8 +49,8 @@ public class MessageAndSignalProcessor implements Processor {
 
 
 
-        CanMessage canMessage = dataBase.searchMessageUseId(frameId, isr);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage, isr);
+        CanMessage canMessage = dataBase.searchMessageUseId(frameId);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
 
         Set<Signal> signals = new HashSet<Signal>();
         for (CanSignal canSignal : canSignals) {
@@ -81,8 +81,8 @@ public class MessageAndSignalProcessor implements Processor {
 
     public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
-        CanMessage canMessage = dataBase.searchMessageUseId(messageId, isr);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage, isr);
+        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
         if (signals.size() != canSignals.size()) {
             throw new RuntimeException("The number of signals doesn't fit the number in the database.");
         }
