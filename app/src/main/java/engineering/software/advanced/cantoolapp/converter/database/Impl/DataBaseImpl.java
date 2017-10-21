@@ -36,10 +36,10 @@ public class DataBaseImpl implements DataBase {
     private static DataBase dataBase = new DataBaseImpl();
 
     File filename = null;
-    InputStreamReader isr = null;
+
 
     DataBaseImpl() {
-        filename = new File("app/sql/canmsg-sample.dbc");//读取文件
+        filename = new File("/data/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
     }
 
     DataBaseImpl(String  path) {
@@ -55,8 +55,9 @@ public class DataBaseImpl implements DataBase {
 
         CanMessage message = null;
         BufferedReader bufferedReader = null;
+        InputStreamReader isr = null;
         try {
-//            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
             bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
@@ -93,9 +94,9 @@ public class DataBaseImpl implements DataBase {
         int start = 0;//表示开始
         Set<CanSignal> signalList = new HashSet<CanSignal>();//用于存放所有查找到的signal信息
         BufferedReader bufferedReader = null;
-
+        InputStreamReader isr = null;
         try {
-//            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
             bufferedReader = new BufferedReader(isr);
             String line = "";
             //读取一行
