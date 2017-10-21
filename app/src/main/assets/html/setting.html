@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>COM口设置</title>
     <script src="file:///android_asset/js/vue.js"></script>
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
@@ -39,30 +40,26 @@
 
                 <div class="uk-margin">
                     <label class="uk-form-label">Data bits</label>
-                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                    <select class="uk-select" v-model="form.data_bits" v-on:change="changeBaudRate(form.baud)">
                         <option value="" disabled selected>请选择</option>
-                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                        <option v-for="bit in data_bits" v-bind:value="bit">{{bit}}</option>
                     </select>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label">Stop bits</label>
-                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                    <select class="uk-select" v-model="form.stop_bits" v-on:change="changeBaudRate(form.baud)">
                         <option value="" disabled selected>请选择</option>
-                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                        <option v-for="rate in stop_bits" v-bind:value="rate">{{rate}}</option>
                     </select>
                 </div>
 
                 <div class="uk-margin">
                     <label class="uk-form-label">Parity</label>
-                    <select class="uk-select" v-model="form.baud" v-on:change="changeBaudRate(form.baud)">
+                    <select class="uk-select" v-model="form.parity" v-on:change="changeBaudRate(form.baud)">
                         <option value="" disabled selected>请选择</option>
-                        <option v-for="rate in baud_rates" v-bind:value="rate">{{rate}}</option>
+                        <option v-for="rate in parity" v-bind:value="rate">{{rate}}</option>
                     </select>
-                </div>
-
-                <div class="uk-margin">
-                    <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1">
                 </div>
 
             </fieldset>
@@ -75,7 +72,10 @@
           data: {
             form: {
                 com: '',
-                baud: 9600
+                baud: 9600,
+                data_bits: 8,
+                stop_bits: 1,
+                parity: "None"
             },
             coms: [{
                 name:'com1',

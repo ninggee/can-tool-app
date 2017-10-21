@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>蓝牙连接</title>
+    <script src="file:///android_asset/js/vue.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+    <!--<script src="file:///android_asset/js/vue.js">-->
+</head>
+<body>
+
+<div  id="app" class="uk-flex uk-flex-center">
+    <form class="uk-width-5-6 uk-form-stacked">
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+            <legend class="uk-legend ">选择要连接的蓝牙设备</legend>
+            <div class="uk-margin">
+                <label class="uk-form-label">设备列表</label>
+                <select class="uk-select" v-model="connected">
+                    <option value="" disabled selected>请选择</option>
+                    <option v-for="device in devices" v-bind:value="device.address">{{device.name}}</option>
+                </select>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label">已连接设备<span class="uk-badge" style="background-color:#bd4147"></span></label>
+                <input type="text" class="uk-input" v-model="connected" disabled>
+            </div>
+            <button class="uk-button uk-button-primary">连接</button>
+            <button class="uk-button uk-button-danger">断开连接</button>
+
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+        var app = new Vue({
+          el: '#app',
+          data: {
+            selected: null,
+            connected: null,
+            devices: [],
+            state: false
+         },
+         created: function() {
+            Android.showToast('created')
+            devices = Android.getDevices()
+            devices = JSON.parse(devices)
+            for(device in devices) {
+             this.devices.push({
+                name: device,
+                address: devices[name]
+             })
+            }
+         } })
+    </script>
+
+</body>
+</html>

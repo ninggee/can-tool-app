@@ -22,9 +22,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Set;
 
+import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
 import engineering.software.advanced.cantoolapp.converter.database.DataBase;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
-import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity
         WebView myWebView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        myWebView.addJavascriptInterface(new TestInterface(this), "Android");
-        myWebView.loadUrl("file:///android_asset/html/setting.html");
+        myWebView.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
+        myWebView.loadUrl("file:///android_asset/html/bluetooth.html");
 
         //wtrie dbc file
         writeDBC();
