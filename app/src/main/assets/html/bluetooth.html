@@ -49,7 +49,6 @@
             disconnected: true
          },
          created: function() {
-             Android.showToast('created')
              devices = Android.getDevices()
              devices = JSON.parse(devices)
              for(device in devices) {

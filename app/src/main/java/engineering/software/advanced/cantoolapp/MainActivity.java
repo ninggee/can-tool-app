@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
-        myWebView.loadUrl("file:///android_asset/html/bluetooth.html");
+        myWebView.loadUrl("file:///android_asset/html/messages.html");
 
         //wtrie dbc file
         writeDBC();
