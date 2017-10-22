@@ -13,7 +13,6 @@ import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 
 public class ReaderThread extends Thread implements Reader {
 
-
     private InputStream in = null;
     private Handler handler = null;
     private static String TAG = "ReaderThread";

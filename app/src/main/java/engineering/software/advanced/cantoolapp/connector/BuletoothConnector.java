@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 
 public class BuletoothConnector implements Connector {
-    private  static BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+    private  BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
     private BluetoothDevice device = null;
     private BluetoothSocket socket = null;
     private static String TAG = "BluetoothConnector";
@@ -29,11 +29,11 @@ public class BuletoothConnector implements Connector {
 
     @Override
     public boolean connect(String path, int rate) {
-        device = adapter.getRemoteDevice(path);
-        boolean state = true;
-
         // clean old connection first
         close();
+
+        device = adapter.getRemoteDevice(path);
+        boolean state = true;
 
         try {
             socket = device.createRfcommSocketToServiceRecord(OTHER_DEVICE);
