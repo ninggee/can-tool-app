@@ -16,7 +16,7 @@ public interface Connector {
      * @param path some info to identify a devide
      * @param rate baud rate of serial port
      */
-    public abstract void connect(String path, int rate);
+    public abstract boolean connect(String path, int rate);
 
     /**
      * list all available devices
@@ -39,5 +39,5 @@ public interface Connector {
     /**
      * close connection to device
      */
-    public abstract void close();
+    public boolean close();
 }

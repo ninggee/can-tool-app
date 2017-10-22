@@ -26,8 +26,9 @@ public class SerialPortConnector implements Connector {
     private static String TAG = "SerialPortConnector";
 
     @Override
-    public void connect(String path, int rate) {
+    public boolean connect(String path, int rate) {
 
+        boolean state = true;
         if (serialPort != null) {
             close();
         }
@@ -36,8 +37,11 @@ public class SerialPortConnector implements Connector {
             serialPort = new SerialPort(new File(path), rate, 0);
         } catch (IOException e) {
             e.printStackTrace();
+            state = false;
             Log.e(TAG, "can't connect to that port");
         }
+
+        return state;
 
     }
 
@@ -65,9 +69,10 @@ public class SerialPortConnector implements Connector {
     }
 
     @Override
-    public void close() {
-        if (serialPort == null) return;
+    public boolean close() {
+        if (serialPort == null) return false;
         serialPort.close();
         serialPort = null;
+        return  true;
     }
 }

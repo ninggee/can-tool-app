@@ -28,8 +28,9 @@ public class BuletoothConnector implements Connector {
     private static UUID OTHER_DEVICE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
-    public void connect(String path, int rate) {
+    public boolean connect(String path, int rate) {
         device = adapter.getRemoteDevice(path);
+        boolean state = true;
 
         // clean old connection first
         close();
@@ -39,7 +40,8 @@ public class BuletoothConnector implements Connector {
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, "获取Socket失败");
-            return;
+            state = false;
+            return state;
         }
         try {
             // Connect the device through the socket. This will block
@@ -50,11 +52,13 @@ public class BuletoothConnector implements Connector {
             // Unable to connect; close the socket and get out
             connectException.printStackTrace();
             Log.d(TAG, "connect to bluetooth device failed");
+            state  = false;
             try {
                 socket.close();
             } catch (IOException closeException) { }
-            return;
         }
+
+        return state;
     }
 
     @Override
@@ -94,7 +98,9 @@ public class BuletoothConnector implements Connector {
     }
 
     @Override
-    public void close() {
+    public boolean close() {
+
+        boolean state = true;
         if (device != null) {
             device = null;
         }
@@ -104,8 +110,11 @@ public class BuletoothConnector implements Connector {
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                state = false;
                 Log.e(TAG, "close socket failed");
             }
         }
+
+        return state;
     }
 }
