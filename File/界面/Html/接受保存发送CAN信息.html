@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>接受保存发送CAN信息</title>
+<!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+    </head>
+    <body>
+    	<div class="uk-width-1-2@s uk-width-2-5@m">
+    <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+        <!-- <li class="uk-active"><a href="#">Predefined events</a></li> -->
+        <li class="uk-parent">
+            <a href="#">CAN</a>
+            <ul class="uk-nav-sub" uk-nav="multiple: true">
+                <li ><a href="#">CAN</a></li>
+                <li class="uk-parent">
+                    <a href="#">CAN</a>
+                    <ul class="uk-nav-sub">
+                        <li ><a href="#">Events</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="uk-parent">
+            <a href="#">CAN</a>
+            <ul class="uk-nav-sub" uk-nav="multiple: true">
+                
+                <li class="uk-parent">
+                    <a href="#">CAN</a>
+                    <ul class="uk-nav-sub">
+                        <li ><a href="#">CAN1</a></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+    <div class="uk-button-group">
+    <button class="uk-button uk-button-default">SAVE AS</button>
+    <div class="uk-inline">
+        <button class="uk-button uk-button-default" type="button"><span uk-icon="icon:  triangle-down"></span></button>
+        <div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li class="uk-active"><a href="#">CSV</a></li>
+                <li class="uk-nav-header">Other</li>
+                <li><a href="#">Txt</a></li>
+                <li><a href="#">...</a></li>
+<!--                 <li class="uk-nav-divider"></li>
+                <li><a href="#">...</a></li> -->
+            </ul>
+        </div>
+    </div>
+    </div>
+<form>
+    <fieldset class="uk-fieldset">
+
+        <legend class="uk-legend">CAN1</legend>
+
+        
+
+        <div class="uk-margin">
+            <select class="uk-select">
+                <option>物理值1</option>
+                <option>物理值2</option>
+            </select>
+        </div>
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="发送周期">
+        </div>
+
+        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-radio" type="radio" name="radio2" > Yes</label>
+            <label><input class="uk-radio" type="radio" name="radio2"> No</label>
+        </div>
+    </fieldset>
+</form>
+<form>
+    <fieldset class="uk-fieldset">
+
+        <legend class="uk-legend">CAN2</legend>
+
+        
+
+        <div class="uk-margin">
+            <select class="uk-select">
+                <option>物理值1</option>
+                <option>物理值2</option>
+            </select>
+        </div>
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="发送周期">
+        </div>
+
+        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-radio" type="radio" name="radio2" > Yes</label>
+            <label><input class="uk-radio" type="radio" name="radio2"> No</label>
+        </div>
+    </fieldset>
+</form>
+    <p uk-margin>
+    <button class="uk-button uk-button-default">Send</button>
+    </p>
+    </body>
+</html>
