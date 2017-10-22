@@ -2,13 +2,18 @@
 <head>
     <title>蓝牙连接</title>
     <script src="file:///android_asset/js/vue.js"></script>
-    <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
 
     <!-- UIkit JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
     <!--<script src="file:///android_asset/js/vue.js">-->
+
+    <style>
+        .danger {
+            background: #bd4147 !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,17 +23,17 @@
             <legend class="uk-legend ">选择要连接的蓝牙设备</legend>
             <div class="uk-margin">
                 <label class="uk-form-label">设备列表</label>
-                <select class="uk-select" v-model="connected">
+                <select class="uk-select" v-model="selected">
                     <option value="" disabled selected>请选择</option>
                     <option v-for="device in devices" v-bind:value="device.address">{{device.name}}</option>
                 </select>
             </div>
             <div class="uk-margin">
-                <label class="uk-form-label">已连接设备<span class="uk-badge" style="background-color:#bd4147"></span></label>
+                <label class="uk-form-label">已连接设备<span class="uk-badge" v-bind:class="{ danger: disconnected }"></span></label>
                 <input type="text" class="uk-input" v-model="connected" disabled>
             </div>
-            <button class="uk-button uk-button-primary">连接</button>
-            <button class="uk-button uk-button-danger">断开连接</button>
+            <button class="uk-button uk-button-primary" v-on:click="connect">连接</button>
+            <button class="uk-button uk-button-danger" v-on:click="disconnect">断开连接</button>
 
         </fieldset>
     </form>
@@ -41,19 +46,51 @@
             selected: null,
             connected: null,
             devices: [],
-            state: false
+            disconnected: true
          },
          created: function() {
-            Android.showToast('created')
-            devices = Android.getDevices()
-            devices = JSON.parse(devices)
-            for(device in devices) {
-             this.devices.push({
-                name: device,
-                address: devices[name]
-             })
+             Android.showToast('created')
+             devices = Android.getDevices()
+             devices = JSON.parse(devices)
+             for(device in devices) {
+                 this.devices.push({
+                    name: device,
+                    address: devices[device]
+                 })
+             }
+         },
+         methods: {
+            connect: function() {
+                if(!this.selected) {
+                    Android.showToast('请选择要连接的设备')
+                }
+
+                result = Android.connect(this.selected)
+
+                if (result) {
+                    this.connected = this.selected
+                    Android.showToast("连接成功")
+                    this.disconnected = false
+                } else {
+                    Android.showToast("连接失败，请重试")
+                }
+            },
+            disconnect() {
+                if(!this.connected) {
+                    Android.showToast("您没有连接的设备")
+                } else {
+                    result = Android.close();
+                    if(!result) {
+                        Android.showToast("操作失败，请重试")
+                    } else {
+                        this.connected = null
+                        this.disconnected = true
+                        Android.showToast("操作成功")
+                    }
+                }
             }
-         } })
+          }
+         })
     </script>
 
 </body>

@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +45,15 @@ public class MainActivity extends AppCompatActivity
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         myWebView.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
+
+        //this is necessary or app will crash when you click a button
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Log.i("webviwe", "attempting to load Url: " + request.getUrl());
+                return true;
+            }
+        });
         myWebView.loadUrl("file:///android_asset/html/bluetooth.html");
 
         //wtrie dbc file

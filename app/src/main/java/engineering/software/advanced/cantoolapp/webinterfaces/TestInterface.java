@@ -34,4 +34,14 @@ public class TestInterface {
         Log.d("interface", result.toString());
         return  result.toString();
     }
+
+    @JavascriptInterface
+    public boolean connect(String path) {
+        return  __connector.connect(path, 115200);
+    }
+
+    @JavascriptInterface
+    public boolean close() {
+        return __connector.close();
+    }
 }
