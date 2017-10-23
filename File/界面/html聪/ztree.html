@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>CanToolAPP</title>
 
- <HEAD>
-  <TITLE> ZTREE DEMO </TITLE>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-  <script type="text/javascript" src="ztree/js/jquery-1.6.2.min.js"></script>
-  <script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
-  <SCRIPT LANGUAGE="JavaScript">
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+ 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<!-- 引入自定义的css文件 -->
+<link rel="stylesheet" href="style.css">
+
+<script src="vue.js"></script>
+
+<!-- 引入ztree核心库 -->
+<script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
+<!-- 引入ztree样式 -->
+<link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript">
    var zTreeObj;
    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
    var setting = {};
@@ -21,15 +36,49 @@
    ];
    $(document).ready(function(){
       zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-   });
-  </SCRIPT>
- </HEAD>
+   }); 
+</script>
 
-<BODY>
+</head>
 
-<div>
-   <ul id="treeDemo" class="ztree"></ul>
-</div>
+<body>
 
-</BODY>
-</HTML>
+  <div class="container container_sc">
+     <ul id="treeDemo" class="ztree"></ul>
+  </div>
+
+<script type="text/javascript">
+ // var setting = {
+ //            data: {
+ //                key: {
+ //                    //将treeNode的ItemName属性当做节点名称
+ //                    name: "ItemName"        
+ //                },
+ //                simpleData: {
+ //                    //是否使用简单数据模式
+ //                    enable: true,
+ //                    //当前节点id属性  
+ //                    idKey: "Id",
+ //                    //当前节点的父节点id属性 
+ //                    pIdKey: "pItemId",
+ //                    //用于修正根节点父节点数据，即pIdKey指定的属性值
+ //                    rootPId: 0
+ //                }
+ //            },
+ //            view: {
+ //                //是否支持同时选中多个节点
+ //                selectedMulti: false
+ //            }
+ //        };
+
+ //        $(function () {
+ //            $.post("test.aspx", function (json) {
+ //                var treeObj = $.fn.zTree.init($("#tree"), setting, json);               
+ //           //默认展开所有节点
+ //                treeObj.expandAll(true);                
+ //            });
+ //        }); 
+</script>
+</body>
+</html>
+
