@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>仪表盘和温度计</title>
+
+<style type="text/css">
+        .btn-container{
+            padding: 1em 0;
+            text-align: center;
+        }
+    .container{
+        width: 700px;
+        margin: 50px auto;
+    }
+</style>
+<style type="text/css">
+    body {
+        padding: 0;
+        margin: 0;
+        background: #fff
+        }
+        .btn-containerTemp{
+            padding: 1em 0;
+            text-align: center;
+        }
+    .containerTemp{
+        width: 70px;
+        margin: 50px auto;
+    }
+</style>
+<script src="html5-canvas-dashboard/js/gauge.min.js"></script>
+
+<!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+    </head>
+    <body>
+    <!-- 仪表盘 -->
+    <div style="text-align:center;clear:both">
+</div>
+    <div class="btn-container">
+        <button id="start" onclick="animateGauges()">Animate</button>
+        <button onclick="stopGaugesAnimation()">Stop animation</button>
+    </div>
+       <div class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+    <div>
+        <div class="uk-card uk-card-hover uk-card-body">
+            <!-- 仪表盘 -->
+            <canvas data-type="radial-gauge"
+                data-width="300"
+                data-height="300"
+                data-units="mV" 
+                data-title="false"
+                data-min-value="0"
+                data-max-value="210"
+                data-value="0"
+                data-animate-on-init="true"
+                data-major-ticks="10,30,50,70,90,110,130,150,170,190,210"
+                data-minor-ticks="2"
+                data-stroke-ticks="true"
+                data-highlights='[{"from": 160, "to": 210, "color": "rgba(200, 50, 50, .75)"}]'
+                data-color-plate="#222"
+                data-color-major-ticks="#f5f5f5"
+                data-color-minor-ticks="#ddd"
+                data-color-title="#fff"
+                data-color-units="#ccc"
+                data-color-numbers="#eee"
+                data-color-needle-start="rgba(240, 128, 128, 1)"
+                data-color-needle-end="rgba(255, 160, 122, .9)"
+                data-value-box="true"
+                data-font-value="Led"
+                data-font-numbers="Led"
+                data-animated-value="true"
+                data-borders="false"
+                data-border-shadow-width="0"
+                data-needle-type="arrow"
+                data-needle-width="2"
+                data-needle-circle-size="7"
+                data-needle-circle-outer="true"
+                data-needle-circle-inner="false"
+                data-animation-duration="1500"
+                data-animation-rule="linear"
+                data-ticks-angle="250"
+                data-start-angle="55"
+                data-color-needle-shadow-down="#333"
+                data-value-box-width="45"
+        ></canvas>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+            <!-- 温度计 -->
+        <canvas data-type="linear-gauge"
+                data-width="160"
+                data-height="600"
+                data-border-radius="20"
+                data-borders="true"
+                data-bar-stroke-width="20"
+                data-minor-ticks="10"
+                data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+                data-color-numbers="red,green,blue,transparent,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc"
+                data-color-major-ticks="red,green,blue,transparent,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc"
+                data-color-bar-stroke="#444"
+                data-value="0"
+                data-units="°C"
+                data-color-value-box-shadow="false"
+                data-tick-side="left"
+                data-number-side="left"
+                data-needle-side="left"
+                data-animate-on-init="true"
+                data-color-plate="transparent"
+        ></canvas>
+        </div>
+    </div>
+    </div>
+
+
+
+<script>
+    var button = document.getElementById("start");
+    button.click();
+if (!Array.prototype.forEach) {
+        Array.prototype.forEach = function(cb) {
+            var i = 0, s = this.length;
+            for (; i < s; i++) {
+                cb && cb(this[i], i, this);
+            }
+        }
+    }
+
+    document.fonts && document.fonts.forEach(function(font) {
+        font.loaded.then(function() {
+            if (font.family.match(/Led/)) {
+                document.gauges.forEach(function(gauge) {
+                    gauge.update();
+                    gauge.options.renderTo.style.visibility = 'visible';
+                });
+            }
+        });
+    });
+
+    var timers = [];
+
+    function animateGauges() {
+        document.gauges.forEach(function(gauge) {
+            timers.push(setInterval(function() {
+                gauge.value = Math.random() *
+                    (gauge.options.maxValue - gauge.options.minValue) +
+                    gauge.options.minValue;
+            }, gauge.animation.duration + 50));
+        });
+    }
+
+    function stopGaugesAnimation() {
+        timers.forEach(function(timer) {
+            clearInterval(timer);
+        });
+    }
+</script>
+
+
+<script>
+if (!Array.prototype.forEach) {
+        Array.prototype.forEach = function(cb) {
+            var i = 0, s = this.length;
+            for (; i < s; i++) {
+                cb && cb(this[i], i, this);
+            }
+        }
+    }
+
+    var timers = [];
+
+    function animateGaugesTemp() {
+        document.gauges.forEach(function(gauge) {
+            timers.push(setInterval(function() {
+                gauge.value = Math.random() *
+                    (gauge.options.maxValue - gauge.options.minValue) +
+                    gauge.options.minValue;
+            }, gauge.animation.duration + 500));
+        });
+    }
+
+    function stopGaugesAnimationTemp() {
+        timers.forEach(function(timer) {
+            clearInterval(timer);
+        });
+    }
+</script>
+<!-- 定位表格 -->
+<div class="uk-overflow-auto">
+    <table class="uk-table uk-table-small uk-table-divider">
+        <tbody>
+            <tr bgcolor=#00CCFF>
+                <td> </td>
+                <td>7</td>
+                <td>6</td>
+                <td>5</td>
+                <td>4</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>0</td>
+                <td>7</td>
+                <td>6</td>
+                <td>5</td>
+                <td>4</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>1</td>
+                <td>15</td>
+                <td>14</td>
+                <td>13</td>
+                <td>12</td>
+                <td>11</td>
+                <td>10</td>
+                <td>9</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>2</td>
+                <td>23</td>
+                <td>22</td>
+                <td>21</td>
+                <td>20</td>
+                <td>19</td>
+                <td>18</td>
+                <td>17</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>3</td>
+                <td>31</td>
+                <td>30</td>
+                <td>29</td>
+                <td>28</td>
+                <td>27</td>
+                <td>26</td>
+                <td>25</td>
+                <td>24</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>4</td>
+                <td>39</td>
+                <td>38</td>
+                <td>37</td>
+                <td>36</td>
+                <td>35</td>
+                <td>34</td>
+                <td>33</td>
+                <td>32</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>5</td>
+                <td>47</td>
+                <td>46</td>
+                <td>45</td>
+                <td>44</td>
+                <td>43</td>
+                <td>42</td>
+                <td>41</td>
+                <td>40</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>6</td>
+                <td>T55</td>
+                <td>54</td>
+                <td>53</td>
+                <td>52</td>
+                <td>51</td>
+                <td>50</td>
+                <td>49</td>
+                <td>48</td>
+            </tr>
+            <tr>
+                <td bgcolor=#00CCFF>7</td>
+                <td>63</td>
+                <td>62</td>
+                <td>61</td>
+                <td>60</td>
+                <td>59</td>
+                <td>58</td>
+                <td>57</td>
+                <td>56</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    </body>
+</html>

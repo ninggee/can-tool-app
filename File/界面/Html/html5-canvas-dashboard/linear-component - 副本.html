@@ -13,11 +13,11 @@
 		margin: 0;
 		background: #fff
 		}
-		.btn-container{
+		.btn-containerTemp{
 			padding: 1em 0;
 			text-align: center;
 		}
-	.container{
+	.containerTemp{
 		width: 700px;
 		margin: 50px auto;
 	}
@@ -26,25 +26,15 @@
 </head>
 <body>
 <div class="zzsc-container">
-	<header class="zzsc-header">
-		<!-- <div class="zzsc-demo center">
-		  <a href="index.html">radial</a>
-		  <a href="radial-component.html">radial-component</a>
-		  <a href="linear-component.html" class="current">linear-component</a>
-		  <a href="issue-63.html">issue-63</a>
-		  <a href="async.html">async</a>
-		  <a href="scripted.html">scripted</a>
-		</div> -->
-	</header>
-	<div style="text-align:center;clear:both">
+<div style="text-align:center;clear:both">
 <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
 <script src="/follow.js" type="text/javascript"></script>
 </div>
-	<!-- <div class="btn-container">
-		<button onclick="animateGauges()">Animate</button>
-		<button onclick="stopGaugesAnimation()">Stop animation</button>
-	</div> -->
-	<div class="container">
+	<div class="btn-containerTemp">
+		<button onclick="animateGaugesTemp()">Animate</button>
+		<button onclick="stopGaugesAnimationTemp()">Stop animation</button>
+	</div>
+	<div class="containerTemp">
 	<canvas data-type="linear-gauge"
 				data-width="160"
 				data-height="600"
@@ -81,7 +71,7 @@ if (!Array.prototype.forEach) {
 
 	var timers = [];
 
-	function animateGauges() {
+	function animateGaugesTemp() {
 		document.gauges.forEach(function(gauge) {
 			timers.push(setInterval(function() {
 				gauge.value = Math.random() *
@@ -91,7 +81,7 @@ if (!Array.prototype.forEach) {
 		});
 	}
 
-	function stopGaugesAnimation() {
+	function stopGaugesAnimationTemp() {
 		timers.forEach(function(timer) {
 			clearInterval(timer);
 		});
