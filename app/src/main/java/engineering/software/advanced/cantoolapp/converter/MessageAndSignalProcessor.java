@@ -79,6 +79,17 @@ public class MessageAndSignalProcessor implements Processor {
         return message;
     }
 
+    @Override
+    public Set<Message> decodeMultiple(String strs) {
+        String[] strList = strs.split("\\\\r");
+        Set<Message> result = new HashSet<Message>();
+        for (String str : strList) {
+            System.out.println("next str: " + str);
+            result.add(decode(str));
+        }
+        return result;
+    }
+
     public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
         CanMessage canMessage = dataBase.searchMessageUseId(messageId);

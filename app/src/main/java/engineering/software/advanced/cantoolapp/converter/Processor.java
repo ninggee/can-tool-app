@@ -14,6 +14,8 @@ public interface Processor {
     //将接收到的总线数据一步步处理，最终变成信息信号
     public Message decode(String canMessageStr);
 
+    public Set<Message> decodeMultiple(String strs);
+
     //将message和signal编码，之后加上周期，得到can数据用于发送
     public String encode(long messageId, Set<Signal> signals, int period);
 }

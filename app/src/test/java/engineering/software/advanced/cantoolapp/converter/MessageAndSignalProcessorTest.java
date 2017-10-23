@@ -24,6 +24,18 @@ public class MessageAndSignalProcessorTest {
     }
 
     @Test
+    public void decodeMultiple() throws  Exception {
+        Set<Message> messages = processor.decodeMultiple("t03D19C\\rt03D19D\\r");
+        System.out.println("message number: " + messages.size());
+        for (Message message : messages) {
+            System.out.println("message: " + message.getName());
+            for (Signal signal : message.getSignals()) {
+                System.out.println(String.format("\tsignal: %s, value: %f", signal.getName(), signal.getValue()));
+            }
+        }
+    }
+
+    @Test
     public void encode() throws Exception {
         Message message = processor.decode("t03D19C");
         Set<Signal> signals = new HashSet<Signal>();
