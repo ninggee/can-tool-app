@@ -12,12 +12,14 @@ public class Message {
     private long id;
     private String name;
     private String nodeName;
+    private CanMessage canMessage;
     private Set<Signal> signals;
 
-    public Message(long id, String name, String nodeName, Set<Signal> signals) {
+    public Message(long id, String name, String nodeName, CanMessage canMessage, Set<Signal> signals) {
         this.id = id;
         this.name = name;
         this.nodeName = nodeName;
+        this.canMessage = canMessage;
         this.signals = signals;
     }
 
@@ -31,6 +33,10 @@ public class Message {
 
     public String getNodeName() {
         return nodeName;
+    }
+
+    public CanMessage getCanMessage() {
+        return canMessage;
     }
 
     public Set<Signal> getSignals() {
