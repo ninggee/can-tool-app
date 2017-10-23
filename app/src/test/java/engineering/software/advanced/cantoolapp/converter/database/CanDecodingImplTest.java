@@ -17,7 +17,7 @@ public class CanDecodingImplTest {
         System.out.println(message);
         System.out.println(message.getFrameType());
         System.out.println((long)1 << 31);
-        System.out.println(String.format("%x %x", message.getId(), message.getActualId()));
+        System.out.println(String.format("%x %x", message.getId(), message.getId()));
     }
 
     @Test

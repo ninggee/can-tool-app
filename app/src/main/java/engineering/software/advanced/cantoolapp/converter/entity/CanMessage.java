@@ -75,15 +75,6 @@ public class CanMessage {
         }
     }
 
-    public long getActualId() {
-        if (getFrameType().equals(FrameType.ExtensionFrame)) {
-            return id - ((long)1 << 31);
-        }
-        else {
-            return id;
-        }
-    }
-
     public String toString() {
         return String.format(
                 "CanMessage {\n\t%s\n\t%d\n\t%s\n\t%s\n\t%d\n\t%s\n}",
