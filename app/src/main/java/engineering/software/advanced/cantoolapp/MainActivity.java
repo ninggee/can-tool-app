@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,8 +66,30 @@ public class MainActivity extends AppCompatActivity
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String newUrl = request.getUrl().toString();
+                String oldUrl = webview.getUrl().toString();
+                if (!newUrl.equals(oldUrl) && !newUrl.equals(oldUrl + "?")) {
+                    webview.loadUrl(request.getUrl().toString());
+                }
                 Log.i("webviwe", "attempting to load Url: " + request.getUrl());
                 return true;
+            }
+        });
+
+        webview.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_BACK:
+                            if(webview.canGoBack()) {
+                                webview.goBack();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+                return false;
             }
         });
         webview.loadUrl(urls.get("bluetooth"));

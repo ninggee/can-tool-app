@@ -32,6 +32,8 @@ public class ReaderThread extends Thread implements Reader {
 
             bytes = in.read(buffer);
             handler.handle(new String(buffer, 0, bytes));
+            // clean buffer
+            buffer = new byte[1024];
 
         } catch (IOException e){
             e.printStackTrace();

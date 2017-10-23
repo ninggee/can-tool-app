@@ -8,16 +8,20 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import engineering.software.advanced.cantoolapp.communicator.Reader;
 import engineering.software.advanced.cantoolapp.communicator.ReaderThread;
 import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
+import engineering.software.advanced.cantoolapp.converter.entity.Message;
 
 /**
  * Created by ningge on 20/10/2017.
@@ -29,6 +33,7 @@ public class TestInterface {
     Connector __connector;
     Map messages = new HashMap();
     long start_time = new Date().getTime();
+    ReaderThread reader = null;
 
     Processor processor = new MessageAndSignalProcessor();
 
@@ -64,16 +69,40 @@ public class TestInterface {
     public boolean startRead() {
         InputStream in = __connector.getInputStream();
 
-        ReaderThread readerThread = new ReaderThread(in, new Handler() {
+        reader = new ReaderThread(in, new Handler() {
             @Override
             public void handle(String message) {
                 long recieve_time = new Date().getTime();
-                messages.put(recieve_time, processor.decode(message));
+                Set<Message> set = processor.decodeMultiple(message);
+                for(Message can_message: set) {
+                    messages.put(recieve_time - start_time, can_message.toJson());
+                }
+//                messages.put(recieve_time - start_time , processor.decodeMultiple(message));
+
             }
         });
 
-        readerThread.start();
+        reader.start();
 
         return true;
+    }
+
+
+    @JavascriptInterface
+    public boolean stopRead() {
+        try {
+            reader.interrupt();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("thread", "interrupt error");
+            return false;
+        }
+        return  true;
+    }
+
+    @JavascriptInterface
+    public String getMessages() {
+        JSONObject jsonObject = new JSONObject(messages);
+        return jsonObject.toString();
     }
 }

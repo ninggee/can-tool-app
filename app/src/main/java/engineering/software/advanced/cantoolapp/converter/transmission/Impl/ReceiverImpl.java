@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp.converter.transmission.Impl;
 
+import android.util.Log;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +67,8 @@ public class ReceiverImpl implements Receiver {
         String id = raw.substring(1, 4);
         int length = Integer.parseInt(raw.substring(4, 5));
         String data = raw.substring(5, 5 + length * 2);
+
+        Log.d("can message", message + " " +  message.length());
 
         //data之后没有别的信息了，是从装置发送给上位机的信息
         FrameDirection direction;

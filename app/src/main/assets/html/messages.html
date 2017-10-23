@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>信息列表</title>
-    <script src="file://android_assets/js/vue.js"></script>
+    <script src="file:///android_asset/js/vue.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
 
     <!-- UIkit JS -->
@@ -15,7 +15,7 @@
         <div>
             <legend class="uk-legend">接收信息</legend>
             <hr>
-            <button class="uk-button uk-button-small uk-width-1-1" v-bind:class="buttonClass">
+            <button class="uk-button uk-button-small uk-width-1-1" v-bind:class="buttonClass" v-on:click="shiftConnect">
                 <span v-if="recieving">停止接收</span>
                 <span v-else>开始接收</span>
             </button>
@@ -37,7 +37,7 @@
             </thead>
             <tbody>
             <tr v-for="message in messages">
-                <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{message.time}}</a></td>
+                <td class="uk-table-link"><a class="uk-link" :href="'file:///android_asset/html/detail.html?id=' + message.id">{{message.time}}</a></td>
                 <td class="uk-preserve-width">{{message.chn}}</td>
                 <td class="uk-width-medium uk-text-truncate">{{message.id}}</td>
                 <td class="uk-width-medium uk-text-truncate">{{message.name}}</td>
@@ -204,6 +204,31 @@
             }
          },
          methods: {
+            shiftConnect: function() {
+                if(this.recieving) {
+                    this.recieving = false;
+                    Android.stopRead();
+                } else {
+                    result = Android.startRead()
+                    if (result) {
+                        this.recieving  = true;
+                        this.readData()
+                    } else {
+                        Android.showToast("操作失败，请重试")
+                    }
+                }
+            },
+            readData() {
+                data = Android.getMessages();
+                console.log(data)
+
+                this.messages = JSON.parse(data)
+
+                //call this method everything 1 second
+                if (this.recieving) {
+                    setTimeout(this.readData, 1000)
+                }
+            }
          }
          })
     </script>
