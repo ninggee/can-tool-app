@@ -22,6 +22,7 @@ import android.webkit.WebViewClient;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
@@ -33,6 +34,19 @@ import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //    webview instance on main_layout
+    private WebView webview = null;
+
+    // html files
+    private static final HashMap<String, String> urls = new HashMap<>();
+
+    // init hashmap on start
+    static {
+        urls.put("bluetooth", "file:///android_asset/html/bluetooth.html");
+        urls.put("detail", "file:///android_asset/html/detail.html");
+        urls.put("messages", "file:///android_asset/html/messages.html");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,20 +55,22 @@ public class MainActivity extends AppCompatActivity
         //init drawer compontent
         __initDrawer();
 
-        WebView myWebView = (WebView) findViewById(R.id.webview);
-        WebSettings webSettings = myWebView.getSettings();
+        //init webview and config it
+        webview = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        myWebView.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
+        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
 
         //this is necessary or app will crash when you click a button
-        myWebView.setWebViewClient(new WebViewClient() {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Log.i("webviwe", "attempting to load Url: " + request.getUrl());
                 return true;
             }
         });
-        myWebView.loadUrl("file:///android_asset/html/messages.html");
+        webview.loadUrl(urls.get("bluetooth"));
+
 
         //wtrie dbc file
         writeDBC();
@@ -136,13 +152,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        // webview is not init
+        if(webview == null) {
+            return false;
+        }
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_module1) {
+            webview.loadUrl(urls.get("bluetooth"));
+        } else if (id == R.id.nav_module2) {
+            webview.loadUrl(urls.get("messages"));
+        } else if (id == R.id.nav_module3) {
+            webview.loadUrl(urls.get("detail"));
+        } else if (id == R.id.module4) {
 
         } else if (id == R.id.nav_share) {
 
