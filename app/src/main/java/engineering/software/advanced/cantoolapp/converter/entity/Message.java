@@ -1,5 +1,6 @@
 package engineering.software.advanced.cantoolapp.converter.entity;
 
+import com.google.gson.Gson;
 import java.util.Set;
 
 /**
@@ -34,5 +35,10 @@ public class Message {
 
     public Set<Signal> getSignals() {
         return signals;
+    }
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
