@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,7 +34,7 @@ public class ReadSqlImp implements ReadSql {
         BufferedReader br = null;
         String s = "";
         try {
-            isr = new InputStreamReader(new FileInputStream(fileName));
+            isr = new InputStreamReader(new FileInputStream(fileName),"GBK");
             br = new BufferedReader(isr);
             while((s = br.readLine()) != null) {
                 buildTree(s);//构建一个树
@@ -64,22 +65,35 @@ public class ReadSqlImp implements ReadSql {
         Matcher mMessage = patternMessage.matcher(s);
         if(mMessage.matches()){
             node = tree.root;//获得根节点
-            node.sons.add(s);
+            SqlNode sonsNode = new SqlNode();
+            sonsNode.name = s;
+            sonsNode.sons = new ArrayList<>();
+            node.sons.add(sonsNode);//添加子节点
+            node =  sonsNode; //node转换成刚刚添加的message。
             return;
         }
 
-        node = (SqlNode) node.sons.get(node.sons.size() - 1); //获得刚刚添加 的message。
+
 
         //是signal信息
-        Pattern patternSignal = Pattern.compile(messagePa);
+        Pattern patternSignal = Pattern.compile(signalPa);
         Matcher mSignal = patternSignal.matcher(s);
         if(mSignal.matches()){
-            node.sons.add(s);
+
+            SqlNode sonsNode = new SqlNode();
+            sonsNode.name = s;
+            sonsNode.sons = new ArrayList<>();
+            node.sons.add(sonsNode);
             return;
         }
 
         //以上都没有匹配，说明是空行，一条CAN信息已经结束
         node = null;
 
+    }
+
+    //返回树
+    public SqlTree getSqlTree(){
+        return this.tree;
     }
 }
