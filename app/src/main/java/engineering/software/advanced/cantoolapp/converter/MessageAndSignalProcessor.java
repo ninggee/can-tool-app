@@ -71,7 +71,7 @@ public class MessageAndSignalProcessor implements Processor {
 
             double value = converter.signalToValue(origin, canSignal.getA(), canSignal.getB());
 
-            Signal signal = new Signal(canSignal.getSignalName(), value, canSignal);
+            Signal signal = new Signal(canSignal.getSignalName(), origin, value, canSignal);
 
             signals.add(signal);
         }
