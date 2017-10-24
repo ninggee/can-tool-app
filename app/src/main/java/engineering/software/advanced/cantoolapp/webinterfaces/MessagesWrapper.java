@@ -1,22 +1,30 @@
 package engineering.software.advanced.cantoolapp.webinterfaces;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.Since;
 import com.google.gson.internal.Streams;
 
+import java.util.Set;
+
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
+import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 
 /**
  * Created by ningge on 2017/10/24.
  */
 
 public class MessagesWrapper {
-    private String time;
-    private String id ;
-    private String chn;
-    private String name;
-    private String dir;
-    private String dlc;
-    private String data;
+    @Expose private String time;
+    @Expose private String id ;
+    @Expose private String chn;
+    @Expose private String name;
+    @Expose private String dir;
+    @Expose private String dlc;
+    @Expose private String data;
+    private Set<Signal> signals;
+
 
     public MessagesWrapper(String time, Message message) {
         this.time = time;
@@ -26,6 +34,7 @@ public class MessagesWrapper {
         this.dir = "";
         this.dlc = message.getCanMessage().getDlc() + "" ;
         this.data = message.getData().toHexString();
+        this.signals = message.getSignals();
     }
 
     public String getTime() {
@@ -84,7 +93,21 @@ public class MessagesWrapper {
         this.data = data;
     }
 
+    public Set<Signal> getSignals() {
+        return signals;
+    }
+
+    public void setSignals(Set<Signal> signals) {
+        this.signals = signals;
+    }
+
+    //this method will return json exclude signals field
     public String toJson() {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(this);
+    }
+
+    public String toJsonWithSignals() {
         Gson gson = new Gson();
         return gson.toJson(this);
     }

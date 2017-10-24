@@ -59,10 +59,13 @@
             recieving: false
          },
          created: function() {
-            this.loadFromLocal()
+            if(Android.isReading()) {
+                this.recieving  = true;
+                 this.readData()
+            }
          },
          destroyed: function(){
-            this.saveToLocal();
+
          },
          computed: {
             buttonClass: function() {
@@ -98,14 +101,6 @@
                     setTimeout(this.readData, 1000)
                 }
             },
-            saveToLocal() {
-                window.localStorage.setItem('messages', this.messages)
-                window.localStorage.setItem('recieving', this.recieving)
-            },
-            loadFromLocal() {
-                this.messages = window.localStorage['messages']
-                this.recieving = window.localStorage['recieving']
-            }
          }
          })
     </script>

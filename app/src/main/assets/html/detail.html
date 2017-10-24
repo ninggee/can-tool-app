@@ -10,13 +10,13 @@
 </head>
 <body>
 
-<div  id="app" class="uk-flex uk-flex-column uk-width-auto" style="margin: 20px">
-    <div class="uk-card-default" style="padding-left: 10px; font-size: 16px; height: 40px; vertical-align:middle" v-on:click="back">
-        <span style="line-height: 40px"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><polyline fill="none" stroke="#000" stroke-width="1.03" points="13 16 7 10 13 4"></polyline></svg>返回</span>
-    </div>
-    <div class="uk-card-default uk-width-auto">
+<div id="app" class="uk-flex uk-flex-column uk-width-auto" style="margin: 20px">
+    <!--<div class="uk-card-default" style="padding-left: 10px; font-size: 16px; height: 40px; vertical-align:middle" v-on:click="back">-->
+        <!--<span style="line-height: 40px"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><polyline fill="none" stroke="#000" stroke-width="1.03" points="13 16 7 10 13 4"></polyline></svg>返回</span>-->
+    <!--</div>-->
+    <div class="uk-card uk-card-default uk-width-auto" >
         <div class="uk-card-header">
-            <h5 class="uk-card-title">message信息</h5>
+            <h6 class="uk-card-title">Can信息</h6>
             <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                 <thead>
                 <tr>
@@ -30,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="message in messages">
+                <tr>
                     <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{message.time}}</a></td>
                     <td class="uk-preserve-width">{{message.chn}}</td>
                     <td class="uk-width-medium uk-text-truncate">{{message.id}}</td>
@@ -43,7 +43,25 @@
             </table>
         </div>
         <div class="uk-card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            <h6 class="uk-card-title">Can信号列表</h6>
+            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                <thead>
+                    <tr>
+                        <th class="uk-width-medium uk-table-shrink">Name</th>
+                        <th class="uk-width-medium uk-width-truncate">Value</th>
+                        <th class="uk-width-medium uk-text-nowrap">Unit</th>
+                        <th class="uk-width-medium uk-text-nowrap">Original value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr v-for="signal in message.signals">
+                    <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{signal.name}}</a></td>
+                    <td class="uk-preserve-width">{{signal.value}}</td>
+                    <td class="uk-width-medium uk-text-truncate">{{signal.canSignal.unit}}</td>
+                    <td class="uk-width-medium uk-text-truncate">{{signal.origin}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="uk-card-footer">
             <a href="#" class="uk-button uk-button-text">Read more</a>
@@ -55,27 +73,17 @@
 var app = new Vue({
     el: '#app',
     data: {
-        messages: [{
-            'time': '0.500000',
-            'chn': '1',
-            'id': 'C01F351x',
-            'name': 'PTC_STATE_Z0asdfasdfasd',
-            'dir': 'TX',
-            'dlc': '8',
-            'data': '00 28 28 00 00 00 00 00'
-        }],
-        recieving: false
+       id: 0,
+       message: {}
     },
     created: function() {
-
+        var id_index = window.location.href.indexOf("?id=")
+        this.id = window.location.href.substring(id_index + 4)
+        this.message = JSON.parse(Android.getSignalsById(this.id))
+        console.log(this.message)
     },
     computed: {
-        buttonClass: function() {
-            return {
-                'uk-button-primary': !this.recieving,
-                'uk-button-danger': this.recieving
-            }
-        }
+
     },
     methods: {
         back: function() {
