@@ -37,13 +37,13 @@ public class MessageAndSignalProcessorTest {
 
     @Test
     public void encode() throws Exception {
-        Message message = processor.decode("t03D19C");
-        Set<Signal> signals = new HashSet<Signal>();
-        signals.add(new Signal("CDU_HVACACCfg", 1, null));
-        signals.add(new Signal("CDU_HVACAirCirCfg", 2, null));
-        signals.add(new Signal("CDU_HVACComfortCfg", 3, null));
-        String encodedMessage = processor.encode(61, signals, 255);
-        System.out.println("result: " + encodedMessage);
+//        Message message = processor.decode("t03D19C");
+//        Set<Signal> signals = new HashSet<Signal>();
+//        signals.add(new Signal("CDU_HVACACCfg", 1, null));
+//        signals.add(new Signal("CDU_HVACAirCirCfg", 2, null));
+//        signals.add(new Signal("CDU_HVACComfortCfg", 3, null));
+//        String encodedMessage = processor.encode(61, signals, 255);
+//        System.out.println("result: " + encodedMessage);
     }
 
 }

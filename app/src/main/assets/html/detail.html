@@ -58,7 +58,7 @@
                     <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{signal.name}}</a></td>
                     <td class="uk-preserve-width">{{signal.value}}</td>
                     <td class="uk-width-medium uk-text-truncate">{{signal.canSignal.unit}}</td>
-                    <td class="uk-width-medium uk-text-truncate">{{signal.origin}}</td>
+                    <td class="uk-width-medium uk-text-truncate">[ {{signal.origin}} ]</td>
                 </tr>
                 </tbody>
             </table>
@@ -74,13 +74,17 @@ var app = new Vue({
     el: '#app',
     data: {
        id: 0,
-       message: {}
+       message: {},
+       distribution: {}
     },
     created: function() {
         var id_index = window.location.href.indexOf("?id=")
         this.id = window.location.href.substring(id_index + 4)
         this.message = JSON.parse(Android.getSignalsById(this.id))
-        console.log(this.message)
+
+        this.distribution = JSON.parse(Android.getDistribution(this.id))
+
+        console.log(Android.getDistribution(this.id))
     },
     computed: {
 

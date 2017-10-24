@@ -140,7 +140,14 @@ public class TestInterface {
     @JavascriptInterface
     public String getSignalsById(String id) {
         MessagesWrapper messagesWrapper = (MessagesWrapper) uniqueMessages.get(id);
-
         return messagesWrapper.toJsonWithSignals();
+    }
+
+    @JavascriptInterface
+    public String getDistribution(String id) {
+        MessagesWrapper messagesWrapper = (MessagesWrapper) uniqueMessages.get(id);
+        Map<String, ArrayList<Integer>> distribution = messagesWrapper.getSignalsDistribution();
+        Gson gson = new Gson();
+        return gson.toJson(distribution);
     }
 }
