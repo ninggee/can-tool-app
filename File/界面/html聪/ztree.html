@@ -30,7 +30,7 @@
    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
    var zNodes = [
    {name:"test1", open:true, children:[
-      {name:"test1_1"}, {name:"test1_2"}]},
+      {name:5}, {name:"test1_2"}]},
    {name:"test2", open:true, children:[
       {name:"test2_1"}, {name:"test2_2"}]}
    ];
@@ -48,58 +48,7 @@
   </div>
 
 <script type="text/javascript">
- // var setting = {
- //            data: {
- //                key: {
- //                    //将treeNode的ItemName属性当做节点名称
- //                    name: "ItemName"        
- //                },
- //                simpleData: {
- //                    //是否使用简单数据模式
- //                    enable: true,
- //                    //当前节点id属性  
- //                    idKey: "Id",
- //                    //当前节点的父节点id属性 
- //                    pIdKey: "pItemId",
- //                    //用于修正根节点父节点数据，即pIdKey指定的属性值
- //                    rootPId: 0
- //                }
- //            },
- //            view: {
- //                //是否支持同时选中多个节点
- //                selectedMulti: false
- //            }
- //        };
-
- //        $(function () {
- //            $.post("test.aspx", function (json) {
- //                var treeObj = $.fn.zTree.init($("#tree"), setting, json);               
- //           //默认展开所有节点
- //                treeObj.expandAll(true);                
- //            });
- //        }); 
-
-
-
-         // var app = new Vue({
-         //  el: '#app',
-         //  data: {
-         //    selected: null,
-         //    connected: null,
-         //    devices: [],
-         //    disconnected: true
-         // },
-         // created: function() {
-         //     devices = Android.getDevices()
-         //     devices = JSON.parse(devices)
-         //     for(device in devices) {
-         //         this.devices.push({
-         //            name: device,
-         //            address: devices[device]
-         //         })
-         //     }
-         // }
-         // })
+ 
 </script>
 </body>
 </html>
