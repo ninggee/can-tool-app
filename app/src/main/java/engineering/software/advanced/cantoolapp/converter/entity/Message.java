@@ -13,13 +13,15 @@ public class Message {
     private String name;
     private String nodeName;
     private CanMessage canMessage;
+    private Data data;
     private Set<Signal> signals;
 
-    public Message(long id, String name, String nodeName, CanMessage canMessage, Set<Signal> signals) {
+    public Message(long id, String name, String nodeName, CanMessage canMessage,Data data, Set<Signal> signals) {
         this.id = id;
         this.name = name;
         this.nodeName = nodeName;
         this.canMessage = canMessage;
+        this.data = data;
         this.signals = signals;
     }
 
@@ -37,6 +39,10 @@ public class Message {
 
     public CanMessage getCanMessage() {
         return canMessage;
+    }
+
+    public Data getData() {
+        return data;
     }
 
     public Set<Signal> getSignals() {

@@ -68,7 +68,7 @@ public class ReceiverImpl implements Receiver {
         int length = Integer.parseInt(raw.substring(4, 5));
         String data = raw.substring(5, 5 + length * 2);
 
-        Log.d("can message", message + " " +  message.length());
+//        Log.d("can message", message + " " +  message.length());
 
         //data之后没有别的信息了，是从装置发送给上位机的信息
         FrameDirection direction;

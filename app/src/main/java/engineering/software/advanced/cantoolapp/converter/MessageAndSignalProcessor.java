@@ -53,6 +53,7 @@ public class MessageAndSignalProcessor implements Processor {
         Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
 
         Set<Signal> signals = new HashSet<Signal>();
+        Data data = new Data(frame.getData());
         for (CanSignal canSignal : canSignals) {
 //            int origin;
 //            switch (canSignal.getEndian()) {
@@ -65,7 +66,8 @@ public class MessageAndSignalProcessor implements Processor {
 //                default:
 //                    throw new RuntimeException("this kind of endian is not set yet.");
 //            }
-            int origin = new Data(frame.getData()).getSignal(canSignal.getStart(), canSignal.getLength(), canSignal.getEndian());
+
+            int origin = data.getSignal(canSignal.getStart(), canSignal.getLength(), canSignal.getEndian());
 
             double value = converter.signalToValue(origin, canSignal.getA(), canSignal.getB());
 
@@ -74,7 +76,7 @@ public class MessageAndSignalProcessor implements Processor {
             signals.add(signal);
         }
 
-        Message message = new Message(canMessage.getId(), canMessage.getMessageName(), canMessage.getNodeName(),canMessage, signals);
+        Message message = new Message(canMessage.getId(), canMessage.getMessageName(), canMessage.getNodeName(),canMessage, data, signals);
 
         return message;
     }
