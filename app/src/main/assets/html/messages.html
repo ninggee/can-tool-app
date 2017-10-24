@@ -39,8 +39,8 @@
             <tr v-for="message in messages">
                 <td class="uk-table-link"><a class="uk-link" :href="'file:///android_asset/html/detail.html?id=' + message.id">{{message.time}}</a></td>
                 <td class="uk-preserve-width">{{message.chn}}</td>
-                <td class="uk-width-medium uk-text-truncate">{{message.id}}</td>
-                <td class="uk-width-medium uk-text-truncate">{{message.name}}</td>
+                <td class="uk-width-medium uk-text-nowrap">{{message.id}}</td>
+                <td class="uk-width-medium uk-text-nowrap">{{message.name}}</td>
                 <td class="uk-text-nowrap">{{message.dir}}</td>
                 <td class="uk-text-nowrap">{{message.dlc}}</td>
                 <td class="uk-text-truncate">{{message.data}}</td>
@@ -54,146 +54,15 @@
         var app = new Vue({
           el: '#app',
           data: {
-            messages: [{
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                },
-                {
-                'time': '0.500000',
-                'chn': '1',
-                'id': 'C01F351x',
-                'name': 'PTC_STATE_Z0asdfasdfasd',
-                'dir': 'TX',
-                'dlc': '8',
-                'data': '00 28 28 00 00 00 00 00'
-                }
+            messages: [
             ],
             recieving: false
          },
          created: function() {
-
+            this.loadFromLocal()
+         },
+         destroyed: function(){
+            this.saveToLocal();
          },
          computed: {
             buttonClass: function() {
@@ -228,6 +97,14 @@
                 if (this.recieving) {
                     setTimeout(this.readData, 1000)
                 }
+            },
+            saveToLocal() {
+                window.localStorage.setItem('messages', this.messages)
+                window.localStorage.setItem('recieving', this.recieving)
+            },
+            loadFromLocal() {
+                this.messages = window.localStorage['messages']
+                this.recieving = window.localStorage['recieving']
             }
          }
          })

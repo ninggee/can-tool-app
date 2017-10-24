@@ -5,6 +5,8 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -31,7 +33,7 @@ public class TestInterface {
 
     Context __context;
     Connector __connector;
-    Map messages = new HashMap();
+    ArrayList<MessagesWrapper> messages = new ArrayList();
     long start_time = new Date().getTime();
     ReaderThread reader = null;
 
@@ -73,9 +75,13 @@ public class TestInterface {
             @Override
             public void handle(String message) {
                 long recieve_time = new Date().getTime();
+                Log.d("message", message);
                 Set<Message> set = processor.decodeMultiple(message);
-                for(Message can_message: set) {
-                    messages.put(recieve_time - start_time, can_message.toJson());
+                synchronized (messages){
+
+                    for(Message can_message: set) {
+                        messages.add(new MessagesWrapper(recieve_time - start_time + "", can_message));
+                    }
                 }
 //                messages.put(recieve_time - start_time , processor.decodeMultiple(message));
 
@@ -102,7 +108,10 @@ public class TestInterface {
 
     @JavascriptInterface
     public String getMessages() {
-        JSONObject jsonObject = new JSONObject(messages);
-        return jsonObject.toString();
+        Gson gson = new Gson();
+        synchronized (this.messages) {
+            Log.d("gsontest", gson.toJson(this.messages));
+            return gson.toJson(this.messages);
+        }
     }
 }
