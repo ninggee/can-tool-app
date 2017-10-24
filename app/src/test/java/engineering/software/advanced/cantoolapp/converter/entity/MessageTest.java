@@ -14,7 +14,7 @@ public class MessageTest {
     @Test
     public void toJson() throws Exception {
         Message message = processor.decode("t03D19C");
-        System.out.println(message.toJson());
+//        System.out.println(message.toJson());
     }
 
 }

@@ -84,7 +84,7 @@ public class MessageAndSignalProcessor implements Processor {
         String[] strList = strs.split("\\\\r");
         Set<Message> result = new HashSet<Message>();
         for (String str : strList) {
-            System.out.println("next str: " + str);
+//            System.out.println("next str: " + str);
             result.add(decode(str));
         }
         return result;
@@ -119,7 +119,7 @@ public class MessageAndSignalProcessor implements Processor {
             default:
                 throw new RuntimeException("this type of frame is not set yet.");
         }
-        System.out.println(idStr);
+//        System.out.println(idStr);
 
         result += idStr;
 
@@ -138,7 +138,7 @@ public class MessageAndSignalProcessor implements Processor {
                 //System.out.println(canSignal.getSignalName() + " " + signal.getName());
                 if (canSignal.getSignalName().equals(signal.getName())) {
                     int originValue = (int)((signal.getValue() - canSignal.getB()) / canSignal.getA() + 0.5);
-                    System.out.println("signal: " + signal.getName() + " value: " + signal.getValue() + " origin: " + originValue);
+//                    System.out.println("signal: " + signal.getName() + " value: " + signal.getValue() + " origin: " + originValue);
                     if (!data.setSignal(canSignal.getStart(), canSignal.getLength(), originValue, canSignal.getEndian())) {
                         return null;
                     }
@@ -146,7 +146,7 @@ public class MessageAndSignalProcessor implements Processor {
                 }
             }
         }
-        System.out.println(data.toString());
+//        System.out.println(data.toString());
 
         result += data.toHexString();
 

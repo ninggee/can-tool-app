@@ -49,7 +49,7 @@ public class Data {
     }
 
     private void setByteWithoutCheck(int i, int value) {
-        System.out.println("set " + i + " to " + value);
+//        System.out.println("set " + i + " to " + value);
         data = data | (((long)value & 255) << ((length - i - 1) * 8));
     }
 
@@ -64,7 +64,7 @@ public class Data {
             return false;
         }
 
-        System.out.println("set bit: " + i + " value: " + value);
+//        System.out.println("set bit: " + i + " value: " + value);
 
         int by = this.getByte(i / 8);
         by = by | ((value & 1) << (i % 8));

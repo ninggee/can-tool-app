@@ -83,7 +83,7 @@ public class DataConverterImpl implements DataConverter {
         if (features.isHasFirst()) {
             for (int i = features.getFirstHigh(); i >= features.getFirstLow(); i--) {
                 signal = (signal << 1) + data.getBit(i);
-                System.out.println("first row, next bit: " + data.getBit(i));
+//                System.out.println("first row, next bit: " + data.getBit(i));
             }
         }
 
@@ -91,14 +91,14 @@ public class DataConverterImpl implements DataConverter {
             for (int i = features.getMidStartByte(); i <= features.getMidEndByte(); i++) {
                 int by = data.getByte(i);
                 signal = (signal << 8) + by;
-                System.out.println(String.format("mid rows, next row: %x", by));
+//                System.out.println(String.format("mid rows, next row: %x", by));
             }
         }
 
         if (features.isHasLast()) {
             for (int i = features.getLastHigh(); i >= features.getLastLow(); i--) {
                 signal = (signal << 1) + data.getBit(i);
-                System.out.println("last row, next bit: " + data.getBit(i));
+//                System.out.println("last row, next bit: " + data.getBit(i));
             }
         }
 
@@ -110,9 +110,9 @@ public class DataConverterImpl implements DataConverter {
         Features features = getBigEndianFeatures(start, length);
 
         if (features.isHasFirst()) {
-            System.out.println("has first. high - low: " + features.getFirstHigh() + " - " + features.getFirstLow());
+//            System.out.println("has first. high - low: " + features.getFirstHigh() + " - " + features.getFirstLow());
             int firstValue = value >> (length - (features.getFirstHigh() - features.getFirstLow() + 1));
-            System.out.println("first value: " + firstValue);
+//            System.out.println("first value: " + firstValue);
 
             for (int i = features.getFirstLow(); i <= features.getFirstHigh(); i++) {
                 if (!data.setBit(i, firstValue & 1)) {
@@ -126,7 +126,7 @@ public class DataConverterImpl implements DataConverter {
                 int rMove = length - (features.getFirstHigh() - features.getFirstLow() + 1)
                         - (i - features.getMidStartByte() + 1) * 8;
                 int by = (value >> rMove) & 255;
-                System.out.println("rMove: " + rMove + " byte: " + by);
+//                System.out.println("rMove: " + rMove + " byte: " + by);
                 if (!data.setByte(i, by)) {
                     return false;
                 }
@@ -134,7 +134,7 @@ public class DataConverterImpl implements DataConverter {
         }
         if (features.isHasLast()) {
             int lastValue = value & getAllOneMask(features.getLastHigh() - features.getLastLow() + 1);
-            System.out.println("last value:" + lastValue);
+//            System.out.println("last value:" + lastValue);
 
             for (int i = features.getLastLow(); i <= features.getLastHigh(); i++) {
                 if (!data.setBit(i, lastValue & 1)) {
