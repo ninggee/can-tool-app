@@ -5,6 +5,8 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,7 +34,11 @@ public class TestInterface {
 
     Context __context;
     Connector __connector;
-    Map messages = new HashMap();
+    //store all messages received
+    ArrayList<MessagesWrapper> messages = null;
+    //store only most recently message for one id
+    Map<String, MessagesWrapper> uniqueMessages = null;
+
     long start_time = new Date().getTime();
     ReaderThread reader = null;
 
@@ -68,17 +75,26 @@ public class TestInterface {
     @JavascriptInterface
     public boolean startRead() {
         InputStream in = __connector.getInputStream();
+        messages = new ArrayList<>();
+        uniqueMessages = new HashMap<>();
 
         reader = new ReaderThread(in, new Handler() {
             @Override
             public void handle(String message) {
+                if(messages == null) {
+                    return;
+                }
+
                 long recieve_time = new Date().getTime();
                 Set<Message> set = processor.decodeMultiple(message);
-                for(Message can_message: set) {
-                    messages.put(recieve_time - start_time, can_message.toJson());
-                }
-//                messages.put(recieve_time - start_time , processor.decodeMultiple(message));
+                synchronized (messages){
 
+                    for(Message can_message: set) {
+                        MessagesWrapper temp = new MessagesWrapper(recieve_time - start_time + "", can_message);
+                        messages.add(temp);
+                        uniqueMessages.put(temp.getId(), temp);
+                    }
+                }
             }
         });
 
@@ -97,12 +113,34 @@ public class TestInterface {
             Log.e("thread", "interrupt error");
             return false;
         }
+        messages = null;
+        uniqueMessages = null;
         return  true;
     }
 
     @JavascriptInterface
     public String getMessages() {
-        JSONObject jsonObject = new JSONObject(messages);
-        return jsonObject.toString();
+
+        if(this.messages == null) {
+            return "";
+        }
+
+        Gson gson = new Gson();
+        synchronized (this.messages) {
+            List<MessagesWrapper> list = new ArrayList<MessagesWrapper>(uniqueMessages.values());
+            return gson.toJson(list);
+        }
+    }
+
+    @JavascriptInterface
+    public boolean isReading() {
+        return messages != null;
+    }
+
+    @JavascriptInterface
+    public String getSignalsById(String id) {
+        MessagesWrapper messagesWrapper = (MessagesWrapper) uniqueMessages.get(id);
+
+        return messagesWrapper.toJsonWithSignals();
     }
 }

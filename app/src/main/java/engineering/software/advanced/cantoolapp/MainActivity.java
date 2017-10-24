@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         webview = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
         webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
 
         //this is necessary or app will crash when you click a button
