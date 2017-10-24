@@ -2,6 +2,8 @@ package engineering.software.advanced.cantoolapp.converter.transmission.Impl;
 
 import android.util.Log;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,14 @@ public class ReceiverImpl implements Receiver {
 
     private static Receiver receiver = new ReceiverImpl();
 
-    private ReceiverImpl() {}
+    private BlockingQueue<String> answerQueue;
+
+    private BlockingQueue<String> dataQueue;
+
+    private ReceiverImpl() {
+        answerQueue = new ArrayBlockingQueue<String>(1024);
+        dataQueue = new ArrayBlockingQueue<String>(1024);
+    }
 
     public static Receiver getInstance() {
         return receiver;
@@ -111,5 +120,35 @@ public class ReceiverImpl implements Receiver {
             throw new RuntimeException("The length of this extension frame is illegal.");
         }
         return new ExtensionFrame(raw, id, String.valueOf(length), data, period, direction);
+    }
+
+    @Override
+    public boolean addAnswerMessage(String message) {
+        try {
+            answerQueue.add(message);
+            return true;
+        } catch (IllegalStateException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addDataMessage(String message) {
+        try {
+            dataQueue.add(message);
+            return true;
+        } catch (IllegalStateException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public String takeAnswerMessage(String message) throws InterruptedException {
+        return answerQueue.take();
+    }
+
+    @Override
+    public String takeDataMessage(String message) throws InterruptedException {
+        return dataQueue.take();
     }
 }
