@@ -3,14 +3,11 @@ package engineering.software.advanced.cantoolapp.exportFile;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
-import engineering.software.advanced.cantoolapp.exportFile.Export;
-import engineering.software.advanced.cantoolapp.exportFile.Impl.ExportImp;
+
 import engineering.software.advanced.cantoolapp.exportFile.Impl.ExportImp;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
@@ -26,7 +23,7 @@ public class TestExport {
 
         MessagesWrapper mw = new MessagesWrapper("123",message);
 
-        Export export = new ExportImp();
+        ExportImp export = new ExportImp();
         List<MessagesWrapper> canList = new ArrayList<>();
         export.export("d:/","test",".csv",canList);
     }

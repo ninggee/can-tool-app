@@ -2,8 +2,8 @@ package engineering.software.advanced.cantoolapp.exportFile;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.exportFIle.ExportXmlOrJson;
-import engineering.software.advanced.cantoolapp.exportFIle.Impl.ExportXmlOrJsonImpl;
+
+import engineering.software.advanced.cantoolapp.exportFile.Impl.ExportXmlOrJsonImpl;
 
 /**
  * Created by lhr on 2017/10/25.
