@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.exportFIle.Export;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
@@ -44,29 +46,47 @@ public class ExportImp implements Export {
 
                 //用keyset()遍历
                 for (String key : m.keySet()) {
-                    MessagesWrapper thismw = m.get(key);
+                    MessagesWrapper thismessage = m.get(key);
 
-                    bw.write("\"" + thismw.getTime() +"\"");
+                    bw.write("\"" + thismessage.getTime() +"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getId() +"\"");
+                    bw.write("\"" + thismessage.getId() +"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getChn()+"\"");
+                    bw.write("\"" + thismessage.getChn()+"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getName() +"\"");
+                    bw.write("\"" + thismessage.getName() +"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getDir() +"\"");
+                    bw.write("\"" + thismessage.getDir() +"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getDlc() +"\"");
+                    bw.write("\"" + thismessage.getDlc() +"\"");
                     bw.write(",");
 
-                    bw.write("\"" + thismw.getData() +"\"");
+                    bw.write("\"" + thismessage.getData() +"\"");
                     bw.write(",");
-                    //是不是还缺少？
+
+                    //写入signal数据
+                    Set<Signal> signals = thismessage.getSignals();
+
+                    for(Signal s : signals){
+                        bw.write('\n');//换行
+
+                        bw.write("\"" + "signal" +"\"");
+                        bw.write(",");
+
+                        bw.write("\"" + s.getName() +"\"");
+                        bw.write(",");
+
+                        bw.write("\"" + s.getValue() +"\"");
+                        bw.write(",");
+
+                        bw.write("\"" + s.getOrigin() +"\"");
+                        bw.write(",");
+                    }
 
                 }
                 if(i < (canList.size() -1))//没到最后一行之前都要换行
