@@ -8,6 +8,5 @@ import java.util.List;
 
 public class SqlNode {
     public String name;//存放整条字符串
-    public SqlNode father;
     public List<SqlNode> sons;
 }

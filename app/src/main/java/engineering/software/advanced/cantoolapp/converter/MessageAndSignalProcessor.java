@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
@@ -92,6 +93,59 @@ public class MessageAndSignalProcessor implements Processor {
         return result;
     }
 
+    @Override
+    public String encode(long messageId, Map<String, Double> signalMap, int period) {
+        String result = "";
+        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
+        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        Set<Signal> signals = new HashSet<>();
+        for (CanSignal canSignal : canSignals) {
+            Double value = signalMap.get(canSignal.getSignalName());
+            if (value == null) {
+                throw new RuntimeException(String.format("%s is not in the signal map.", canSignal.getSignalName()));
+            }
+            int origin = (int)((value - canSignal.getB()) / canSignal.getA() + 0.5);
+            Signal signal = new Signal(canSignal.getSignalName(), String.format("%x", origin), value, canSignal);
+            signals.add(signal);
+        }
+
+        String idStr;
+        switch (canMessage.getFrameType()) {
+            case StandardFrame:
+                result += "t";
+                idStr = String.format("%03x", messageId);
+                break;
+            case ExtensionFrame:
+                result += "T";
+                idStr = String.format("%08x", messageId);
+                break;
+            default:
+                throw new RuntimeException("this type of frame is not set yet.");
+        }
+        result += idStr + canMessage.getDlc();
+
+        Data data = new Data(canMessage.getDlc());
+        for (Signal signal : signals) {
+            for (CanSignal canSignal : canSignals) {
+                //System.out.println(canSignal.getSignalName() + " " + signal.getName());
+                if (canSignal.getSignalName().equals(signal.getName())) {
+                    int originValue = (int)((signal.getValue() - canSignal.getB()) / canSignal.getA() + 0.5);
+                    if (!data.setSignal(canSignal.getStart(), canSignal.getLength(), originValue, canSignal.getEndian())) {
+                        return null;
+                    }
+                    break;
+                }
+            }
+        }
+
+        result += data.toHexString();
+
+        result += String.format("%04x", period);
+
+        return result;
+    }
+
+    /*
     public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
         CanMessage canMessage = dataBase.searchMessageUseId(messageId);
@@ -156,4 +210,7 @@ public class MessageAndSignalProcessor implements Processor {
 
         return result;
     }
+    */
+
+
 }

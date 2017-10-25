@@ -106,12 +106,7 @@ public class MainActivity extends AppCompatActivity
 
         //wtrie dbc file
         writeDBC();
-        //test can delete
-        DataBase db = DataBaseImpl.getInstance();
-        Set<CanSignal> set = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
-        for(CanSignal cs : set){
-            Log.e("ttt",cs.toString());
-        }
+
 
 
     }

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.converter.analyze.Impl.DataConverterImpl;
@@ -25,6 +27,7 @@ import engineering.software.advanced.cantoolapp.converter.enumeration.Endian;
  * Created by ningge on 2017/10/24.
  */
 
+@XmlRootElement
 public class MessagesWrapper {
     @Expose private String time;
     @Expose private String id ;
@@ -33,8 +36,10 @@ public class MessagesWrapper {
     @Expose private String dir;
     @Expose private String dlc;
     @Expose private String data;
+
     private Set<Signal> signals;
 
+    public MessagesWrapper() {}
 
     public MessagesWrapper(String time, Message message) {
         this.time = time;

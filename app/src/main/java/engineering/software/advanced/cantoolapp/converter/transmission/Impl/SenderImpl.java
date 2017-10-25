@@ -53,6 +53,6 @@ public class SenderImpl implements Sender {
         if (period.length() != 4) {
             throw new RuntimeException("The length of period should be 4");
         }
-        return String.format("t%s%d%s%s\r", id, value.length() / 2, value, period);
+        return String.format("T%s%d%s%s\r", id, value.length() / 2, value, period);
     }
 }
