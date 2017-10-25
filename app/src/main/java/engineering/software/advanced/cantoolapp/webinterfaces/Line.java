@@ -8,6 +8,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 
 /**
  * Created by ningge on 2017/10/25.
@@ -45,24 +48,87 @@ public class Line {
         return colors.get(color_name);
     }
 
-    public String getLables() {
+    public  List<String> getLables() {
         List<String> labels = new ArrayList<>();
 
         for(MessagesWrapper m : messages) {
             labels.add(m.getTime());
         }
 
-        return new Gson().toJson(labels);
+        return labels;
     }
 
-    public String getDatas() {
+    public List<LineData> egetDatas() {
+        Map<String,  LineData> result = new HashMap<>();
+        int i = 0;
+        for(MessagesWrapper m : messages) {
+            Set<Signal> signals = m.getSignals();
+            for(Signal signal: signals) {
+                if(result.get(signal.getName()) == null) {
+                     result.put(signal.getName(), new LineData(signal.getName(), new ArrayList<String>(), false, this.getColor(i), 0.1f));
+                }
 
+                result.get(signal.getName()).getData().add(signal.getValue() + "");
+                i++;
+            }
+        }
 
-
-
-        return "";
+        return new ArrayList<>(result.values());
     }
 }
 class LineData {
+    private String label = "";
+    private List<String> data = new ArrayList<>();
+    private boolean fill = false;
+    private String borderColor = "";
+    private float lineTension = 0.1f;
 
+    public LineData(String label, List<String> data, boolean fill, String borderColor, float lineTension) {
+        this.label = label;
+        this.data = data;
+        this.fill = fill;
+        this.borderColor = borderColor;
+        this.lineTension = lineTension;
+    }
+
+    public List<String> getData() {
+        return data;
+    }
+
+    public void setData(List<String> data) {
+        this.data = data;
+    }
+
+    public boolean isFill() {
+        return fill;
+    }
+
+    public void setFill(boolean fill) {
+        this.fill = fill;
+    }
+
+    public String getBorderColor() {
+        return borderColor;
+    }
+
+    public void setBorderColor(String borderColor) {
+        this.borderColor = borderColor;
+    }
+
+    public float getLineTension() {
+        return lineTension;
+    }
+
+    public void setLineTension(float lineTension) {
+        this.lineTension = lineTension;
+    }
+
+    public String getLabel() {
+
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }
