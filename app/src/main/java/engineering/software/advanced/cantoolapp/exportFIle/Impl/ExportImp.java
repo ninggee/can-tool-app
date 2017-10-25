@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import engineering.software.advanced.cantoolapp.exportFIle.Export;
+import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 /**
  * Created by lhr on 2017/10/24.
@@ -38,16 +39,39 @@ public class ExportImp implements Export {
 
             //写入
             for(int i = 0;i < canList.size(); i++){
-                Map<String,String> m = canList.get(i);
+                Map<String,MessagesWrapper> m = canList.get(i);
                 System.out.println(m);
+
                 //用keyset()遍历
                 for (String key : m.keySet()) {
-                    bw.write("\"" + m.get(key) +"\"");
+                    MessagesWrapper thismw = m.get(key);
+
+                    bw.write("\"" + thismw.getTime() +"\"");
                     bw.write(",");
+
+                    bw.write("\"" + thismw.getId() +"\"");
+                    bw.write(",");
+
+                    bw.write("\"" + thismw.getChn()+"\"");
+                    bw.write(",");
+
+                    bw.write("\"" + thismw.getName() +"\"");
+                    bw.write(",");
+
+                    bw.write("\"" + thismw.getDir() +"\"");
+                    bw.write(",");
+
+                    bw.write("\"" + thismw.getDlc() +"\"");
+                    bw.write(",");
+
+                    bw.write("\"" + thismw.getData() +"\"");
+                    bw.write(",");
+                    //是不是还缺少？
+
                 }
                 if(i < (canList.size() -1))//没到最后一行之前都要换行
-                {bw.write('\n');System.out.print("行");
-                }
+                    bw.write('\n');
+
             }
             bw.flush();
 

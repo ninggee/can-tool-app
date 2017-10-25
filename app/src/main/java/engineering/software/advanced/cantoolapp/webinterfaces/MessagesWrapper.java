@@ -12,8 +12,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
