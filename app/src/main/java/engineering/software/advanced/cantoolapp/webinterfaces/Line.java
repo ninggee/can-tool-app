@@ -1,7 +1,5 @@
 package engineering.software.advanced.cantoolapp.webinterfaces;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,13 +19,13 @@ public class Line {
     private ArrayList<MessagesWrapper> messages;
     private final static Map<String, String> colors = new HashMap<>();
     static {
-        colors.put("blue", "rgb(54, 162, 235)");
-        colors.put("green","rgb(75, 192, 192)");
-        colors.put("grey", "rgb(201, 203, 207)");
-        colors.put("orange", "rgb(255, 159, 64)");
-        colors.put("purple", "rgb(153, 102, 255)");
-        colors.put("red",   "rgb(255, 99, 132)");
-        colors.put("yellow",    "rgb(255, 205, 86)");
+        colors.put("blue", "#36a2eb");
+        colors.put("green","#4bc0c0");
+        colors.put("grey", "#c9cbcf");
+        colors.put("orange", "#ff9f40");
+        colors.put("purple", "#9966ff");
+        colors.put("red",   "#ff6384");
+        colors.put("yellow",    "#ffcd56");
     }
     private  final static String[] color_names= {"red", "orange", "yellow", "green", "blue", "purple", "grey"};
 
@@ -65,7 +63,7 @@ public class Line {
             Set<Signal> signals = m.getSignals();
             for(Signal signal: signals) {
                 if(result.get(signal.getName()) == null) {
-                     result.put(signal.getName(), new LineData(signal.getName(), new ArrayList<String>(), false, this.getColor(i), 0.1f));
+                     result.put(signal.getName(), new LineData(signal.getName(), new ArrayList<String>(), false, this.getColor(i)));
                 }
 
                 result.get(signal.getName()).getData().add(signal.getValue() + "");
@@ -81,14 +79,23 @@ class LineData {
     private List<String> data = new ArrayList<>();
     private boolean fill = false;
     private String borderColor = "";
-    private float lineTension = 0.1f;
 
-    public LineData(String label, List<String> data, boolean fill, String borderColor, float lineTension) {
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    private String backgroundColor = "";
+
+    public LineData(String label, List<String> data, boolean fill, String borderColor) {
         this.label = label;
         this.data = data;
         this.fill = fill;
         this.borderColor = borderColor;
-        this.lineTension = lineTension;
+        this.backgroundColor = borderColor;
     }
 
     public List<String> getData() {
@@ -115,13 +122,6 @@ class LineData {
         this.borderColor = borderColor;
     }
 
-    public float getLineTension() {
-        return lineTension;
-    }
-
-    public void setLineTension(float lineTension) {
-        this.lineTension = lineTension;
-    }
 
     public String getLabel() {
 

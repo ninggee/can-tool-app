@@ -10,28 +10,20 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.communicator.Reader;
 import engineering.software.advanced.cantoolapp.communicator.ReaderThread;
 import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
-import engineering.software.advanced.cantoolapp.converter.transmission.Impl.SenderImpl;
-import engineering.software.advanced.cantoolapp.converter.transmission.Sender;
 
 /**
  * Created by ningge on 20/10/2017.
@@ -205,7 +197,8 @@ public class TestInterface {
         ArrayList<MessagesWrapper> result = new ArrayList<>();
         synchronized (messages) {
             for (MessagesWrapper m : messages) {
-                if (m.getId() == id) {
+                if (m.getId().equals(id)) {
+//                    Log.d("ad", id);
                     result.add(m);
                 }
             }
