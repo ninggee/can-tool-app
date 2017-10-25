@@ -15,10 +15,18 @@
         <div>
             <legend class="uk-legend">接收信息</legend>
             <hr>
-            <button class="uk-button uk-button-small uk-width-1-1" v-bind:class="buttonClass" v-on:click="shiftConnect">
-                <span v-if="recieving">停止接收</span>
-                <span v-else>开始接收</span>
-            </button>
+            <div class="uk-button-group uk-width-1-1">
+                <button class="uk-button uk-button-small uk-width-1-2" v-bind:class="buttonClass" v-on:click="shiftConnect">
+                    <span v-if="recieving">停止接收</span>
+                    <span v-else>开始接收</span>
+                </button>
+                <button class="uk-button uk-button-small uk-width-1-2" v-if="recieving"  style="background-color:#19d3bd" disabled >
+                    导出列表
+                </button>
+                <button class="uk-button uk-button-small uk-width-1-2" v-else="recieving" style="background-color:#19d3bd">
+                    导出列表
+                </button>
+            </div>
             <hr>
         </div>
         <legend class="uk-legend">接收列表</legend>
