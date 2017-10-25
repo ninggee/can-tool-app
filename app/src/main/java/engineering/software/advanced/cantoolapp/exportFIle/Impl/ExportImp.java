@@ -27,14 +27,100 @@ public class ExportImp implements Export {
     @Override
     public void export(String path, String name, String format, List<Map> canList) {
 
+        
         if(format.equals(".csv"))
             exportCsv(path, name, format,canList);
+        else
+            exportFile(path, name, format,canList);
+
+    }
+
+    private void exportFile(String path, String name, String format, List<Map> canList) {
+        File otherFile = new File(path + name + format);
+        FileOutputStream fos = null;
+        OutputStreamWriter osw = null;
+        BufferedWriter bw = null;
+        try {
+            fos = new FileOutputStream(otherFile);
+            osw = new OutputStreamWriter(fos, "GBK");
+            bw = new BufferedWriter(osw);
+            //写入
+            for(int i = 0;i < canList.size(); i++){
+                Map<String,MessagesWrapper> m = canList.get(i);
+                System.out.println(m);
+
+                //用keyset()遍历
+                for (String key : m.keySet()) {
+                    MessagesWrapper thismessage = m.get(key);
+
+                    bw.write(thismessage.getTime());
+
+
+                    bw.write(thismessage.getId());
+
+
+                    bw.write(thismessage.getChn());
+
+
+                    bw.write(thismessage.getName());
+
+
+                    bw.write(thismessage.getDir());
+
+
+                    bw.write(thismessage.getDlc());
+
+
+                    bw.write(thismessage.getData());
+
+
+                    //写入signal数据
+                    Set<Signal> signals = thismessage.getSignals();
+
+                    for(Signal s : signals){
+                        bw.write('\n');//换行
+
+                        bw.write("signal");
+
+
+                        bw.write(s.getName());
+
+
+                        bw.write(s.getValue()+"");
+
+
+                        bw.write(s.getOrigin());
+
+                    }
+
+                }
+                if(i < (canList.size() -1))//没到最后一行之前都要换行
+                    bw.write('\n');
+
+            }
+            bw.flush();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }  catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            try {
+                bw.close();
+                osw.close();
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
 
     }
 
     private void exportCsv(String path, String name, String format, List<Map> canList) {
         File csvFile = new File(path + name + format);
-        File parent = csvFile.getParentFile();
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile),"GBK"));
@@ -48,25 +134,25 @@ public class ExportImp implements Export {
                 for (String key : m.keySet()) {
                     MessagesWrapper thismessage = m.get(key);
 
-                    bw.write("\"" + thismessage.getTime() +"\"");
+                    bw.write(thismessage.getTime());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getId() +"\"");
+                    bw.write(thismessage.getId());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getChn()+"\"");
+                    bw.write(thismessage.getChn());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getName() +"\"");
+                    bw.write(thismessage.getName());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getDir() +"\"");
+                    bw.write(thismessage.getDir());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getDlc() +"\"");
+                    bw.write(thismessage.getDlc());
                     bw.write(",");
 
-                    bw.write("\"" + thismessage.getData() +"\"");
+                    bw.write(thismessage.getData());
                     bw.write(",");
 
                     //写入signal数据
@@ -75,16 +161,16 @@ public class ExportImp implements Export {
                     for(Signal s : signals){
                         bw.write('\n');//换行
 
-                        bw.write("\"" + "signal" +"\"");
+                        bw.write("signal");
                         bw.write(",");
 
-                        bw.write("\"" + s.getName() +"\"");
+                        bw.write(s.getName());
                         bw.write(",");
 
-                        bw.write("\"" + s.getValue() +"\"");
+                        bw.write(s.getValue()+"");
                         bw.write(",");
 
-                        bw.write("\"" + s.getOrigin() +"\"");
+                        bw.write(s.getOrigin());
                         bw.write(",");
                     }
 
