@@ -31,10 +31,4 @@ public class ReceiverImplTest {
     public void parseStandardFrame() throws Exception {
         System.out.println(receiver.parseStandardFrame("t12F4112233F40110\\r"));
     }
-
-    @Test
-    public void parseExtensionFrame() throws Exception {
-        System.out.println(receiver.parseExtensionFrame("T1234567F81122334455667788\\r"));
-    }
-
 }

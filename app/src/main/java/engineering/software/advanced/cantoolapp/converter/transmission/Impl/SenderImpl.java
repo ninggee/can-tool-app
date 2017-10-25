@@ -17,11 +17,11 @@ public class SenderImpl implements Sender {
     }
 
     public String requestVersion() {
-        return "V\\r";
+        return "V\r";
     }
 
     public String open() {
-        return "O1\\r";
+        return "O1\r";
     }
 
     public String setSpeed(int n) {
@@ -29,11 +29,11 @@ public class SenderImpl implements Sender {
             throw new RuntimeException("The value of n is illegal:" +
             "n should be an integer between 0 and 8.");
         }
-        return String.format("S%d\\r", n);
+        return String.format("S%d\r", n);
     }
 
     public String close() {
-        return "C\\r";
+        return "C\r";
     }
 
     public String sendStandardFrame(String id, String value, String period) {
@@ -43,7 +43,7 @@ public class SenderImpl implements Sender {
         if (period.length() != 4) {
             throw new RuntimeException("The length of period should be 4");
         }
-        return String.format("t%s%d%s%s\\r", id, value.length() / 2, value, period);
+        return String.format("t%s%d%s%s\r", id, value.length() / 2, value, period);
     }
 
     public String sendExtensionFrame(String id, String value, String period) {
@@ -53,11 +53,6 @@ public class SenderImpl implements Sender {
         if (period.length() != 4) {
             throw new RuntimeException("The length of period should be 4");
         }
-        return String.format("t%s%d%s%s\\r", id, value.length() / 2, value, period);
-    }
-
-    public boolean send(String command) {
-        //TODO operation about connection and sending message
-        return false;
+        return String.format("T%s%d%s%s\r", id, value.length() / 2, value, period);
     }
 }

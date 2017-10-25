@@ -24,16 +24,4 @@ public interface Receiver {
 
     //解析扩展帧应答
     public ExtensionFrame parseExtensionFrame(String message);
-
-    //将一个消息加入到应答消息队列中
-    public boolean addAnswerMessage(String message);
-
-    //将一个消息加入到数据消息队列中
-    public boolean addDataMessage(String message);
-
-    //从应答消息队列中取出下一个应答消息，队列为空则阻塞
-    public String takeAnswerMessage(String message) throws InterruptedException;
-
-    //从数据消息队列中去除下一个数据消息，队列为空则阻塞
-    public String takeDataMessage(String message) throws InterruptedException;
 }

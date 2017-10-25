@@ -83,7 +83,7 @@ public class MessageAndSignalProcessor implements Processor {
 
     @Override
     public Set<Message> decodeMultiple(String strs) {
-        String[] strList = strs.split("\\\\r");
+        String[] strList = strs.split("\\r");
         Set<Message> result = new HashSet<Message>();
         for (String str : strList) {
 //            System.out.println("next str: " + str);

@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,7 +48,10 @@ public class MainActivity extends AppCompatActivity
         urls.put("bluetooth", "file:///android_asset/html/bluetooth.html");
         urls.put("detail", "file:///android_asset/html/detail.html");
         urls.put("messages", "file:///android_asset/html/messages.html");
+        urls.put("command", "file:///android_asset/html/command.html");
     }
+
+    private SharedPreferences sharedPreferences = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,15 @@ public class MainActivity extends AppCompatActivity
         //init drawer compontent
         __initDrawer();
 
+        //init sharedpreference which stores can settings
+        sharedPreferences = this.getSharedPreferences("engineering.software.advanced.cantoolapp.can_setting", Context.MODE_PRIVATE);
+
         //init webview and config it
         webview = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
+        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector(), sharedPreferences), "Android");
 
         //this is necessary or app will crash when you click a button
         webview.setWebViewClient(new WebViewClient() {
@@ -186,7 +194,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_module3) {
             webview.loadUrl(urls.get("detail"));
         } else if (id == R.id.module4) {
-
+            webview.loadUrl(urls.get("command"));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
