@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.exportFile;
+package engineering.software.advanced.cantoolapp.export.Impl;
 
 import org.junit.Test;
 
@@ -7,24 +7,24 @@ import java.util.List;
 
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
-
-import engineering.software.advanced.cantoolapp.exportFile.Impl.ExportImp;
+import engineering.software.advanced.cantoolapp.export.Export;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by lhr on 2017/10/25.
  */
-
-public class TestExport {
+public class ExportImplTest {
     MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
     @Test
-    public void export(){
+    public void export() throws Exception {
         Message message = processor.decode("t03D19C");
-
         MessagesWrapper mw = new MessagesWrapper("123",message);
-
-        ExportImp export = new ExportImp();
-        List<MessagesWrapper> canList = new ArrayList<>();
-        export.export("d:/","test",".csv",canList);
+        List<MessagesWrapper> list  = new ArrayList<>();
+        list.add(mw);
+        Export export = new ExportImpl();
+        export.export("d:/","asd",".csv",list);
     }
+
 }

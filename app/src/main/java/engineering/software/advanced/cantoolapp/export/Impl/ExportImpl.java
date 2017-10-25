@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.exportFile.Impl;
+package engineering.software.advanced.cantoolapp.export.Impl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,27 +7,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
-import engineering.software.advanced.cantoolapp.exportFile.Export;
+import engineering.software.advanced.cantoolapp.export.Export;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 /**
- * Created by lhr on 2017/10/24.
+ * Created by lhr on 2017/10/25.
  */
 
-public class ExportImp implements Export {
-
+public class ExportImpl implements Export{
     @Override
     public void export(String path, String name, String format, List<MessagesWrapper> canList) {
 
-        
+
         if(format.equals(".csv"))
             exportCsv(path, name, format,canList);
         else
@@ -99,7 +94,7 @@ public class ExportImp implements Export {
         }  catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 bw.close();
                 osw.close();
