@@ -41,6 +41,7 @@ public class TestInterface {
     Context __context;
     Connector __connector;
     SharedPreferences can_setting;
+    CommandController commandController;
     //store all messages received
     ArrayList<MessagesWrapper> messages = null;
     //store only most recently message for one id
@@ -56,6 +57,7 @@ public class TestInterface {
         __context = c;
         __connector =connector;
         can_setting = sharedPreferences;
+        commandController = new CommandController(__connector);
     }
 
     @JavascriptInterface
@@ -169,8 +171,13 @@ public class TestInterface {
     }
 
     @JavascriptInterface
-    void sendCommand(String type, String value) {
+    public void sendCommand(String type, String value) {
+        commandController.sendCommand(type, value);
+    }
 
+    @JavascriptInterface
+    public String getCommandResult() {
+        return commandController.getResult();
     }
 
 

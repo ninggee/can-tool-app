@@ -78,7 +78,7 @@
                 <label class="uk-form-label">设备版本</label>
                 <div uk-form-custom>
                     <input class="uk-input uk-form-width-small" type="text" placeholder="版本号" v-model="version" disabled>
-                    <button class="uk-button uk-button-primary  uk-button-medium" style="background-color:#ef7934" v-on:click="process('')">获取版本号</button>
+                    <button class="uk-button uk-button-primary  uk-button-medium" style="background-color:#ef7934"  v-on:click="process('version')">获取版本号</button>
                 </div>
 
 
@@ -87,7 +87,7 @@
                 <label class="uk-form-label">通讯速率</label>
                 <div uk-form-custom="target: true">
                     <input class="uk-input uk-form-width-small" type="text" v-model="selected_speed" disabled>
-                    <select class="uk-select uk-form-width-small" v-model="selected_speed">
+                    <select class="uk-select uk-form-width-small" v-model="selected_speed" v-on:change="process('speed')">
                         <option v-for="speed in speeds" v-bind:value="speed.name">{{speed.value}}</option>
                     </select>
                     <button class="uk-button uk-button-primary uk-button-secondary" type="button">设定通讯速率</button>
@@ -97,7 +97,7 @@
                 <label class="uk-form-label">Can装置开关</label>
                 <div uk-form-custom>
                     <label class="switch">
-                        <input type="checkbox" v-model="open">
+                        <input type="checkbox" v-model="open" v-on:click="process('open')">
                         <span class="slider round"></span>
                     </label>
                     <span v-if="open" class="uk-label uk-label-success" style="margin-top: -25px">已连接</span>
@@ -105,15 +105,15 @@
                 </div>
 
             </div>
-            <button class="uk-button uk-button-primary  uk-width-1-1" v-on:click="connect">保存设定</button>
+            <button class="uk-button uk-button-primary  uk-width-1-1" v-on:click="save">保存设定</button>
         </fieldset>
     </form>
 </div>
 
 <script type="text/javascript">
-        var app = new Vue({
-          el: '#app',
-          data: {
+    var app = new Vue({
+        el: '#app',
+        data: {
             speeds: [{
                 name: "S0",
                 value: "10Kbit"
@@ -146,15 +146,53 @@
             open: false,
             version: "",
             processing: false
-         },
-         created: function() {
+        },
+        created: function() {
 
-         },
-         methods: {
+        },
+        methods: {
+            process: function(type) {
+                if(this.processing) {
+                    return;
+                }
 
-         }
-         })
-    </script>
+                this.processing = true;
+                switch(type) {
+                    case "version":
+                        Android.sendCommand("version", "");
+                        break;
+                    case "speed":
+                        Android.sendCommand(type, this.selected_speed.substring(1))
+                        break;
+                    default:
+                        Android.sendCommand(type, this.open)
+                }
+
+               this.getResult(type)
+            },
+            save: function() {
+               result =  Android.saveCanSetting(this.version, this.speed, this.is_open);
+               if(result) {
+                   Android.showToast("存储成功")
+               } else {
+                   Android.showToast("操作失败，请重试")
+               }
+            },
+            getResult(type) {
+                result = Android.getCommandResult()
+                getResult = this.getResult
+                if(result == "") {
+                    setTimeout(function() { getResult(type)}, 500)
+                } else {
+                    console.log(result)
+                    this.processing = false
+                }
+            }
+
+
+        }
+    })
+</script>
 
 </body>
 </html>

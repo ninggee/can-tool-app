@@ -57,7 +57,11 @@ public class CommandController {
     }
 
     private void writeToDevice(String message) {
+        Log.d("send command", message);
         OutputStream outputStream = this.connector.getOutputStream();
+
+        //start a new thread to wait result
+        waitResult();
 
         //write message to device
         byte[] bytes = message.getBytes();
@@ -67,8 +71,7 @@ public class CommandController {
             Log.e("write","write to bluetooth failed");
         }
 
-        //start a new thread to wait result
-        waitResult();
+
     }
 
     public void waitResult() {
@@ -82,19 +85,16 @@ public class CommandController {
                 if(message == null) {
                     return;
                 }
-
-                synchronized (result) {
-                    switch (command_type) {
-                        case "version":
-                            result = receiver.parseVersion(message);
-                            break;
-                        default:
-                            result = receiver.parseYN(message) + "";
-                    }
-
-                    state = true;
+                Log.d("command", message);
+                switch (command_type) {
+                    case "version":
+                        result = receiver.parseVersion(message);
+                        break;
+                    default:
+                        result = receiver.parseYN(message) + "";
                 }
 
+                state = true;
 
                 try {
                     in.close();
