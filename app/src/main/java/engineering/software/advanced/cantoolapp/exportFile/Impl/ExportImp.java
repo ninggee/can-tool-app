@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.exportFIle.Impl;
+package engineering.software.advanced.cantoolapp.exportFile.Impl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
-import engineering.software.advanced.cantoolapp.exportFIle.Export;
+import engineering.software.advanced.cantoolapp.exportFile.Export;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 /**
@@ -25,7 +25,7 @@ import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 public class ExportImp implements Export {
 
     @Override
-    public void export(String path, String name, String format, List<Map> canList) {
+    public void export(String path, String name, String format, List<MessagesWrapper> canList) {
 
         
         if(format.equals(".csv"))
@@ -35,7 +35,7 @@ public class ExportImp implements Export {
 
     }
 
-    private void exportFile(String path, String name, String format, List<Map> canList) {
+    private void exportFile(String path, String name, String format, List<MessagesWrapper> canList) {
         File otherFile = new File(path + name + format);
         FileOutputStream fos = null;
         OutputStreamWriter osw = null;
@@ -46,54 +46,48 @@ public class ExportImp implements Export {
             bw = new BufferedWriter(osw);
             //写入
             for(int i = 0;i < canList.size(); i++){
-                Map<String,MessagesWrapper> m = canList.get(i);
-                System.out.println(m);
+                MessagesWrapper thismessage = canList.get(i);
 
-                //用keyset()遍历
-                for (String key : m.keySet()) {
-                    MessagesWrapper thismessage = m.get(key);
-
-                    bw.write(thismessage.getTime());
+                bw.write(thismessage.getTime());
 
 
-                    bw.write(thismessage.getId());
+                bw.write(thismessage.getId());
 
 
-                    bw.write(thismessage.getChn());
+                bw.write(thismessage.getChn());
 
 
-                    bw.write(thismessage.getName());
+                bw.write(thismessage.getName());
 
 
-                    bw.write(thismessage.getDir());
+                bw.write(thismessage.getDir());
 
 
-                    bw.write(thismessage.getDlc());
+                bw.write(thismessage.getDlc());
 
 
-                    bw.write(thismessage.getData());
+                bw.write(thismessage.getData());
 
 
-                    //写入signal数据
-                    Set<Signal> signals = thismessage.getSignals();
+                //写入signal数据
+                Set<Signal> signals = thismessage.getSignals();
 
-                    for(Signal s : signals){
-                        bw.write('\n');//换行
+                for(Signal s : signals){
+                    bw.write('\n');//换行
 
-                        bw.write("signal");
-
-
-                        bw.write(s.getName());
+                    bw.write("signal");
 
 
-                        bw.write(s.getValue()+"");
+                    bw.write(s.getName());
 
 
-                        bw.write(s.getOrigin());
+                    bw.write(s.getValue()+"");
 
-                    }
+
+                    bw.write(s.getOrigin());
 
                 }
+
                 if(i < (canList.size() -1))//没到最后一行之前都要换行
                     bw.write('\n');
 
@@ -119,7 +113,7 @@ public class ExportImp implements Export {
 
     }
 
-    private void exportCsv(String path, String name, String format, List<Map> canList) {
+    private void exportCsv(String path, String name, String format, List<MessagesWrapper> canList) {
         File csvFile = new File(path + name + format);
         BufferedWriter bw = null;
         try {
@@ -127,53 +121,45 @@ public class ExportImp implements Export {
 
             //写入
             for(int i = 0;i < canList.size(); i++){
-                Map<String,MessagesWrapper> m = canList.get(i);
-                System.out.println(m);
+                MessagesWrapper thismessage = canList.get(i);
+                bw.write(thismessage.getTime());
+                bw.write(",");
 
-                //用keyset()遍历
-                for (String key : m.keySet()) {
-                    MessagesWrapper thismessage = m.get(key);
+                bw.write(thismessage.getId());
+                bw.write(",");
 
-                    bw.write(thismessage.getTime());
+                bw.write(thismessage.getChn());
+                bw.write(",");
+
+                bw.write(thismessage.getName());
+                bw.write(",");
+
+                bw.write(thismessage.getDir());
+                bw.write(",");
+
+                bw.write(thismessage.getDlc());
+                bw.write(",");
+
+                bw.write(thismessage.getData());
+                bw.write(",");
+
+                //写入signal数据
+                Set<Signal> signals = thismessage.getSignals();
+
+                for(Signal s : signals){
+                    bw.write('\n');//换行
+
+                    bw.write("signal");
                     bw.write(",");
 
-                    bw.write(thismessage.getId());
+                    bw.write(s.getName());
                     bw.write(",");
 
-                    bw.write(thismessage.getChn());
+                    bw.write(s.getValue()+"");
                     bw.write(",");
 
-                    bw.write(thismessage.getName());
+                    bw.write(s.getOrigin());
                     bw.write(",");
-
-                    bw.write(thismessage.getDir());
-                    bw.write(",");
-
-                    bw.write(thismessage.getDlc());
-                    bw.write(",");
-
-                    bw.write(thismessage.getData());
-                    bw.write(",");
-
-                    //写入signal数据
-                    Set<Signal> signals = thismessage.getSignals();
-
-                    for(Signal s : signals){
-                        bw.write('\n');//换行
-
-                        bw.write("signal");
-                        bw.write(",");
-
-                        bw.write(s.getName());
-                        bw.write(",");
-
-                        bw.write(s.getValue()+"");
-                        bw.write(",");
-
-                        bw.write(s.getOrigin());
-                        bw.write(",");
-                    }
-
                 }
                 if(i < (canList.size() -1))//没到最后一行之前都要换行
                     bw.write('\n');
