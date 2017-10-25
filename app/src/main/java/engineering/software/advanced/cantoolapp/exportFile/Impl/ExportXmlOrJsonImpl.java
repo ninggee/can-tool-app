@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.exportFIle.Impl;
+package engineering.software.advanced.cantoolapp.exportFile.Impl;
 
 import com.google.gson.Gson;
 
@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.exportFIle.ExportXmlOrJson;
+
+import engineering.software.advanced.cantoolapp.exportFile.ExportXmlOrJson;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 /**
  * Created by lhr on 2017/10/25.
  */
 
-public class ExportXmlOrJsonImpl implements ExportXmlOrJson{
+public class ExportXmlOrJsonImpl implements ExportXmlOrJson {
     @Override
     public void exportJson(Set<Map<String,MessagesWrapper>> canSet, String filename, String path) {
         Gson gson = new Gson();

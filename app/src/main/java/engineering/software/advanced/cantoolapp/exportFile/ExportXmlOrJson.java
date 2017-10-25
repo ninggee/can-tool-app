@@ -1,4 +1,4 @@
-package engineering.software.advanced.cantoolapp.exportFIle;
+package engineering.software.advanced.cantoolapp.exportFile;
 
 import java.util.Map;
 import java.util.Set;
