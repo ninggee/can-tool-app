@@ -39,8 +39,8 @@ public class DataBaseImpl implements DataBase {
 
 
     DataBaseImpl() {
-//        filename = new File("/data/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
-                filename = new File("D:\\codes\\android\\can-tool-app\\app\\src\\main\\assets\\canmsg-sample.dbc");//读取文件
+        filename = new File("/data/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
+//                filename = new File("D:\\codes\\android\\can-tool-app\\app\\src\\main\\assets\\canmsg-sample.dbc");//读取文件
     }
 
     DataBaseImpl(String  path) {

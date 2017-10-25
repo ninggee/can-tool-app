@@ -17,6 +17,14 @@
     <div class="uk-card uk-card-default uk-width-auto" >
         <div class="uk-card-header">
             <h6 class="uk-card-title">Can信息</h6>
+            <div class="uk-button-group uk-width-1-1">
+                <button class="uk-button uk-button-small uk-width-1-2">
+                    仪表显示
+                </button>
+                <button class="uk-button uk-button-small uk-width-1-2" >
+                    <a :href="'file:///android_asset/html/line.html?id=' + id">折线图</a>
+                </button>
+            </div>
             <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                 <thead>
                 <tr>
@@ -99,6 +107,7 @@ var app = new Vue({
     created: function() {
         var id_index = window.location.href.indexOf("?id=")
         this.id = window.location.href.substring(id_index + 4)
+        console.log(this.id)
         this.message = JSON.parse(Android.getSignalsById(this.id))
     },
     mounted: function() {
