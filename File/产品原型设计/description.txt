@@ -1,9 +1,1 @@
 此文件夹存放cantoolapp的原型设计文件以及相关说明
-
-HTML前端页面？实现
-
-使用HTML
-用webview展示界面
-就不用写xml了
-然后也能交互
-前端js
