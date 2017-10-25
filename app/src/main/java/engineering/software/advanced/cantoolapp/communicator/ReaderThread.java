@@ -23,22 +23,15 @@ public class ReaderThread extends Thread implements Reader {
     }
 
     @Override
-    public void read() {
+    public void read() throws IOException {
 
         byte[] buffer = new byte[1024];
 
         int bytes; // bytes read from inputstream
-        try {
 
-            bytes = in.read(buffer);
-            handler.handle(new String(buffer, 0, bytes));
-            // clean buffer
-            buffer = new byte[1024];
 
-        } catch (IOException e){
-            e.printStackTrace();
-            Log.e(TAG, "read from input stream failed");
-        }
+        bytes = in.read(buffer);
+        handler.handle(new String(buffer, 0, bytes));
 
     }
 
@@ -47,7 +40,13 @@ public class ReaderThread extends Thread implements Reader {
         super.run();
         //keep listening to the input stream until thread is interrupted
         while(!interrupted()) {
-            read();
+            try{
+               read();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(TAG, "read from inputstram failed");
+                break;
+            }
         }
      }
 }

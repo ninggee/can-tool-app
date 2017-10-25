@@ -71,6 +71,7 @@
 <body>
 
 <div  id="app" class="uk-flex uk-flex-center">
+    <div v-if="processing" uk-spinner></div>
     <form class="uk-width-5-6 uk-form-stacked">
         <fieldset class="uk-fieldset uk-margin-medium-top">
             <legend class="uk-legend ">命令列表</legend>
@@ -143,12 +144,22 @@
                 value: "1Mbit"
             }],
             selected_speed: "S0",
+            old_speed: "S0",
             open: false,
+            old_open: false,
             version: "",
             processing: false
         },
         created: function() {
+            result = Android.loadCanSetting()
+            console.log(result)
+            result = JSON.parse(result)
 
+            this.version = result["version"]
+            this.selected_speed = result['speed']
+            this.old_speed = result['speed']
+            this.open = result['is_open'] == "true"
+            this.old_open = result['is_open'] == "true"
         },
         methods: {
             process: function(type) {
@@ -171,7 +182,7 @@
                this.getResult(type)
             },
             save: function() {
-               result =  Android.saveCanSetting(this.version, this.speed, this.is_open);
+               result =  Android.saveCanSetting(this.version, this.selected_speed, this.open);
                if(result) {
                    Android.showToast("存储成功")
                } else {
@@ -185,6 +196,25 @@
                     setTimeout(function() { getResult(type)}, 500)
                 } else {
                     console.log(result)
+                    switch(type) {
+                        case "version":
+                            this.version = result
+                            break;
+                        case "speed":
+                            if(result == "true") {
+                                this.old_speed = this.selected_speed
+                            } else {
+                                this.selected_speed = this.old_speed
+                                Android.showToast("设置失败")
+                            }
+                        default:
+                            if(result == "true") {
+                                this.old_open = this.open
+                            } else {
+                                this.open = this.old_open
+                                Android.showToast("设置失败")
+                            }
+                    }
                     this.processing = false
                 }
             }

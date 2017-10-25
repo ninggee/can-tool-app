@@ -96,11 +96,9 @@ public class CommandController {
 
                 state = true;
 
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                Thread.currentThread().interrupt();
+
             }
 
         });
@@ -114,7 +112,7 @@ public class CommandController {
         } else {
 
             // stop get result thread
-            reader.interrupt();
+//            reader.interrupt();
             String result  = this.result;
 
             //reset flag variable

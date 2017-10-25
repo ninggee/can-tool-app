@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -163,11 +164,22 @@ public class TestInterface {
 
     @JavascriptInterface
     public boolean saveCanSetting(String version, String speed, boolean is_open) {
+        Log.i("save", version + " " + speed + " " + is_open);
         CanSettings canSettings = new CanSettings(can_setting);
         canSettings.setVersion(version);
         canSettings.setSpeed(speed);
         canSettings.setIs_open(is_open);
         return canSettings.save();
+    }
+
+    @JavascriptInterface
+    public String loadCanSetting() {
+        CanSettings canSettings = new CanSettings(can_setting);
+        Map<String, String> result = new HashMap<>();
+        result.put("version", canSettings.getVersion());
+        result.put("speed", canSettings.getSpeed());
+        result.put("is_open", canSettings.is_open() + "");
+        return new Gson().toJson(result);
     }
 
     @JavascriptInterface
@@ -180,6 +192,31 @@ public class TestInterface {
         return commandController.getResult();
     }
 
+    public ArrayList<MessagesWrapper> getMessagesForExport() {
+        return messages;
+    }
 
+    @JavascriptInterface
+    public String getLineDatas(String id) {
+        if (messages == null) {
+            return "";
+        }
+
+        ArrayList<MessagesWrapper> result = new ArrayList<>();
+        synchronized (messages) {
+            for (MessagesWrapper m : messages) {
+                if (m.getId() == id) {
+                    result.add(m);
+                }
+            }
+        }
+
+        Line line = new Line(id, result);
+
+        Map<String, List> result_map = new HashMap<>();
+        result_map.put("labels", line.getLables());
+        result_map.put("datasets", line.egetDatas());
+        return new Gson().toJson(result_map);
+    }
 
 }
