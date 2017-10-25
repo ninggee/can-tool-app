@@ -117,4 +117,6 @@ public class BuletoothConnector implements Connector {
 
         return state;
     }
+
+
 }

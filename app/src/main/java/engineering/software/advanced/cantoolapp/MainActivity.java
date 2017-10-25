@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,7 +48,10 @@ public class MainActivity extends AppCompatActivity
         urls.put("bluetooth", "file:///android_asset/html/bluetooth.html");
         urls.put("detail", "file:///android_asset/html/detail.html");
         urls.put("messages", "file:///android_asset/html/messages.html");
+        urls.put("command", "file:///android_asset/html/command.html");
     }
+
+    private SharedPreferences sharedPreferences = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,15 @@ public class MainActivity extends AppCompatActivity
         //init drawer compontent
         __initDrawer();
 
+        //init sharedpreference which stores can settings
+        sharedPreferences = this.getSharedPreferences("engineering.software.advanced.cantoolapp.can_setting", Context.MODE_PRIVATE);
+
         //init webview and config it
         webview = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector()), "Android");
+        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector(), sharedPreferences), "Android");
 
         //this is necessary or app will crash when you click a button
         webview.setWebViewClient(new WebViewClient() {
@@ -98,12 +106,7 @@ public class MainActivity extends AppCompatActivity
 
         //wtrie dbc file
         writeDBC();
-        //test can delete
-        DataBase db = DataBaseImpl.getInstance();
-        Set<CanSignal> set = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
-        for(CanSignal cs : set){
-            Log.e("ttt",cs.toString());
-        }
+
 
 
     }
@@ -154,12 +157,15 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    //删除右上角
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -168,7 +174,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -188,7 +194,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_module3) {
             webview.loadUrl(urls.get("detail"));
         } else if (id == R.id.module4) {
-
+            webview.loadUrl(urls.get("command"));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -205,14 +211,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

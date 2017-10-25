@@ -1,9 +1,6 @@
 package engineering.software.advanced.cantoolapp.converter.transmission.Impl;
 
 import android.util.Log;
-
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,14 +18,7 @@ public class ReceiverImpl implements Receiver {
 
     private static Receiver receiver = new ReceiverImpl();
 
-    private BlockingQueue<String> answerQueue;
-
-    private BlockingQueue<String> dataQueue;
-
-    private ReceiverImpl() {
-        answerQueue = new ArrayBlockingQueue<String>(1024);
-        dataQueue = new ArrayBlockingQueue<String>(1024);
-    }
+    private ReceiverImpl() {}
 
     public static Receiver getInstance() {
         return receiver;
@@ -54,10 +44,10 @@ public class ReceiverImpl implements Receiver {
 
     @Override
     public boolean parseYN(String message) {
-        if (message.equals("\\r")) {
+        if (message.equals("\r")) {
             return true;
         }
-        else if (message.equals("\\BEL")) {
+        else if (message.equals("\007")) {
             return false;
         }
         else {
@@ -72,7 +62,7 @@ public class ReceiverImpl implements Receiver {
 
     @Override
     public StandardFrame parseStandardFrame(String message) {
-        String raw = message.replace("\\r", "");
+        String raw = message.replace("\r", "");
         String id = raw.substring(1, 4);
         int length = Integer.parseInt(raw.substring(4, 5));
         String data = raw.substring(5, 5 + length * 2);
@@ -99,7 +89,7 @@ public class ReceiverImpl implements Receiver {
 
     @Override
     public ExtensionFrame parseExtensionFrame(String message) {
-        String raw = message.replace("\\r", "");
+        String raw = message.replace("\r", "");
         String id = raw.substring(1, 9);
         int length = Integer.parseInt(raw.substring(9, 10));
         String data = raw.substring(10, 10 + length * 2);
@@ -120,35 +110,5 @@ public class ReceiverImpl implements Receiver {
             throw new RuntimeException("The length of this extension frame is illegal.");
         }
         return new ExtensionFrame(raw, id, String.valueOf(length), data, period, direction);
-    }
-
-    @Override
-    public boolean addAnswerMessage(String message) {
-        try {
-            answerQueue.add(message);
-            return true;
-        } catch (IllegalStateException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addDataMessage(String message) {
-        try {
-            dataQueue.add(message);
-            return true;
-        } catch (IllegalStateException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public String takeAnswerMessage(String message) throws InterruptedException {
-        return answerQueue.take();
-    }
-
-    @Override
-    public String takeDataMessage(String message) throws InterruptedException {
-        return dataQueue.take();
     }
 }

@@ -34,7 +34,4 @@ public interface Sender {
 
     //向CanTool装置发送CAN扩展帧命令（以T开头）
     public String sendExtensionFrame(String id, String value, String period);
-
-    //发送函数
-    public boolean send(String command);
 }

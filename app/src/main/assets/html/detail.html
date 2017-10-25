@@ -64,7 +64,25 @@
             </table>
         </div>
         <div class="uk-card-footer">
-            <a href="#" class="uk-button uk-button-text">Read more</a>
+            <h6 class="uk-card-title">Can信号分布</h6>
+            <table class="uk-table uk-table-divider">
+                <tbody>
+                <tr>
+                    <td style="background-color: #A4A4A4"></td>
+                    <td style="background-color: #A4A4A4" v-for="i in [7, 6, 5, 4, 3, 2, 1, 0]">{{i}}</td>
+                </tr>
+                <tr v-for="i in [0, 1, 2, 3, 4, 5, 6, 7]">
+                    <td style="background-color: #A4A4A4">{{i}}</td>
+                    <td  v-for="j in [ i * 8 + 7,  i * 8 + 6, i * 8 + 5,  i * 8 + 4, i * 8 + 3, i * 8 + 2, i * 8 + 1, i * 8 ]" :ref="getGridName(j)">{{  j}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+
+                <span v-for="color in colors"  class="uk-badge" style="padding-right: 5px" v-bind:style="{ backgroundColor: color.color}" >{{color.name}}</span>
+
+            </div>
+
         </div>
     </div>
 </div>
@@ -75,16 +93,32 @@ var app = new Vue({
     data: {
        id: 0,
        message: {},
-       distribution: {}
+       distribution: {},
+       colors: []
     },
     created: function() {
         var id_index = window.location.href.indexOf("?id=")
         this.id = window.location.href.substring(id_index + 4)
         this.message = JSON.parse(Android.getSignalsById(this.id))
-
+    },
+    mounted: function() {
         this.distribution = JSON.parse(Android.getDistribution(this.id))
 
-        console.log(Android.getDistribution(this.id))
+        for(dis in this.distribution) {
+            name = dis;
+            values = this.distribution[dis]
+            color = this.randomColor()
+
+            for (value in values) {
+                var td = this.$refs["grid_" + values[value]][0]
+                td.style.backgroundColor = color
+            }
+
+            this.colors.push({
+                    name: dis,
+                    color: color
+                })
+        }
     },
     computed: {
 
@@ -92,6 +126,12 @@ var app = new Vue({
     methods: {
         back: function() {
             console.log("back function called")
+        },
+        randomColor: function(){
+            return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+        },
+        getGridName: function(index) {
+            return "grid_" + index;
         }
     }
 })
