@@ -1,6 +1,7 @@
 package engineering.software.advanced.cantoolapp.webinterfaces;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -9,8 +10,10 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +27,10 @@ import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
+import engineering.software.advanced.cantoolapp.converter.transmission.Impl.SenderImpl;
+import engineering.software.advanced.cantoolapp.converter.transmission.Sender;
 
 /**
  * Created by ningge on 20/10/2017.
@@ -34,6 +40,7 @@ public class TestInterface {
 
     Context __context;
     Connector __connector;
+    SharedPreferences can_setting;
     //store all messages received
     ArrayList<MessagesWrapper> messages = null;
     //store only most recently message for one id
@@ -45,9 +52,10 @@ public class TestInterface {
     Processor processor = new MessageAndSignalProcessor();
 
 
-    public TestInterface(Context c, Connector connector) {
+    public TestInterface(Context c, Connector connector, SharedPreferences sharedPreferences) {
         __context = c;
         __connector =connector;
+        can_setting = sharedPreferences;
     }
 
     @JavascriptInterface
@@ -127,8 +135,8 @@ public class TestInterface {
 
         Gson gson = new Gson();
         synchronized (this.messages) {
-            List<MessagesWrapper> list = new ArrayList<MessagesWrapper>(uniqueMessages.values());
-            return gson.toJson(list);
+//            List<MessagesWrapper> list = new ArrayList<MessagesWrapper>(uniqueMessages.values());
+            return gson.toJson(messages);
         }
     }
 
@@ -150,4 +158,21 @@ public class TestInterface {
         Gson gson = new Gson();
         return gson.toJson(distribution);
     }
+
+    @JavascriptInterface
+    public boolean saveCanSetting(String version, String speed, boolean is_open) {
+        CanSettings canSettings = new CanSettings(can_setting);
+        canSettings.setVersion(version);
+        canSettings.setSpeed(speed);
+        canSettings.setIs_open(is_open);
+        return canSettings.save();
+    }
+
+    @JavascriptInterface
+    void sendCommand(String type, String value) {
+
+    }
+
+
+
 }

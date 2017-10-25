@@ -29,7 +29,10 @@
                 </select>
             </div>
             <div class="uk-margin">
-                <label class="uk-form-label">已连接设备<span class="uk-badge" v-bind:class="{ danger: disconnected }"></span></label>
+                <label class="uk-form-label">已连接设备
+                    <span v-if="disconnected" class="uk-label uk-label-danger">已断开</span>
+                    <span v-else="disconnected" class="uk-label uk-label-success">已连接</span>
+                </label>
                 <input type="text" class="uk-input" v-model="connected" disabled>
             </div>
             <button class="uk-button uk-button-primary" v-on:click="connect">连接</button>

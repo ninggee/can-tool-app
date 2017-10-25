@@ -1,0 +1,160 @@
+<html>
+<head>
+    <title>发送命令</title>
+    <script src="file:///android_asset/js/vue.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <style>
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+        }
+
+        .switch input {display:none;}
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+
+    </style>
+
+    <!--<script src="file:///android_asset/js/vue.js">-->
+</head>
+<body>
+
+<div  id="app" class="uk-flex uk-flex-center">
+    <form class="uk-width-5-6 uk-form-stacked">
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+            <legend class="uk-legend ">命令列表</legend>
+            <div class="uk-margin" uk-margin>
+                <label class="uk-form-label">设备版本</label>
+                <div uk-form-custom>
+                    <input class="uk-input uk-form-width-small" type="text" placeholder="版本号" v-model="version" disabled>
+                    <button class="uk-button uk-button-primary  uk-button-medium" style="background-color:#ef7934" v-on:click="process('')">获取版本号</button>
+                </div>
+
+
+            </div>
+            <div class="uk-margin" uk-margin>
+                <label class="uk-form-label">通讯速率</label>
+                <div uk-form-custom="target: true">
+                    <input class="uk-input uk-form-width-small" type="text" v-model="selected_speed" disabled>
+                    <select class="uk-select uk-form-width-small" v-model="selected_speed">
+                        <option v-for="speed in speeds" v-bind:value="speed.name">{{speed.value}}</option>
+                    </select>
+                    <button class="uk-button uk-button-primary uk-button-secondary" type="button">设定通讯速率</button>
+                </div>
+            </div>
+            <div class="uk-margin" uk-margin>
+                <label class="uk-form-label">Can装置开关</label>
+                <div uk-form-custom>
+                    <label class="switch">
+                        <input type="checkbox" v-model="open">
+                        <span class="slider round"></span>
+                    </label>
+                    <span v-if="open" class="uk-label uk-label-success" style="margin-top: -25px">已连接</span>
+                    <span v-else="open" class="uk-label uk-label-danger" style="margin-top: -25px">已断开</span>
+                </div>
+
+            </div>
+            <button class="uk-button uk-button-primary  uk-width-1-1" v-on:click="connect">保存设定</button>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+        var app = new Vue({
+          el: '#app',
+          data: {
+            speeds: [{
+                name: "S0",
+                value: "10Kbit"
+            },{
+                name: "S1",
+                value: "50Kbit"
+            },{
+                name: "S2",
+                value: "20Kbit"
+            },{
+                name: "S3",
+                value: "100Kbit"
+            },{
+                name: "S4",
+                value: "125Kbit"
+            },{
+                name: "S5",
+                value: "250Kbit"
+            },{
+                name: "S6",
+                value: "500Kbit"
+            },{
+                name: "S7",
+                value: "800Kbit"
+            },{
+                name: "S8",
+                value: "1Mbit"
+            }],
+            selected_speed: "S0",
+            open: false,
+            version: "",
+            processing: false
+         },
+         created: function() {
+
+         },
+         methods: {
+
+         }
+         })
+    </script>
+
+</body>
+</html>
