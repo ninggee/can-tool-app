@@ -1,0 +1,100 @@
+<html>
+<head>
+    <title>发送命令</title>
+    <script src="file:///android_asset/js/vue.js"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+</head>
+<body>
+
+<div  id="app" class="uk-flex uk-flex-center">
+    <form class="uk-width-5-6 uk-form-stacked" v-on:submit="submit">
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+            <legend class="uk-legend ">Can信息列表</legend>
+            <div class="uk-margin uk-width-medium" uk-margin>
+                <label class="uk-form-label">选择Can信息</label>
+                <select class="uk-select" v-model="selected" v-on:change="selectMessage">
+                    <option v-for="message in messages" v-bind:value="message.canMessage.id">{{message.canMessage.messageName}}</option>
+                </select>
+            </div>
+            <legend class="uk-legend ">发送周期</legend>
+            <div class="uk-margin uk-width-medium" uk-margin>
+                <label class="uk-form-label">范围（0-65535）</label>
+                <input type="number" min="0" max="65535" class="uk-input uk-width-medium" step="1" required v-model="result.period">
+            </div>
+
+            <legend class="uk-legend ">Can信号列表</legend>
+            <div class="uk-margin" v-for="item in items">
+                <label class="uk-form-label">{{item.signalName}} <span class="uk-label uk-label-warning">[{{item.c}}] - [{{item.d}}]</span></label>
+                <input type="number" class="uk-input uk-width-medium" :min="item.c" :max="item.d" :step="getStep(item.a)" v-model="item.value" required>
+            </div>
+
+            <button class="uk-button uk-button-primary  uk-width-medium" >发送信息</button>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            messages:[],
+            selected: "",
+            result:{
+                id: '',
+                values: [
+                ],
+                period: 0
+            },
+            items: []
+        },
+        created: function() {
+            var result = Android.getAllMessages();
+            this.messages = JSON.parse(result)
+        },
+        methods: {
+            selectMessage: function() {
+                for(index in this.messages) {
+                    message = this.messages[index]
+                    if(message.canMessage.id == this.selected) {
+                        this.items = message.canSignals
+                    }
+                }
+            },
+            getStep: function(a) {
+                if(this.isFloat(a)) {
+                    return 0.1;
+                } else {
+                    return 1;
+                }
+            },
+            isFloat: function(n){
+                return Number(n) === n && n % 1 !== 0;
+            },
+            submit: function () {
+                if(!this.result.id) {
+                    Android.showToast("请选择要发送的Message")
+                    return false;
+                }
+                this.result.id = this.selected
+                for(index in this.items){
+                    item = this.items[index]
+                    this.result.values.push({
+                        name: item.signalName,
+                        value: item.value
+                    })
+                }
+
+                console.log(JSON.stringify(this.result))
+            }
+
+        }
+    })
+</script>
+
+</body>
+</html>

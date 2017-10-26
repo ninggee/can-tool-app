@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.communicator.Reader;
@@ -36,7 +37,7 @@ public class CommandController {
         this.connector = connector;
     }
 
-    void sendCommand(String type, String value) {
+    public void sendCommand(String type, String value) {
         Sender sender = SenderImpl.getInstance();
         command_type = type;
         switch (type) {
@@ -71,6 +72,10 @@ public class CommandController {
             Log.e("write","write to bluetooth failed");
         }
 
+
+    }
+
+    public void sendMessage(String id, Map<String, Double> values, int period) {
 
     }
 

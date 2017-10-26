@@ -23,6 +23,8 @@ import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
+import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.Export;
@@ -278,6 +280,10 @@ public class TestInterface {
         return new Gson().toJson(result_map);
     }
 
-
+    @JavascriptInterface
+    public String getAllMessages() {
+        DataBase db = new DataBaseImpl();
+        return db.searchAllMessage();
+    }
 
 }

@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         urls.put("messages", "file:///android_asset/html/messages.html");
         urls.put("command", "file:///android_asset/html/command.html");
         urls.put("meter", "file:///android_asset/html/meter.html");
+        urls.put("send", "file:///android_asset/html/send.html");
     }
 
     private SharedPreferences sharedPreferences = null;
@@ -225,8 +226,8 @@ public class MainActivity extends AppCompatActivity
             webview.loadUrl(urls.get("meter"));
         } else if (id == R.id.module4) {
             webview.loadUrl(urls.get("command"));
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.module5) {
+            webview.loadUrl(urls.get("send"));
         } else if (id == R.id.nav_send) {
 
         }
