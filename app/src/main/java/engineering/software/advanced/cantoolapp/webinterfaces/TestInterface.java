@@ -24,6 +24,8 @@ import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
+import engineering.software.advanced.cantoolapp.export.Export;
+import engineering.software.advanced.cantoolapp.export.Impl.ExportImpl;
 
 /**
  * Created by ningge on 20/10/2017.
@@ -37,6 +39,7 @@ public class TestInterface {
     CommandController commandController;
     //store all messages received
     ArrayList<MessagesWrapper> messages = null;
+    ArrayList<MessagesWrapper> lastMessages = null;
     //store only most recently message for one id
     Map<String, MessagesWrapper> uniqueMessages = null;
 
@@ -116,6 +119,7 @@ public class TestInterface {
             Log.e("thread", "interrupt error");
             return false;
         }
+        lastMessages = messages;
         messages = null;
         uniqueMessages = null;
         return  true;
@@ -146,6 +150,11 @@ public class TestInterface {
         return messagesWrapper.toJsonWithSignals();
     }
 
+    /**
+     * get can signals distribution in can message
+     * @param id
+     * @return
+     */
     @JavascriptInterface
     public String getDistribution(String id) {
         MessagesWrapper messagesWrapper = (MessagesWrapper) uniqueMessages.get(id);
@@ -154,6 +163,13 @@ public class TestInterface {
         return gson.toJson(distribution);
     }
 
+    /**
+     * sava setting to sharedPreference
+     * @param version
+     * @param speed
+     * @param is_open
+     * @return
+     */
     @JavascriptInterface
     public boolean saveCanSetting(String version, String speed, boolean is_open) {
         Log.i("save", version + " " + speed + " " + is_open);
@@ -164,6 +180,10 @@ public class TestInterface {
         return canSettings.save();
     }
 
+    /**
+     * load can tool setting from sharedPreference
+     * @return
+     */
     @JavascriptInterface
     public String loadCanSetting() {
         CanSettings canSettings = new CanSettings(can_setting);
@@ -174,20 +194,38 @@ public class TestInterface {
         return new Gson().toJson(result);
     }
 
+    /**
+     * send command to can tool
+     * @param type command type
+     * @param value command value
+     *
+     */
     @JavascriptInterface
     public void sendCommand(String type, String value) {
         commandController.sendCommand(type, value);
     }
 
+    //get result of last command to can tool
     @JavascriptInterface
     public String getCommandResult() {
         return commandController.getResult();
     }
 
-    public ArrayList<MessagesWrapper> getMessagesForExport() {
-        return messages;
+    /**
+     * export messages to xml
+     * @return
+     */
+    @JavascriptInterface
+    public void exportToCSV() {
+        Export export = new ExportImpl();
+        export.export("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/" ,
+                "export_" + start_time,
+                ".csv",
+                lastMessages
+                );
     }
 
+    //this function provide data to draw line chart
     @JavascriptInterface
     public String getLineDatas(String id) {
         if (messages == null) {
@@ -198,7 +236,6 @@ public class TestInterface {
         synchronized (messages) {
             for (MessagesWrapper m : messages) {
                 if (m.getId().equals(id)) {
-//                    Log.d("ad", id);
                     result.add(m);
                 }
             }
