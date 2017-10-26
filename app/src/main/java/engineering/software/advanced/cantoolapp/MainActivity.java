@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -22,9 +23,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -103,9 +110,10 @@ public class MainActivity extends AppCompatActivity
         });
         webview.loadUrl(urls.get("bluetooth"));
 
-
+        File s= getExternalFilesDir("");
         //wtrie dbc file
         writeDBC();
+
 
 
 
@@ -113,30 +121,49 @@ public class MainActivity extends AppCompatActivity
 
     private void writeDBC() {
 
-        File f= new File("/data/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");
-        if(f.exists()){
-            return;
-        }
 
+        InputStream is = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+
+        OutputStreamWriter osw = null;
+        BufferedWriter bw = null;
         try{
 
             AssetManager am = getResources().getAssets();
-            InputStream is = am.open("canmsg-sample.dbc");
+            is = am.open("canmsg-sample.dbc");
+            isr = new InputStreamReader(is,"GBK");
+            br = new BufferedReader(isr);
 
-            FileOutputStream fout =openFileOutput("canmsg-sample.dbc", MODE_PRIVATE);
+            osw = new OutputStreamWriter(new FileOutputStream(new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc")),"GBK");
+            bw = new BufferedWriter(osw);
+            String s = "";
+            while ((s = br.readLine()) != null)
+                bw.write(s);
+            bw.flush();
 
-            byte[] buffer = new byte[is.available()];
+            /*byte[] buffer = new byte[is.available()];
             int byteCount = 0;
             while((byteCount=is.read(buffer))!=-1) {//循环从输入流读取 buffer字节
+                Log.e("tag",String.valueOf(byteCount));
                 fout.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
-            }
-            fout.flush();
-            is.close();
-            fout.close();
+            }*/
         }
 
         catch(Exception e){
             e.printStackTrace();
+        }finally {
+
+            try {
+                br.close();
+                isr.close();
+                is.close();
+                bw.close();
+                osw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
