@@ -36,7 +36,7 @@ public class LineDataTest {
         Line line = new Line(message.getName(), messagesWrappers);
         String expected = "[\"123\",\"346\",\"789\"]";
 //        assertEquals(expected, line.getLables());
-        System.out.println(line.getDatas());
+        System.out.println(line.egetDatas());
 
     }
 
