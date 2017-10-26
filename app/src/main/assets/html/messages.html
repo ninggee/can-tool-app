@@ -23,7 +23,7 @@
                 <button class="uk-button uk-button-small uk-width-1-2" v-if="recieving"  style="background-color:#19d3bd" disabled >
                     导出列表
                 </button>
-                <button class="uk-button uk-button-small uk-width-1-2" v-else="recieving" style="background-color:#19d3bd">
+                <button class="uk-button uk-button-small uk-width-1-2" v-else="recieving" style="background-color:#19d3bd" v-on:click="exportToLocal">
                     导出列表
                 </button>
             </div>
@@ -109,6 +109,10 @@
                     setTimeout(this.readData, 1000)
                 }
             },
+            exportToLocal: function() {
+                Android.exportToCSV();
+                Android.showToast("输出成功");
+            }
          }
          })
     </script>
