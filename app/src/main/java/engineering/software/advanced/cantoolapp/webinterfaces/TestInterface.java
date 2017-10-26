@@ -293,7 +293,7 @@ public class TestInterface {
                 = gson.fromJson(message, engineering.software.advanced.cantoolapp.webinterfaces.Message.class);
 
 
-        CommandController commandController = new CommandController(__connector);
+        commandController = new CommandController(__connector);
 
         Map<String, Double> values = new HashMap<>();
         for(SignalMessage signalMessage: message1.getValues()) {
