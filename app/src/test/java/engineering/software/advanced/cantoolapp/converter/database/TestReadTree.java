@@ -1,5 +1,7 @@
 package engineering.software.advanced.cantoolapp.converter.database;
 
+import com.google.gson.Gson;
+
 import org.junit.Test;
 
 import engineering.software.advanced.cantoolapp.converter.database.Impl.ReadSqlImp;
@@ -17,10 +19,12 @@ public class TestReadTree {
         readSqlImp.readAstree();
         SqlTree sqlTree = readSqlImp.getSqlTree();
         SqlNode sqlNode = sqlTree.root;
+
         for(SqlNode sn: sqlNode.sons){
             System.out.println(sn.name);
             for (SqlNode sns : sn.sons)
-                System.out.println("-----" + sns.name);
+                System.out.println(" " + sns.name);
         }
+
     }
 }

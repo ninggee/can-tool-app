@@ -29,7 +29,7 @@ import engineering.software.advanced.cantoolapp.converter.transmission.Receiver;
 
 public class MessageAndSignalProcessor implements Processor {
     private Receiver receiver = ReceiverImpl.getInstance();
-    private DataBase dataBase = DataBaseImpl.getInstance();
+    private DataBase dataBase = new DataBaseImpl();
     private DataConverter converter = DataConverterImpl.getInstance();
 //    InputStreamReader isr = null;//需要修改
     public Message decode(String canMessageStr) {
