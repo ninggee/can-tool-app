@@ -140,6 +140,7 @@ public class DataBaseImpl implements DataBase {
         Gson json = new Gson();
         String result = "";
 
+        Set<CanMessageUnionSignal> all = new HashSet<>();//存放所有信息
         BufferedReader bufferedReader = null;
         InputStreamReader isr = null;
         try {
@@ -152,17 +153,10 @@ public class DataBaseImpl implements DataBase {
                 Pattern pattern = Pattern.compile(messagePa);
                 Matcher m1 = pattern.matcher(line);
                 CanMessage message = decoding.messageDecoding(line);
-                if (m1.matches()) {//是message写入
-                    if(!result.equals(""))
-                        result += "\n";//不是第一行要换行
-                    result += json.toJson(message);
-                    //写入对应的signal信息
+                if (m1.matches()) {//找到message
                     Set<CanSignal> set = searchSignalUseMessage(message);
-                    for(CanSignal cs : set){
-                        result += "\n";//先换行
-                        result += json.toJson(cs);
-                    }
-
+                    CanMessageUnionSignal canMessageUnionSignal = new CanMessageUnionSignal(message,set);
+                    all.add(canMessageUnionSignal);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -179,6 +173,10 @@ public class DataBaseImpl implements DataBase {
                 e.printStackTrace();
             }
         }
+
+        //转为json
+        result = json.toJson(all);
+
         return result;
     }
 
