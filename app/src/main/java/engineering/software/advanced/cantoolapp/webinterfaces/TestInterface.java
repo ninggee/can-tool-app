@@ -1,5 +1,6 @@
 package engineering.software.advanced.cantoolapp.webinterfaces;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.leon.lfilepickerlibrary.LFilePicker;
 
 import org.json.JSONObject;
 
@@ -292,7 +294,6 @@ public class TestInterface {
         engineering.software.advanced.cantoolapp.webinterfaces.Message message1
                 = gson.fromJson(message, engineering.software.advanced.cantoolapp.webinterfaces.Message.class);
 
-
         CommandController commandController = new CommandController(__connector);
 
         Map<String, Double> values = new HashMap<>();
@@ -301,7 +302,19 @@ public class TestInterface {
         }
 
         commandController.sendMessage(message1.getId(), values, message1.getPeriod());
+    }
 
+    @JavascriptInterface
+    public void importFile() {
+        int REQUESTCODE_FROM_ACTIVITY = 1000;
+        new LFilePicker()
+                .withActivity((Activity) __context)
+                .withRequestCode(REQUESTCODE_FROM_ACTIVITY)
+                .withTitle("文件选择")
+                //.withMaxNum(2)
+                .withNotFoundBooks("至少选择一个文件")
+                //.withFileFilter(new String[]{"txt", "png", "docx"})
+                .start();
     }
 
 }

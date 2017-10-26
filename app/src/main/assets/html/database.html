@@ -16,7 +16,9 @@
         <div class="uk-card-header">
             <div class="uk-card-badge uk-label">默认数据库</div>
             <h4 class="uk-card-title">当前数据库</h4>
-            <button class="uk-button uk-button-default uk-width-1-1" style="background-color:#526c96;color:#fff">导入数据库</button>
+            <button class="uk-button uk-button-default uk-width-1-1" style="background-color:#526c96;color:#fff" v-on:click="importFile">
+                导入数据库
+            </button>
 
         </div>
         <div class="uk-card-body">
@@ -64,6 +66,9 @@ var app = new Vue({
     methods: {
         back: function() {
             console.log("back function called")
+        },
+        importFile: function() {
+            Android.importFile()
         }
     }
 })
