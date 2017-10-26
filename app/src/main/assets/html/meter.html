@@ -1,0 +1,128 @@
+<html>
+<head>
+    <title>信息详情</title>
+    <script src="file:///android_asset/js/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.31/js/uikit-icons.min.js"></script>
+
+    <script src="file:///android_asset/js/gauge.min.js"></script>
+</head>
+<body>
+
+<div id="app" class="uk-flex uk-flex-column uk-width-auto" style="margin: 20px">
+    <div class="uk-card uk-width-1-1" uk-grid>
+        <div>
+            <!-- 仪表盘 -->
+            <canvas data-type="radial-gauge"
+                    data-width="300"
+                    data-height="300"
+                    data-units="mV"
+                    data-title="false"
+                    data-min-value="0"
+                    data-max-value="210"
+                    data-value="100"
+                    data-animate-on-init="true"
+                    data-major-ticks="10,30,50,70,90,110,130,150,170,190,210"
+                    data-minor-ticks="2"
+                    data-stroke-ticks="true"
+                    data-highlights='[{"from": 160, "to": 210, "color": "rgba(200, 50, 50, .75)"}]'
+                    data-color-plate="#222"
+                    data-color-major-ticks="#f5f5f5"
+                    data-color-minor-ticks="#ddd"
+                    data-color-title="#fff"
+                    data-color-units="#ccc"
+                    data-color-numbers="#eee"
+                    data-color-needle-start="rgba(240, 128, 128, 1)"
+                    data-color-needle-end="rgba(255, 160, 122, .9)"
+                    data-value-box="true"
+                    data-font-value="Led"
+                    data-font-numbers="Led"
+                    data-animated-value="true"
+                    data-borders="false"
+                    data-border-shadow-width="0"
+                    data-needle-type="arrow"
+                    data-needle-width="2"
+                    data-needle-circle-size="7"
+                    data-needle-circle-outer="true"
+                    data-needle-circle-inner="false"
+                    data-animation-duration="1500"
+                    data-animation-rule="linear"
+                    data-ticks-angle="250"
+                    data-start-angle="55"
+                    data-color-needle-shadow-down="#333"
+                    data-value-box-width="45"
+            ></canvas>
+        </div>
+        <div class="uk-text-center">
+            <canvas data-type="linear-gauge"
+                    data-width="300"
+                    data-height="600"
+                    data-border-radius="20"
+                    data-borders="true"
+                    data-bar-stroke-width="20"
+                    data-minor-ticks="10"
+                    data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+                    data-color-numbers="red,green,blue,transparent,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc"
+                    data-color-major-ticks="red,green,blue,transparent,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc,#ccc"
+                    data-color-bar-stroke="#444"
+                    data-value="50"
+                    data-units="°C"
+                    data-color-value-box-shadow="false"
+                    data-tick-side="left"
+                    data-number-side="left"
+                    data-needle-side="left"
+                    data-animate-on-init="true"
+                    data-color-plate="transparent"
+            ></canvas>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+       id: 0,
+       message: {},
+       distribution: {},
+       colors: []
+    },
+    created: function() {
+
+    },
+    mounted: function() {
+        this.animateGauges()
+    },
+    computed: {
+
+    },
+    methods: {
+        back: function() {
+            console.log("back function called")
+        },
+        randomColor: function(){
+            return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+        },
+        getGridName: function(index) {
+            return "grid_" + index;
+        },
+        animateGauges: function () {
+            // alert('sdaf')
+            var timers = [];
+            document.gauges.forEach(function(gauge) {
+                timers.push(setInterval(function() {
+                    gauge.value = Math.random() *
+                        (gauge.options.maxValue - gauge.options.minValue) +
+                        gauge.options.minValue;
+                }, gauge.animation.duration + 50));
+        });
+        }
+    }
+})
+</script>
+
+</body>
+</html>

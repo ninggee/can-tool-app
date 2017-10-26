@@ -45,7 +45,7 @@
             </thead>
             <tbody>
             <tr v-for="message in messages">
-                <td class="uk-table-link"><a class="uk-link" :href="'file:///android_asset/html/detail.html?id=' + message.id">{{message.time}}</a></td>
+                <td class="uk-table-link"><a class="uk-link" :href="'file:///android_asset/html/detail.html?id=' + message.id + '&time=' +　message.time ">{{message.time}}</a></td>
                 <td class="uk-preserve-width">{{message.chn}}</td>
                 <td class="uk-width-medium uk-text-nowrap">{{message.id}}</td>
                 <td class="uk-width-medium uk-text-nowrap">{{message.name}}</td>

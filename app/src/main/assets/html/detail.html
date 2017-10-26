@@ -18,10 +18,7 @@
         <div class="uk-card-header">
             <h6 class="uk-card-title">Can信息</h6>
             <div class="uk-button-group uk-width-1-1">
-                <button class="uk-button uk-button-small uk-width-1-2">
-                    仪表显示
-                </button>
-                <button class="uk-button uk-button-small uk-width-1-2" >
+                <button class="uk-button uk-button-small uk-width-1-1" >
                     <a :href="'file:///android_asset/html/line.html?id=' + id">折线图</a>
                 </button>
             </div>
@@ -39,7 +36,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{message.time}}</a></td>
+                    <td class="uk-table-link">{{message.time}}</td>
                     <td class="uk-preserve-width">{{message.chn}}</td>
                     <td class="uk-width-medium uk-text-truncate">{{message.id}}</td>
                     <td class="uk-width-medium uk-text-truncate">{{message.name}}</td>
@@ -51,29 +48,8 @@
             </table>
         </div>
         <div class="uk-card-body">
-            <h6 class="uk-card-title">Can信号列表</h6>
-            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
-                <thead>
-                    <tr>
-                        <th class="uk-width-medium uk-table-shrink">Name</th>
-                        <th class="uk-width-medium uk-width-truncate">Value</th>
-                        <th class="uk-width-medium uk-text-nowrap">Unit</th>
-                        <th class="uk-width-medium uk-text-nowrap">Original value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr v-for="signal in message.signals">
-                    <td class="uk-table-link"><a class="uk-link" href="https://www.baidu.com">{{signal.name}}</a></td>
-                    <td class="uk-preserve-width">{{signal.value}}</td>
-                    <td class="uk-width-medium uk-text-truncate">{{signal.canSignal.unit}}</td>
-                    <td class="uk-width-medium uk-text-truncate">[ {{signal.origin}} ]</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="uk-card-footer">
             <h6 class="uk-card-title">Can信号分布</h6>
-            <table class="uk-table uk-table-divider">
+            <table class="uk-table uk-table-divider" style="width: 400px; height: 400px">
                 <tbody>
                 <tr>
                     <td style="background-color: #A4A4A4"></td>
@@ -86,11 +62,29 @@
                 </tbody>
             </table>
             <div>
-
                 <span v-for="color in colors"  class="uk-badge" style="padding-right: 5px" v-bind:style="{ backgroundColor: color.color}" >{{color.name}}</span>
-
             </div>
-
+        </div>
+        <div class="uk-card-footer">
+            <h6 class="uk-card-title">Can信号列表</h6>
+            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                <thead>
+                <tr>
+                    <th class="uk-width-medium uk-table-shrink">Name</th>
+                    <th class="uk-width-medium uk-width-truncate">Value</th>
+                    <th class="uk-width-medium uk-text-nowrap">Unit</th>
+                    <th class="uk-width-medium uk-text-nowrap">Original value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="signal in message.signals">
+                    <td class="uk-table-link"><a class="uk-link" :href="'file:///android_asset/html/meter.html?id=' + id + '&time=' + time + '&name=' + signal.name">{{signal.name}}</a></td>
+                    <td class="uk-preserve-width">{{signal.value}}</td>
+                    <td class="uk-width-medium uk-text-truncate">{{signal.canSignal.unit}}</td>
+                    <td class="uk-width-medium uk-text-truncate">[ {{signal.origin}} ]</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -102,13 +96,15 @@ var app = new Vue({
        id: 0,
        message: {},
        distribution: {},
-       colors: []
+       colors: [],
+       time: ''
     },
     created: function() {
+        var time_index = window.location.href.indexOf("&time=")
+        this.time = window.location.href.substring(time_index + 6)
         var id_index = window.location.href.indexOf("?id=")
-        this.id = window.location.href.substring(id_index + 4)
-        console.log(this.id)
-        this.message = JSON.parse(Android.getSignalsById(this.id))
+        this.id = window.location.href.substring(id_index + 4, time_index)
+        this.message = JSON.parse(Android.getSignalsByIdAndTime(this.id, time))
     },
     mounted: function() {
         this.distribution = JSON.parse(Android.getDistribution(this.id))

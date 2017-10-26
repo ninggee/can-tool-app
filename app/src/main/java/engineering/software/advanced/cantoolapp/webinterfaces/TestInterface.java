@@ -150,6 +150,18 @@ public class TestInterface {
         return messagesWrapper.toJsonWithSignals();
     }
 
+    @JavascriptInterface
+    public String getSignalsByIdAndTime(String id, String time) {
+        for (MessagesWrapper m:
+             messages) {
+            if(m.getTime().equals(time) && m.getId().equals(id)) {
+                return new Gson().toJson(m);
+            }
+        }
+
+        return "";
+    }
+
     /**
      * get can signals distribution in can message
      * @param id
