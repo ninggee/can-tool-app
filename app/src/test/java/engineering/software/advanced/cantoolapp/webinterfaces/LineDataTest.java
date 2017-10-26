@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * Created by ningge on 2017/10/25.
  */
 public class LineDataTest {
-    MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
+    MessageAndSignalProcessor processor = MessageAndSignalProcessor.getInstance();
     Message message;
     ArrayList<MessagesWrapper> messagesWrappers;
 

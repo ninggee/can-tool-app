@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class DataToFileImplTest {
     DataToFile dataToFile = new DataToFileImpl();
-    Processor processor = new MessageAndSignalProcessor();
+    Processor processor = MessageAndSignalProcessor.getInstance();
     @Test
     public void toXml() throws Exception {
         Set<Message> messages = processor.decodeMultiple("t03D19C\rt03D19D\r");

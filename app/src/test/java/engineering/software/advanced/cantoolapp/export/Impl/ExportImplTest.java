@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * Created by lhr on 2017/10/25.
  */
 public class ExportImplTest {
-    MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
+    MessageAndSignalProcessor processor = MessageAndSignalProcessor.getInstance();
     @Test
     public void export() throws Exception {
         Message message = processor.decode("t03D19C");
