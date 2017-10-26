@@ -11,7 +11,7 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBase
 public class TestDatabase {
     @Test
     public void testDatabase() throws Exception {
-        DataBase db = DataBaseImpl.getInstance();
+        DataBase db = new DataBaseImpl();
 //        System.out.println(db.searchMessageUseId((long)856, isr));
 //        System.out.println("----------------------");
 //        Set<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)856, isr),isr);

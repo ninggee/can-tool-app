@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,23 +35,19 @@ public class DataBaseImpl implements DataBase {
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
 
 
-    private static DataBase dataBase = new DataBaseImpl();
-
     File filename = null;
 
 
-    DataBaseImpl() {
+    public DataBaseImpl() {
         filename = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
 //                filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
     }
 
-    DataBaseImpl(String  path) {
+    public DataBaseImpl(String  path) {
+
         filename = new File(path);//读取文件
     }
 
-    public static DataBase getInstance() {
-        return dataBase;
-    }
 
     @Override
     public CanMessage searchMessageUseId(Long id) {
@@ -78,12 +76,12 @@ public class DataBaseImpl implements DataBase {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }finally {
-//            try {
-//                bufferedReader.close();// 关闭输入流
-//                isr.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return message;
     }
@@ -127,14 +125,61 @@ public class DataBaseImpl implements DataBase {
         } catch (IOException e1) {
             e1.printStackTrace();
         }finally {
-//            try {
-//                bufferedReader.close();// 关闭输入流
-//                isr.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return signalList;
+    }
+
+    @Override
+    public String searchAllMessage() {
+        Gson json = new Gson();
+        String result = "";
+
+        BufferedReader bufferedReader = null;
+        InputStreamReader isr = null;
+        try {
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            bufferedReader = new BufferedReader(isr);
+            String line = "";
+            //读取一行
+            while ((line = bufferedReader.readLine()) != null) {
+                //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
+                Pattern pattern = Pattern.compile(messagePa);
+                Matcher m1 = pattern.matcher(line);
+                CanMessage message = decoding.messageDecoding(line);
+                if (m1.matches()) {//是message写入
+                    if(!result.equals(""))
+                        result += "\n";//不是第一行要换行
+                    result += json.toJson(message);
+                    //写入对应的signal信息
+                    Set<CanSignal> set = searchSignalUseMessage(message);
+                    for(CanSignal cs : set){
+                        result += "\n";//先换行
+                        result += json.toJson(cs);
+                    }
+
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
 
