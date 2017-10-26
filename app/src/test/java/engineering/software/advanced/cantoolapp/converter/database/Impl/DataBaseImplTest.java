@@ -20,14 +20,8 @@ public class DataBaseImplTest {
     public void searchAllMessage() throws Exception {
 
         DataBase db = new DataBaseImpl("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
-        Set<CanMessage> set = db.searchAllMessage();
-        Gson json = new Gson();
-        for(CanMessage cm : set) {
-           System.out.println(json.toJson(cm));
-            Set<CanSignal> canSignals= db.searchSignalUseMessage(cm);
-            for(CanSignal cs : canSignals)
-                System.out.println(json.toJson(cs));
-        }
+        String s = db.searchAllMessage();
+        System.out.print(s);
 
     }
 

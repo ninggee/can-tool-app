@@ -20,6 +20,6 @@ public interface DataBase {
     //根据message寻找后面的signal
     public Set<CanSignal> searchSignalUseMessage(CanMessage message);
 
-    //显示数据库中所有的message
-    public Set<CanMessage> searchAllMessage();
+    //显示数据库中所有的message信息
+    public String searchAllMessage();
 }

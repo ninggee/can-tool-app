@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -134,8 +136,9 @@ public class DataBaseImpl implements DataBase {
     }
 
     @Override
-    public Set<CanMessage> searchAllMessage() {
-        Set<CanMessage> setMessage = new HashSet<>();
+    public String searchAllMessage() {
+        Gson json = new Gson();
+        String result = "";
 
         BufferedReader bufferedReader = null;
         InputStreamReader isr = null;
@@ -149,8 +152,17 @@ public class DataBaseImpl implements DataBase {
                 Pattern pattern = Pattern.compile(messagePa);
                 Matcher m1 = pattern.matcher(line);
                 CanMessage message = decoding.messageDecoding(line);
-                if (m1.matches()) {//是message加入set中
-                    setMessage.add(message);
+                if (m1.matches()) {//是message写入
+                    if(!result.equals(""))
+                        result += "\n";//不是第一行要换行
+                    result += json.toJson(message);
+                    //写入对应的signal信息
+                    Set<CanSignal> set = searchSignalUseMessage(message);
+                    for(CanSignal cs : set){
+                        result += "\n";//先换行
+                        result += json.toJson(cs);
+                    }
+
                 }
             }
         } catch (FileNotFoundException e) {
@@ -167,7 +179,7 @@ public class DataBaseImpl implements DataBase {
                 e.printStackTrace();
             }
         }
-        return setMessage;
+        return result;
     }
 
 
