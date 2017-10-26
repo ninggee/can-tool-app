@@ -104,7 +104,9 @@ var app = new Vue({
         this.time = window.location.href.substring(time_index + 6)
         var id_index = window.location.href.indexOf("?id=")
         this.id = window.location.href.substring(id_index + 4, time_index)
-        this.message = JSON.parse(Android.getSignalsByIdAndTime(this.id, time))
+        console.log(Android.getSignalsByIdAndTime(this.id, this.time))
+        this.message = JSON.parse(Android.getSignalsByIdAndTime(this.id, this.time))
+
     },
     mounted: function() {
         this.distribution = JSON.parse(Android.getDistribution(this.id))

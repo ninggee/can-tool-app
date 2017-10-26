@@ -24,6 +24,7 @@ import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
+import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.Export;
 import engineering.software.advanced.cantoolapp.export.Impl.ExportImpl;
 
@@ -155,7 +156,23 @@ public class TestInterface {
         for (MessagesWrapper m:
              messages) {
             if(m.getTime().equals(time) && m.getId().equals(id)) {
-                return new Gson().toJson(m);
+                return m.toJsonWithSignals();
+            }
+        }
+
+        return "";
+    }
+
+    @JavascriptInterface
+    public String getSignalByIdAndTimeAndName(String id, String time, String name) {
+        for (MessagesWrapper m:
+                messages) {
+            if(m.getTime().equals(time) && m.getId().equals(id)) {
+                for(Signal s : m.getSignals()) {
+                    if(s.getName().equals(name)) {
+                        return new Gson().toJson(s);
+                    }
+                }
             }
         }
 
@@ -260,5 +277,7 @@ public class TestInterface {
         result_map.put("datasets", line.egetDatas());
         return new Gson().toJson(result_map);
     }
+
+
 
 }
