@@ -23,13 +23,16 @@ import engineering.software.advanced.cantoolapp.converter.transmission.Sender;
 
 public class CommandController {
     Connector connector;
-    private String result ;
-    private boolean state;
-    private ReaderThread reader;
-    private String command_type;
+    private volatile String result = "" ;
+    private volatile boolean state = false;
+    private  ReaderThread reader;
+    private volatile String command_type = "";
 
     public CommandController(Connector connector) {
         this.connector = connector;
+        this.result = "";
+        this.state = false;
+        this.command_type = "";
     }
 
     public void sendCommand(String type, String value) {
@@ -71,12 +74,11 @@ public class CommandController {
     }
 
     private void writeToDeviceWithoutWait(String message) {
-        String newMessage = "";
+        String newMessage;
         newMessage = message.substring(0, 1) +  message.substring(1).toUpperCase() + "\r";
         Log.d("send command", newMessage);
         OutputStream outputStream = this.connector.getOutputStream();
 
-        this.command_type = "";
         //start a new thread to wait result
         waitResult();
 
@@ -92,6 +94,7 @@ public class CommandController {
     }
 
     public void sendMessage(String id, Map<String, Double> values, int period) {
+        command_type = "message";
         Processor processor = MessageAndSignalProcessor.getInstance();
         writeToDeviceWithoutWait(processor.encode(Long.parseLong(id), values, period));
     }
@@ -107,18 +110,19 @@ public class CommandController {
                 if(message == null) {
                     return;
                 }
-                Log.d("command", message);
-                switch (command_type) {
-                    case "version":
-                        result = receiver.parseVersion(message);
-                        break;
-                    default:
-                        result = receiver.parseYN(message) + "";
+
+                synchronized (result) {
+                    switch (command_type) {
+                        case "version":
+                            result = receiver.parseVersion(message);
+                            break;
+                        default:
+                            result = receiver.parseYN(message) + "";
+                    }
+
+                    state = true;
                 }
 
-                state = true;
-
-                Log.d("debug", result);
                 Thread.currentThread().interrupt();
 
             }
@@ -129,10 +133,9 @@ public class CommandController {
     }
 
     public String getResult() {
-        if(command_type == "" || result == "" || state == false) {
+        if(command_type.equals("") || result.equals("") || state == false) {
             return "";
         } else {
-
             // stop get result thread
 //            reader.interrupt();
             String result  = this.result;

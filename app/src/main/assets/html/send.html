@@ -11,8 +11,8 @@
 <body>
 
 <div  id="app" class="uk-flex uk-flex-center">
-    <form class="uk-width-5-6 uk-form-stacked" v-on:submit="submit">
-        <fieldset class="uk-fieldset uk-margin-medium-top">
+    <form class="uk-width-5-6 uk-form-stacked" v-on:submit="submit" >
+        <fieldset class="uk-fieldset uk-margin-medium-top" id="fieldset">
             <legend class="uk-legend ">Can信息列表</legend>
             <div class="uk-margin uk-width-medium" uk-margin>
                 <label class="uk-form-label">选择Can信息</label>
@@ -91,14 +91,29 @@
                 result = JSON.stringify(this.result)
                 Android.sendMessage(result)
 
-                this.result.id = ""
-                this.result.values = []
-                this.result.period = 0
-                this.items = []
-                this.selected = ''
-                Android.showToast("信息发送成功");
-            }
+                this.getResult()
+                this.lockField(true)
 
+            },
+            getResult() {
+                result = Android.getCommandResult();
+                if(result != "") {
+                    Android.showToast("信息发送成功，信息返回结果为" + result)
+                    //clean old value
+                    this.result.id = ""
+                    this.result.values = []
+                    this.result.period = 0
+                    this.items = []
+                    this.selected = ''
+                    this.lockField(false)
+                }  else {
+                    setTimeout(this.getResult, 500)
+                }
+            },
+            lockField: function(lock) {
+                var fieldset = document.getElementById("fieldset")
+                fieldset.disabled = lock
+            }
         }
     })
 </script>
