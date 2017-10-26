@@ -286,4 +286,22 @@ public class TestInterface {
         return db.searchAllMessage();
     }
 
+    @JavascriptInterface
+    public void sendMessage(String message) {
+        Gson gson = new Gson();
+        engineering.software.advanced.cantoolapp.webinterfaces.Message message1
+                = gson.fromJson(message, engineering.software.advanced.cantoolapp.webinterfaces.Message.class);
+
+
+        CommandController commandController = new CommandController(__connector);
+
+        Map<String, Double> values = new HashMap<>();
+        for(SignalMessage signalMessage: message1.getValues()) {
+            values.put(signalMessage.getName(), signalMessage.getValue());
+        }
+
+        commandController.sendMessage(message1.getId(), values, message1.getPeriod());
+
+    }
+
 }

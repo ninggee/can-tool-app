@@ -16,6 +16,8 @@ import engineering.software.advanced.cantoolapp.communicator.Reader;
 import engineering.software.advanced.cantoolapp.communicator.ReaderThread;
 import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
+import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
+import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.ReceiverImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.SenderImpl;
@@ -75,8 +77,27 @@ public class CommandController {
 
     }
 
-    public void sendMessage(String id, Map<String, Double> values, int period) {
+    private void writeToDeviceWithoutWait(String message) {
+        Log.d("send command", message);
+        OutputStream outputStream = this.connector.getOutputStream();
 
+        //start a new thread to wait result
+//        waitResult();
+
+        //write message to device
+        byte[] bytes = message.getBytes();
+        try {
+            outputStream.write(bytes);
+        } catch (IOException e) {
+            Log.e("write","write to bluetooth failed");
+        }
+
+
+    }
+
+    public void sendMessage(String id, Map<String, Double> values, int period) {
+        Processor processor = MessageAndSignalProcessor.getInstance();
+        writeToDeviceWithoutWait(processor.encode(Long.parseLong(id), values, period));
     }
 
     public void waitResult() {
