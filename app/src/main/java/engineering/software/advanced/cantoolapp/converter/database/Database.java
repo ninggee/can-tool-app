@@ -13,7 +13,7 @@ import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
  * Created by lhr on 2017/10/11.
  */
 
-public interface DataBase {
+public interface Database {
     //根据ID寻找message
     public CanMessage searchMessageUseId(Long id);
 

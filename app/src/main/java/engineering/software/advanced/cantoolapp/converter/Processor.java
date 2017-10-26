@@ -19,4 +19,7 @@ public interface Processor {
 
     //将message和signal编码，之后加上周期，得到can数据用于发送
     public String encode(long messageId, Map<String, Double> signalMap, int period);
+
+    //
+    public void setDatabase(String path);
 }

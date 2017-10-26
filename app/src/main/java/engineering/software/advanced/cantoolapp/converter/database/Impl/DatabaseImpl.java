@@ -1,9 +1,5 @@
 package engineering.software.advanced.cantoolapp.converter.database.Impl;
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -18,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
@@ -26,7 +22,7 @@ import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
  * Created by lhr on 2017/10/11.
  */
 
-public class DataBaseImpl implements DataBase {
+public class DatabaseImpl implements Database {
 
     CanDecoding decoding = CanDecodingImpl.getInstance();//解析用
 
@@ -38,12 +34,12 @@ public class DataBaseImpl implements DataBase {
     File filename = null;
 
 
-    public DataBaseImpl() {
+    public DatabaseImpl() {
         filename = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
 //                filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
     }
 
-    public DataBaseImpl(String  path) {
+    public DatabaseImpl(String  path) {
 
         filename = new File(path);//读取文件
     }

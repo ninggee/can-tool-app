@@ -12,7 +12,7 @@ import engineering.software.advanced.cantoolapp.converter.entity.Signal;
  * Created by Zhang Dongdi on 2017/10/14.
  */
 public class MessageAndSignalProcessorTest {
-    MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
+    MessageAndSignalProcessor processor = MessageAndSignalProcessor.getInstance();
     @Test
     public void decode() throws Exception {
         Message message = processor.decode("t03D19C");

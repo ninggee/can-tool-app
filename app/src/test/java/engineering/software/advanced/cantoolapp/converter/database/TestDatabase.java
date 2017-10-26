@@ -2,7 +2,7 @@ package engineering.software.advanced.cantoolapp.converter.database;
 
 import org.junit.Test;
 
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 
 /**
  * Created by lhr on 2017/10/11.
@@ -11,7 +11,7 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBase
 public class TestDatabase {
     @Test
     public void testDatabase() throws Exception {
-        DataBase db = new DataBaseImpl();
+        Database db = new DatabaseImpl();
 //        System.out.println(db.searchMessageUseId((long)856, isr));
 //        System.out.println("----------------------");
 //        Set<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)856, isr),isr);

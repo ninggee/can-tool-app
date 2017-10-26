@@ -37,8 +37,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;

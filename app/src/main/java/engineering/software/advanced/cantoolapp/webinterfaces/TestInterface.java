@@ -23,8 +23,8 @@ import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.Export;
@@ -49,7 +49,7 @@ public class TestInterface {
     long start_time = new Date().getTime();
     ReaderThread reader = null;
 
-    Processor processor = new MessageAndSignalProcessor();
+    Processor processor = MessageAndSignalProcessor.getInstance();
 
 
     public TestInterface(Context c, Connector connector, SharedPreferences sharedPreferences) {
@@ -282,7 +282,7 @@ public class TestInterface {
 
     @JavascriptInterface
     public String getAllMessages() {
-        DataBase db = new DataBaseImpl();
+        Database db = new DatabaseImpl();
         return db.searchAllMessage();
     }
 

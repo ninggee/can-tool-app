@@ -1,18 +1,13 @@
 package engineering.software.advanced.cantoolapp.converter;
 
-import android.content.res.AssetManager;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.converter.analyze.DataConverter;
 import engineering.software.advanced.cantoolapp.converter.analyze.Impl.DataConverterImpl;
-import engineering.software.advanced.cantoolapp.converter.database.DataBase;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Data;
@@ -29,8 +24,18 @@ import engineering.software.advanced.cantoolapp.converter.transmission.Receiver;
 
 public class MessageAndSignalProcessor implements Processor {
     private Receiver receiver = ReceiverImpl.getInstance();
-    private DataBase dataBase = new DataBaseImpl();
+    private Database database = new DatabaseImpl();
     private DataConverter converter = DataConverterImpl.getInstance();
+
+    private static MessageAndSignalProcessor processor = new MessageAndSignalProcessor();
+
+    private MessageAndSignalProcessor() {
+
+    }
+
+    public static MessageAndSignalProcessor getInstance() {
+        return processor;
+    }
 
     public Message decode(String canMessageStr) {
         FrameType canMessageType = receiver.identifyType(canMessageStr);
@@ -50,8 +55,8 @@ public class MessageAndSignalProcessor implements Processor {
 
 
 
-        CanMessage canMessage = dataBase.searchMessageUseId(frameId);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        CanMessage canMessage = database.searchMessageUseId(frameId);
+        Set<CanSignal> canSignals = database.searchSignalUseMessage(canMessage);
 
         Set<Signal> signals = new HashSet<Signal>();
         Data data = new Data(frame.getData());
@@ -96,8 +101,8 @@ public class MessageAndSignalProcessor implements Processor {
     @Override
     public String encode(long messageId, Map<String, Double> signalMap, int period) {
         String result = "";
-        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        CanMessage canMessage = database.searchMessageUseId(messageId);
+        Set<CanSignal> canSignals = database.searchSignalUseMessage(canMessage);
         Set<Signal> signals = new HashSet<>();
         for (CanSignal canSignal : canSignals) {
             Double value = signalMap.get(canSignal.getSignalName());
@@ -145,11 +150,16 @@ public class MessageAndSignalProcessor implements Processor {
         return result;
     }
 
+    @Override
+    public void setDatabase(String path) {
+        this.database = new DatabaseImpl(path);
+    }
+
     /*
     public String encode(long messageId, Set<Signal> signals, int period) {
         String result = "";
-        CanMessage canMessage = dataBase.searchMessageUseId(messageId);
-        Set<CanSignal> canSignals = dataBase.searchSignalUseMessage(canMessage);
+        CanMessage canMessage = database.searchMessageUseId(messageId);
+        Set<CanSignal> canSignals = database.searchSignalUseMessage(canMessage);
         if (signals.size() != canSignals.size()) {
             throw new RuntimeException("The number of signals doesn't fit the number in the database.");
         }
