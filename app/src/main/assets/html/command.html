@@ -175,7 +175,7 @@
                         Android.sendCommand(type, this.selected_speed.substring(1))
                         break;
                     default:
-                        Android.sendCommand(type, this.open)
+                        Android.sendCommand(type, !this.open)
                 }
 
                this.getResult(type)
