@@ -152,14 +152,13 @@
         },
         created: function() {
             result = Android.loadCanSetting()
-            console.log(result)
             result = JSON.parse(result)
 
             this.version = result["version"]
             this.selected_speed = result['speed']
             this.old_speed = result['speed']
-            this.open = result['is_open'] == "true"
-            this.old_open = result['is_open'] == "true"
+            this.open = false
+            this.old_open = false
         },
         methods: {
             process: function(type) {
