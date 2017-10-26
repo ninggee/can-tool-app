@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ForwardingListener;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,20 +23,14 @@ import android.webkit.WebViewClient;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
-import engineering.software.advanced.cantoolapp.converter.database.Database;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
-import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
-import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
 public class MainActivity extends AppCompatActivity
@@ -60,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         urls.put("command", "file:///android_asset/html/command.html");
         urls.put("meter", "file:///android_asset/html/meter.html");
         urls.put("send", "file:///android_asset/html/send.html");
+        urls.put("database","file:///android_asset/html/database.html");
     }
 
     private SharedPreferences sharedPreferences = null;
@@ -229,7 +220,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.module5) {
             webview.loadUrl(urls.get("send"));
         } else if (id == R.id.nav_send) {
-
+            webview.loadUrl(urls.get("database"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

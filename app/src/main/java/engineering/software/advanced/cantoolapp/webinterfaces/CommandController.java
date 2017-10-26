@@ -4,21 +4,14 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import engineering.software.advanced.cantoolapp.communicator.Reader;
 import engineering.software.advanced.cantoolapp.communicator.ReaderThread;
 import engineering.software.advanced.cantoolapp.communicator.handler.Handler;
 import engineering.software.advanced.cantoolapp.connector.Connector;
 import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProcessor;
 import engineering.software.advanced.cantoolapp.converter.Processor;
-import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.ReceiverImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.SenderImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Receiver;
@@ -78,14 +71,17 @@ public class CommandController {
     }
 
     private void writeToDeviceWithoutWait(String message) {
-        Log.d("send command", message);
+        String newMessage = "";
+        newMessage = message.substring(0, 1) +  message.substring(1).toUpperCase() + "\r";
+        Log.d("send command", newMessage);
         OutputStream outputStream = this.connector.getOutputStream();
 
+        this.command_type = "";
         //start a new thread to wait result
-//        waitResult();
+        waitResult();
 
         //write message to device
-        byte[] bytes = message.getBytes();
+        byte[] bytes = newMessage.getBytes();
         try {
             outputStream.write(bytes);
         } catch (IOException e) {
@@ -122,7 +118,7 @@ public class CommandController {
 
                 state = true;
 
-
+                Log.d("debug", result);
                 Thread.currentThread().interrupt();
 
             }
