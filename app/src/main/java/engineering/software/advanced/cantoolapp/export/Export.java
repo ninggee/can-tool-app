@@ -9,5 +9,6 @@ import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
  */
 
 public interface Export {
-    public void export(String path, String name, String format, List<MessagesWrapper> canList);
+    //1表示成功，0表示失败
+    public int export(String path, String name, String format, List<MessagesWrapper> canList);
 }

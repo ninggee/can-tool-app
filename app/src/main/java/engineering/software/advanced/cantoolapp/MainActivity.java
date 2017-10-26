@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ForwardingListener;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +40,7 @@ import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
 import engineering.software.advanced.cantoolapp.converter.database.DataBase;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DataBaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
+import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
 public class MainActivity extends AppCompatActivity
@@ -114,9 +116,6 @@ public class MainActivity extends AppCompatActivity
         //wtrie dbc file
         writeDBC();
 
-
-
-
     }
 
     private void writeDBC() {
@@ -138,8 +137,10 @@ public class MainActivity extends AppCompatActivity
             osw = new OutputStreamWriter(new FileOutputStream(new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc")),"GBK");
             bw = new BufferedWriter(osw);
             String s = "";
-            while ((s = br.readLine()) != null)
+            while ((s = br.readLine()) != null) {
                 bw.write(s);
+                bw.write('\n');
+            }
             bw.flush();
 
             /*byte[] buffer = new byte[is.available()];

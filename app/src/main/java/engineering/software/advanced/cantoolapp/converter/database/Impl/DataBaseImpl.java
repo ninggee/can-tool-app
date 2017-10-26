@@ -40,7 +40,7 @@ public class DataBaseImpl implements DataBase {
 
     DataBaseImpl() {
         filename = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
-//                filename = new File("D:\\codes\\android\\can-tool-app\\app\\src\\main\\assets\\canmsg-sample.dbc");//读取文件
+//                filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
     }
 
     DataBaseImpl(String  path) {
@@ -78,12 +78,12 @@ public class DataBaseImpl implements DataBase {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }finally {
-            try {
-                bufferedReader.close();// 关闭输入流
-                isr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                bufferedReader.close();// 关闭输入流
+//                isr.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
         return message;
     }
@@ -127,12 +127,12 @@ public class DataBaseImpl implements DataBase {
         } catch (IOException e1) {
             e1.printStackTrace();
         }finally {
-            try {
-                bufferedReader.close();// 关闭输入流
-                isr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                bufferedReader.close();// 关闭输入流
+//                isr.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
         return signalList;
     }

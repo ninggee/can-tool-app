@@ -20,17 +20,19 @@ import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 public class ExportImpl implements Export{
     @Override
-    public void export(String path, String name, String format, List<MessagesWrapper> canList) {
+    public int export(String path, String name, String format, List<MessagesWrapper> canList) {
 
+        int result = 0;
 
         if(format.equals(".csv"))
-            exportCsv(path, name, format,canList);
+            result = exportCsv(path, name, format,canList);
         else
-            exportFile(path, name, format,canList);
+            result = exportFile(path, name, format,canList);
+        return result;
 
     }
 
-    private void exportFile(String path, String name, String format, List<MessagesWrapper> canList) {
+    private int exportFile(String path, String name, String format, List<MessagesWrapper> canList) {
         File otherFile = new File(path + name + format);
         FileOutputStream fos = null;
         OutputStreamWriter osw = null;
@@ -106,9 +108,15 @@ public class ExportImpl implements Export{
 
         }
 
+        //判断文件是否存在
+        File exist = new File(path + name + format);
+        if(exist.exists())
+            return 1;
+        else
+            return 0;
     }
 
-    private void exportCsv(String path, String name, String format, List<MessagesWrapper> canList) {
+    private int exportCsv(String path, String name, String format, List<MessagesWrapper> canList) {
         File csvFile = new File(path + name + format);
         BufferedWriter bw = null;
         try {
@@ -176,5 +184,11 @@ public class ExportImpl implements Export{
             }
         }
 
+        //判断文件是否存在
+        File exist = new File(path + name + format);
+        if(exist.exists())
+            return 1;
+        else
+            return 0;
     }
 }
