@@ -313,7 +313,7 @@ public class TestInterface {
                 .withTitle("文件选择")
                 //.withMaxNum(2)
                 .withNotFoundBooks("至少选择一个文件")
-                //.withFileFilter(new String[]{"txt", "png", "docx"})
+                .withFileFilter(new String[]{"dbc"})
                 .start();
     }
 
