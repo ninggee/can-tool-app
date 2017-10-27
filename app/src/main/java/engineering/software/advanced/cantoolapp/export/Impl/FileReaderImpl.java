@@ -42,15 +42,15 @@ public class FileReaderImpl implements FileReader {
             CanMessage canMessage = null;
             Set<CanSignal> canSignalSet = null;
             CanSignal canSignal = null;
-
+            String name;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
                     case XmlPullParser.START_DOCUMENT:
                         break;
                     case XmlPullParser.START_TAG://开始读取某个标签
-                        String name = parser.getName();
-                        System.out.println("read " + name);
+                        name = parser.getName();
+                        //System.out.println("read " + name);
 
                         if (name.equals("CanMessageUnionSignalSet")) {
                             unions = new HashSet<>();
@@ -62,36 +62,134 @@ public class FileReaderImpl implements FileReader {
                             canMessage = new CanMessage();
                         }
                         else if (name.equals("bo")) {
-                            canMessage.setBo(parser.getText());
+                            canMessage.setBo(parser.nextText());
                         }
                         else if (name.equals("id")) {
-                            System.out.println();
-                            canMessage.setId(Long.parseLong(parser.getText()));
+                            canMessage.setId(Long.parseLong(parser.nextText()));
                         }
                         else if (name.equals("messageName")) {
-                            canMessage.setMessageName(parser.getText());
+                            canMessage.setMessageName(parser.nextText());
                         }
                         else if (name.equals("divide")) {
-                            canMessage.setDivide(parser.getText());
+                            canMessage.setDivide(parser.nextText());
                         }
                         else if (name.equals("dlc")) {
-                            canMessage.setDlc(Integer.parseInt(parser.getText()));
+                            canMessage.setDlc(Integer.parseInt(parser.nextText()));
                         }
                         else if (name.equals("nodeName")) {
-                            canMessage.setNodeName(parser.getText());
+                            canMessage.setNodeName(parser.nextText());
                         }
-
+                        else if (name.equals("CanSignals")) {
+                            canSignalSet = new HashSet<>();
+                        }
+                        else if (name.equals("CanSignal")) {
+                            canSignal = new CanSignal();
+                        }
+                        else if (name.equals("sg")) {
+                            canSignal.setSg(parser.nextText());
+                        }
+                        else if (name.equals("signalName")) {
+                            canSignal.setSignalName(parser.nextText());
+                        }
+                        else if (name.equals("signalDivide")) {
+                            canSignal.setDivide(parser.nextText());
+                        }
+                        else if (name.equals("slt")) {
+                            canSignal.setSlt(parser.nextText());
+                        }
+                        else if (name.equals("a")) {
+                            canSignal.setA(Double.parseDouble(parser.nextText()));
+                        }
+                        else if (name.equals("b")) {
+                            canSignal.setB(Double.parseDouble(parser.nextText()));
+                        }
+                        else if (name.equals("c")) {
+                            canSignal.setC(Double.parseDouble(parser.nextText()));
+                        }
+                        else if (name.equals("d")) {
+                            canSignal.setD(Double.parseDouble(parser.nextText()));
+                        }
+                        else if (name.equals("unit")) {
+                            canSignal.setUnit(parser.nextText());
+                        }
+                        else if (name.equals("signalNodeName")) {
+                            canSignal.setNodeName(parser.nextText());
+                        }
                         break;
                     case XmlPullParser.END_TAG:// 结束元素事件
-                        System.out.println("end");
+                        name = parser.getName();
+                        //System.out.println("end " + name);
+
+                        if (name.equals("CanMessageUnionSignalSet")) {
+
+                        }
+                        else if (name.equals("CanMessageUnionSignal")) {
+                            unions.add(union);
+                        }
+                        else if (name.equals("CanMessage")) {
+                            union.setCanMessage(canMessage);
+                        }
+                        else if (name.equals("bo")) {
+
+                        }
+                        else if (name.equals("id")) {
+
+                        }
+                        else if (name.equals("messageName")) {
+
+                        }
+                        else if (name.equals("divide")) {
+
+                        }
+                        else if (name.equals("dlc")) {
+
+                        }
+                        else if (name.equals("nodeName")) {
+
+                        }
+                        else if (name.equals("CanSignals")) {
+                            union.setCanSignals(canSignalSet);
+                        }
+                        else if (name.equals("CanSignal")) {
+                            canSignalSet.add(canSignal);
+                        }
+                        else if (name.equals("sg")) {
+
+                        }
+                        else if (name.equals("signalName")) {
+
+                        }
+                        else if (name.equals("signalDivide")) {
+
+                        }
+                        else if (name.equals("slt")) {
+
+                        }
+                        else if (name.equals("a")) {
+
+                        }
+                        else if (name.equals("b")) {
+
+                        }
+                        else if (name.equals("c")) {
+
+                        }
+                        else if (name.equals("d")) {
+
+                        }
+                        else if (name.equals("unit")) {
+
+                        }
+                        else if (name.equals("signalNodeName")) {
+
+                        }
                         break;
                 }
                 eventType = parser.next();
             }
 
-
             stream.close();
-            return null;
+            return unions;
 
         } catch (Exception e) {
             e.printStackTrace();

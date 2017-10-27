@@ -37,4 +37,14 @@ public class CanMessageUnionSignal {
     public void setCanSignals(Set<CanSignal> canSignals) {
         this.canSignals = canSignals;
     }
+
+    public String toString() {
+        String result = "union {\n" + canMessage.toString() + "\n";
+        for (CanSignal canSignal : canSignals) {
+            result += canSignal + "\n";
+        }
+        result += "}";
+
+        return result;
+    }
 }

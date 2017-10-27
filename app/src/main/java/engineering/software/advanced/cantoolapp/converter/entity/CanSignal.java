@@ -42,6 +42,10 @@ public class CanSignal {
     //如果多个ECU接收此信号，则用逗号将多了节点名隔开，例如：BCM,PEPS,ICM,CDU
     private String nodeName;
 
+    public CanSignal() {
+
+    }
+
     public CanSignal(String sg, String signalName, String divide, String slt,
                      double a, double b, double c, double d, String unit, String nodeName) {
         this.sg = sg;
@@ -151,7 +155,7 @@ public class CanSignal {
 
     public String toString() {
         return String.format(
-                "CanMessage {\n\t%s\n\t%s\n\t%s\n\t%s\n\t%f\n\t%f\n\t%f\n\t%f\n\t%s\n\t%s\n}",
+                "CanSignal {\n\t%s\n\t%s\n\t%s\n\t%s\n\t%f\n\t%f\n\t%f\n\t%f\n\t%s\n\t%s\n}",
                 sg, signalName, divide, slt, a, b, c, d, unit, nodeName
         );
     }
