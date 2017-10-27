@@ -10,7 +10,7 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessa
  */
 
 public interface FileToData {
-    public Set<CanMessageUnionSignal> xmlToCanMessageUnionSignal(InputStream stream);
+    public Set<CanMessageUnionSignal> xmlToCanMessageUnionSignal(String path);
 
-    public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(InputStream stream);
+    public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(String path);
 }

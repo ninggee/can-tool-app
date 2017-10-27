@@ -3,6 +3,7 @@ package engineering.software.advanced.cantoolapp.export.Impl;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,8 +30,9 @@ public class FileToDataImpl implements FileToData {
     }
 
     @Override
-    public Set<CanMessageUnionSignal> xmlToCanMessageUnionSignal(InputStream stream) {
+    public Set<CanMessageUnionSignal> xmlToCanMessageUnionSignal(String path) {
         try {
+            InputStream stream = new FileInputStream(path);
 
             XmlPullParserFactory pullParserFactory= XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();
@@ -198,7 +200,7 @@ public class FileToDataImpl implements FileToData {
     }
 
     @Override
-    public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(InputStream stream) {
+    public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(String path) {
         return null;
     }
 }
