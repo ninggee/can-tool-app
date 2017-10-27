@@ -27,11 +27,13 @@ import engineering.software.advanced.cantoolapp.converter.MessageAndSignalProces
 import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.database.Database;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
-import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.Export;
 import engineering.software.advanced.cantoolapp.export.Impl.ExportImpl;
 import engineering.software.advanced.cantoolapp.utils.DatabaseItem;
+import engineering.software.advanced.cantoolapp.converter.entity.Message;
+
+
 
 /**
  * Created by ningge on 20/10/2017.
@@ -54,7 +56,12 @@ public class TestInterface {
 
     Processor processor = MessageAndSignalProcessor.getInstance();
 
-
+    /**
+     * init this interface
+     * @param c context of main activity and can also treat as an activity object
+     * @param connector connector instance
+     * @param sharedPreferences storage can setting
+     */
     public TestInterface(Context c, Connector connector, SharedPreferences sharedPreferences) {
         __context = c;
         __connector =connector;
@@ -62,11 +69,19 @@ public class TestInterface {
         commandController = new CommandController(__connector);
     }
 
+    /**
+     * show toast on the page
+     * @param toast
+     */
     @JavascriptInterface
     public void showToast(String toast) {
         Toast.makeText(__context, toast, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * get all paired bluetooth device
+     * @return
+     */
     @JavascriptInterface
     public String getDevices() {
         JSONObject result = new JSONObject(__connector.listAll());
@@ -74,11 +89,20 @@ public class TestInterface {
         return  result.toString();
     }
 
+    /**
+     * coonect to a bluetooth device
+     * @param path
+     * @return
+     */
     @JavascriptInterface
     public boolean connect(String path) {
         return  __connector.connect(path, 115200);
     }
 
+    /**
+     * close connection to a device
+     * @return
+     */
     @JavascriptInterface
     public boolean close() {
         return __connector.close();
