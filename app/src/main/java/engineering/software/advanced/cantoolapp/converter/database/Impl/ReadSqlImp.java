@@ -7,12 +7,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.Tree.SqlNode;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.Tree.SqlTree;
 import engineering.software.advanced.cantoolapp.converter.database.ReadSql;
+import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
 /**
  * Created by lhr on 2017/10/23.
@@ -22,38 +28,15 @@ public class ReadSqlImp implements ReadSql {
 
     String messagePa = "^BO_.*$";//需要匹配的message信息
     String signalPa = "^ SG_.*$";//需要匹配的signal信息
+    CanDecoding decoding = CanDecodingImpl.getInstance();//解析用
     //创建一个树
     SqlTree tree = new SqlTree();
     //创建节点
     SqlNode node = new SqlNode();
 
     @Override
-    public SqlTree readAstree() {
-        File fileName = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//路径应该修改
-        InputStreamReader isr = null;
-        BufferedReader br = null;
-        String s = "";
-        try {
-            isr = new InputStreamReader(new FileInputStream(fileName),"GBK");
-            br = new BufferedReader(isr);
-            while((s = br.readLine()) != null) {
-                buildTree(s);//构建一个树
-            }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally {
-            try {
-                br.close();
-                isr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public SqlTree readAstree(String filename) {
 
-        }
         return tree;
     }
 

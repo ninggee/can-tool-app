@@ -40,6 +40,9 @@
                     <td class="uk-width-medium uk-text-nowrap">{{database.name}}</td>
                     <td class="uk-width-medium uk-text-nowrap">{{database.time}}</td>
                     <td class="uk-width-medium uk-text-nowrap">
+                        <button class="uk-button uk-button-small">
+                            <a href="file:///android_asset/html/ztree.html">树形显示</a>
+                        </button>
                         <button class="uk-button uk-button-secondary uk-button-small" v-on:click="set_default(database.name)" v-if="database.is_in_using == false">设为当前</button>
                         <button class="uk-button uk-button-danger uk-button-small" v-on:click="remove_database(database.name)" v-if="database.name != '默认数据库' && database.is_in_using == false">移除</button>
                     </td>

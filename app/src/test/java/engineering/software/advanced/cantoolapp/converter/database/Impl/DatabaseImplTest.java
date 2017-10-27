@@ -17,4 +17,12 @@ public class DatabaseImplTest {
 
     }
 
+    @Test
+    public void dbcTreeTojson() throws Exception {
+
+        Database db = new DatabaseImpl("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
+        String s = db.dbcTreeTojson();
+        System.out.print(s);
+
+    }
 }

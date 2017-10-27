@@ -181,5 +181,50 @@ public class DatabaseImpl implements Database {
         return result;
     }
 
+    @Override
+    public String dbcTreeTojson() {
+        Set<CanMessageUnionSignalName> all = new HashSet<>();//存放所有信息
+        BufferedReader bufferedReader = null;
+        InputStreamReader isr = null;
+        String result = "";
+        Gson json = new Gson();
+        try {
+            isr = new InputStreamReader(new FileInputStream(filename), "GBK");
+            bufferedReader = new BufferedReader(isr);
+            String line = "";
+            //读取一行
+            while ((line = bufferedReader.readLine()) != null) {
+                //判断是不是message，message类似BO_ 856 CDU_1: 8 CDU格式
+                Pattern pattern = Pattern.compile(messagePa);
+                Matcher m1 = pattern.matcher(line);
+                CanMessage message = decoding.messageDecoding(line);
+                if (m1.matches()) {//找到message
+                    Set<CanSignal> set = searchSignalUseMessage(message);
+                    Set<SingleSignalName> name = new HashSet<>();//将signal的名字存储起来
+                    for (CanSignal cs : set){
+                        SingleSignalName singleSignalName = new SingleSignalName(cs.getSignalName());
+                        name.add(singleSignalName);
+                    }
+                    CanMessageUnionSignalName canMessageUnionSignalName = new CanMessageUnionSignalName(message.getMessageName(),name);
+                    all.add(canMessageUnionSignalName);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            try {
+                bufferedReader.close();// 关闭输入流
+                isr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return json.toJson(all);
+    }
+
 
 }

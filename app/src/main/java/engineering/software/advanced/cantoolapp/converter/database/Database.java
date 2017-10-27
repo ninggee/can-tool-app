@@ -30,4 +30,6 @@ public interface Database {
     //显示数据库中所有的message信息,并且转成json格式的字符串
     public String searchAllMessage();
 
+    public String dbcTreeTojson();
+
 }

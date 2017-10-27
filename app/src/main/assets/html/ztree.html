@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>树形结构显示</title>
+
+    <script src="file:///android_asset/js/vue.js"></script>
+    <link rel="stylesheet" href="file:///android_asset/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="file:///android_asset/js/uikit.min.js"></script>
+    <script src="file:///android_asset/js/uikit-icons.min.js"></script>
+
+
+    <script src="file:///android_asset/js/jquery.min.js"></script>
+    <!-- 引入ztree核心库-->
+    <script type="text/javascript" src="file:///android_asset/js/jquery.ztree.core.js"></script>
+    <!-- 引入ztree样式 -->
+    <link rel="stylesheet" href="file:///android_asset/css/zTreeStyle/zTreeStyle.css" type="text/css">
+</head>
+
+<body>
+
+
+<div id="app" class="uk-flex uk-flex-column uk-width-auto" style="margin: 20px">
+    <div class="uk-card uk-card-default uk-width-auto" >
+        <h8 class="uk-card-title ">数据库树形显示</h68>
+            <div class="container container_sc">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+ var app = new Vue({
+    el: '#app',
+    data: {
+      zNodes: []
+    },
+    created: function() {
+
+    },
+    mounted: function() {
+
+	   var zNodes = [
+	   		{name:"test1", open:false, children:[
+	      	{name:5}, {name:"test1_2"}]},
+	   		{name:"test2", open:true, children:[
+	      	{name:"test2_1"}, {name:"test2_2"}]},
+	      	{name:"test1", open:true, children:[
+	      	{name:5}, {name:"test1_2"}]},
+	   		{name:"test2", open:true, children:[
+	      	{name:"test2_1"}, {name:"test2_2"}]}
+	   ];
+
+      zTreeObj = $.fn.zTree.init($("#treeDemo"), {}, zNodes);
+    },
+    computed: {
+
+    },
+    methods: {
+        back: function() {
+            console.log("back function called")
+        },
+        randomColor: function(){
+            return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+        },
+        getGridName: function(index) {
+            return "grid_" + index;
+        }
+    }
+})
+</script>
+</body>
+</html>
+
