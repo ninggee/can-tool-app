@@ -86,14 +86,14 @@ public class DataToFileImpl implements DataToFile {
             result += "<messageName>" + canMessage.getMessageName() + "</messageName>\n";
             result += "<divide>" + canMessage.getDivide() + "</divide>\n";
             result += "<dlc>" + canMessage.getDlc() + "</dlc>\n";
-            result += "<nodeName>" + canMessage.getDivide() + "</nodeName>\n";
+            result += "<nodeName>" + canMessage.getNodeName() + "</nodeName>\n";
             result += "</CanMessage>\n";
             result += "<CanSignals>\n";
             for (CanSignal canSignal : union.getCanSignals()) {
                 result += "<CanSignal>\n";
                 result += "<sg>" + canSignal.getSg() + "</sg>\n";
                 result += "<signalName>" + canSignal.getSignalName() + "</signalName>\n";
-                result += "<divide>" + canSignal.getDivide() + "</divide>\n";
+                result += "<signalDivide>" + canSignal.getDivide() + "</signalDivide>\n";
                 result += "<slt>" + canSignal.getSlt() + "</slt>\n";
                 result += "<a>" + canSignal.getA() + "</a>\n";
                 result += "<b>" + canSignal.getB() + "</b>\n";
