@@ -28,7 +28,9 @@ import engineering.software.advanced.cantoolapp.converter.Processor;
 import engineering.software.advanced.cantoolapp.converter.database.Database;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
+import engineering.software.advanced.cantoolapp.export.DataToFile;
 import engineering.software.advanced.cantoolapp.export.Export;
+import engineering.software.advanced.cantoolapp.export.Impl.DataToFileImpl;
 import engineering.software.advanced.cantoolapp.export.Impl.ExportImpl;
 import engineering.software.advanced.cantoolapp.utils.DatabaseItem;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
@@ -390,6 +392,48 @@ public class TestInterface {
         database.remove(name);
 
         return true;
+    }
+
+    @JavascriptInterface
+    public void exportDatabase(String name, String format) {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+
+        DatabaseItem item = database.getOne(name);
+        DataToFile dataToFile = new DataToFileImpl();
+
+
+        String temp = "";
+
+        switch (format.toLowerCase()) {
+            case "json":
+                temp = dataToFile.dbToJson(item.getPath());
+                break;
+            case "xml":
+                temp = dataToFile.dbToXml(item.getPath());
+                break;
+        }
+
+        dataToFile.toFile(temp,
+                "/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/",
+                item.getName(),
+                "." + format
+                );
+    }
+
+
+    @JavascriptInterface
+    public String getDatabaseTreeInfo(String name) {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+
+        DatabaseItem item = database.getOne(name);
+
+        Database database1 = new DatabaseImpl(item.getPath());
+
+        return database1.dbcTreeTojson();
     }
 
 
