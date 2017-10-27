@@ -155,4 +155,44 @@ public class CanSignal {
                 sg, signalName, divide, slt, a, b, c, d, unit, nodeName
         );
     }
+
+    public void setSg(String sg) {
+        this.sg = sg;
+    }
+
+    public void setSignalName(String signalName) {
+        this.signalName = signalName;
+    }
+
+    public void setDivide(String divide) {
+        this.divide = divide;
+    }
+
+    public void setSlt(String slt) {
+        this.slt = slt;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public void setC(double c) {
+        this.c = c;
+    }
+
+    public void setD(double d) {
+        this.d = d;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
 }

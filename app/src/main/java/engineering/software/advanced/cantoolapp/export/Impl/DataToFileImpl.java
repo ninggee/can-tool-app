@@ -86,8 +86,8 @@ public class DataToFileImpl implements DataToFile {
             result += "<divide>" + canMessage.getDivide() + "</divide>\n";
             result += "<dlc>" + canMessage.getDlc() + "</dlc>\n";
             result += "<nodeName>" + canMessage.getDivide() + "</nodeName>\n";
-            result += "<divide>" + canMessage.getDivide() + "</divide>\n";
             result += "</CanMessage>\n";
+            result += "<CanSignals>\n";
             for (CanSignal canSignal : union.getCanSignals()) {
                 result += "<CanSignal>\n";
                 result += "<sg>" + canSignal.getSg() + "</sg>\n";
@@ -99,9 +99,10 @@ public class DataToFileImpl implements DataToFile {
                 result += "<c>" + canSignal.getC() + "</c>\n";
                 result += "<d>" + canSignal.getD() + "</d>\n";
                 result += "<unit>" + canSignal.getUnit() + "</unit>\n";
-                result += "<nodeName>" + canSignal.getNodeName() + "</nodeName>\n";
+                result += "<signalNodeName>" + canSignal.getNodeName() + "</signalNodeName>\n";
                 result += "</CanSignal>\n";
             }
+            result += "</CanSignals>\n";
             result += "</CanMessageUnionSignal>\n";
         }
 

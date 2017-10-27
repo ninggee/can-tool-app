@@ -14,6 +14,7 @@ import engineering.software.advanced.cantoolapp.converter.entity.Data;
 import engineering.software.advanced.cantoolapp.converter.entity.Frame;
 import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
+import engineering.software.advanced.cantoolapp.converter.enumeration.Endian;
 import engineering.software.advanced.cantoolapp.converter.enumeration.FrameType;
 import engineering.software.advanced.cantoolapp.converter.transmission.Impl.ReceiverImpl;
 import engineering.software.advanced.cantoolapp.converter.transmission.Receiver;
@@ -73,7 +74,13 @@ public class MessageAndSignalProcessor implements Processor {
 //                    throw new RuntimeException("this kind of endian is not set yet.");
 //            }
 
-            int origin = data.getSignal(canSignal.getStart(), canSignal.getLength(), canSignal.getEndian());
+            Endian endian = canSignal.getEndian();
+
+            if (endian == Endian.ONE_MINUS || endian == Endian.ZERO_MINUS) {
+                continue;
+            }
+
+            int origin = data.getSignal(canSignal.getStart(), canSignal.getLength(), endian);
 
             double value = converter.signalToValue(origin, canSignal.getA(), canSignal.getB());
 

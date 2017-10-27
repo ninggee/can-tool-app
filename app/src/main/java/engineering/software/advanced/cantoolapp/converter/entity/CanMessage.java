@@ -27,6 +27,10 @@ public class CanMessage {
     //字符串，最长32字节,发送此信息的Node名。也是ECU名
     private String nodeName;
 
+    public CanMessage() {
+
+    }
+
     public CanMessage(String bo, long id, String messageName,
                       String divide, int dlc, String nodeName) {
         this.bo = bo;
@@ -80,5 +84,29 @@ public class CanMessage {
                 "CanMessage {\n\t%s\n\t%d\n\t%s\n\t%s\n\t%d\n\t%s\n}",
                 bo, id, messageName, divide, dlc, nodeName
         );
+    }
+
+    public void setBo(String bo) {
+        this.bo = bo;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setMessageName(String messageName) {
+        this.messageName = messageName;
+    }
+
+    public void setDivide(String divide) {
+        this.divide = divide;
+    }
+
+    public void setDlc(int dlc) {
+        this.dlc = dlc;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
     }
 }
