@@ -7,6 +7,6 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.Tree.Sql
  */
 
 public interface ReadSql {
-    public abstract SqlTree readAstree();
+    public abstract SqlTree readAstree(String filename);
 
 }

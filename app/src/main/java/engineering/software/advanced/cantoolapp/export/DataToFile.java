@@ -41,5 +41,5 @@ public interface DataToFile {
      * @param filename  完整文件路径
      * @return  是否成功
      */
-    public boolean JsonToDbc(String filename);
+    public boolean jsonToDbc(String filename);
 }

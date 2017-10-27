@@ -15,16 +15,16 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.Tree.Sql
 public class TestReadTree {
     @Test
     public void read(){
-        ReadSqlImp readSqlImp = new ReadSqlImp();
-        readSqlImp.readAstree();
-        SqlTree sqlTree = readSqlImp.getSqlTree();
-        SqlNode sqlNode = sqlTree.root;
-
-        for(SqlNode sn: sqlNode.sons){
-            System.out.println(sn.name);
-            for (SqlNode sns : sn.sons)
-                System.out.println(" " + sns.name);
-        }
+//        ReadSqlImp readSqlImp = new ReadSqlImp();
+//        readSqlImp.readAstree();
+//        SqlTree sqlTree = readSqlImp.getSqlTree();
+//        SqlNode sqlNode = sqlTree.root;
+//
+//        for(SqlNode sn: sqlNode.sons){
+//            System.out.println(sn.name);
+//            for (SqlNode sns : sn.sons)
+//                System.out.println(" " + sns.name);
+//        }
 
     }
 }

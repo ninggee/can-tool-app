@@ -1,6 +1,7 @@
 package engineering.software.advanced.cantoolapp.export.Impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -164,7 +165,7 @@ public class DataToFileImpl implements DataToFile {
     }
 
     @Override
-    public boolean JsonToDbc(String filename) {
+    public boolean jsonToDbc(String filename) {
         Gson json = new Gson();
         FileInputStream fis = null;
         InputStreamReader isr = null;
@@ -176,8 +177,11 @@ public class DataToFileImpl implements DataToFile {
             isr = new InputStreamReader(fis);
             br = new BufferedReader(isr);
             s = br.readLine();
-            result = json.fromJson(s,String.class);
-            System.out.print(result);
+            Set all = json.fromJson(s,Set.class);
+            for(Object cs: all) {
+                System.out.println(cs);
+
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
