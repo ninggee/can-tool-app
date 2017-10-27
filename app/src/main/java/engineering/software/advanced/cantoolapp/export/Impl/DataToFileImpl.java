@@ -76,6 +76,42 @@ public class DataToFileImpl implements DataToFile {
         return result;
     }
 
+    private String toXml(Set<CanMessageUnionSignal> unions) {
+        String result = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+        result += "<CanMessageUnionSignal>\n";
+
+        for (CanMessageUnionSignal union : unions) {
+            CanMessage canMessage = union.getCanMessage();
+            result += "<CanMessage>\n";
+            result += "<bo>" + canMessage.getBo() + "</bo>\n";
+            result += "<id>" + canMessage.getId() + "</id>\n";
+            result += "<messageName>" + canMessage.getMessageName() + "</messageName>\n";
+            result += "<divide>" + canMessage.getDivide() + "</divide>\n";
+            result += "<dlc>" + canMessage.getDlc() + "</dlc>\n";
+            result += "<nodeName>" + canMessage.getDivide() + "</nodeName>\n";
+            result += "<divide>" + canMessage.getDivide() + "</divide>\n";
+            result += "</CanMessage>\n";
+            for (CanSignal canSignal : union.getCanSignals()) {
+                result += "<CanSignal>\n";
+                result += "<sg>" + canSignal.getSg() + "</sg>\n";
+                result += "<signalName>" + canSignal.getSignalName() + "</signalName>\n";
+                result += "<divide>" + canSignal.getDivide() + "</divide>\n";
+                result += "<slt>" + canSignal.getSlt() + "</slt>\n";
+                result += "<a>" + canSignal.getA() + "</a>\n";
+                result += "<b>" + canSignal.getB() + "</b>\n";
+                result += "<c>" + canSignal.getC() + "</c>\n";
+                result += "<d>" + canSignal.getD() + "</d>\n";
+                result += "<unit>" + canSignal.getUnit() + "</unit>\n";
+                result += "<nodeName>" + canSignal.getNodeName() + "</nodeName>\n";
+                result += "</CanSignal>\n";
+            }
+        }
+
+        result += "</CanMessageUnionSignal>\n";
+
+        return result;
+    }
+
     @Override
     public boolean toFile(String str, String  path, String  filename, String fomat) {
 
@@ -126,7 +162,6 @@ public class DataToFileImpl implements DataToFile {
         Database db = new DatabaseImpl(filename);
 
         Set<CanMessageUnionSignal> allMessage = db.setAllMessage();
-
 
         return null;
     }
