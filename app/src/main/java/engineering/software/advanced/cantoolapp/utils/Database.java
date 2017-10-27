@@ -33,14 +33,40 @@ public class Database {
             DatabaseItem databaseItem = new Gson().fromJson((String)item, DatabaseItem.class);
             result.put(databaseItem.getName(), databaseItem);
         }
-        return new Gson().toJson(result);
+        return new Gson().toJson(result.values());
     }
 
-    public String getOne(String name) {
+    public DatabaseItem getOne(String name) {
         String result = storage.getString(name, "");
-        return result;
+        return  new Gson().fromJson(result, DatabaseItem.class);
     }
 
+    public void remove(String name) {
+        SharedPreferences.Editor editor = storage.edit();
+        editor.remove(name);
+        editor.commit();
+    }
+
+    public DatabaseItem getDefault() {
+        Map<String, ?> allMessages = storage.getAll();
+
+        Map<String, DatabaseItem> result  = new HashMap<>();
+        for(Object item : allMessages.values()) {
+            DatabaseItem databaseItem = new Gson().fromJson((String)item, DatabaseItem.class);
+            if(databaseItem.isIs_in_using()) {
+                return databaseItem;
+            }
+        }
+
+        return null;
+    }
+
+    public void update(String name , DatabaseItem newData) {
+        SharedPreferences.Editor editor = storage.edit();
+
+        editor.putString(name, new Gson().toJson(newData));
+        editor.commit();
+    }
 
 
 }
