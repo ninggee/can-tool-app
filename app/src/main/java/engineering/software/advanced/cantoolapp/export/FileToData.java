@@ -9,7 +9,7 @@ import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessa
  * Created by Zhang Dongdi on 2017/10/27.
  */
 
-public interface FileReader {
+public interface FileToData {
     public Set<CanMessageUnionSignal> xmlToCanMessageUnionSignal(InputStream stream);
 
     public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(InputStream stream);

@@ -10,22 +10,22 @@ import java.util.Set;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessageUnionSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
-import engineering.software.advanced.cantoolapp.export.FileReader;
+import engineering.software.advanced.cantoolapp.export.FileToData;
 
 /**
  * Created by Zhang Dongdi on 2017/10/27.
  */
 
-public class FileReaderImpl implements FileReader {
+public class FileToDataImpl implements FileToData {
 
-    private static FileReader fileReader = new FileReaderImpl();
+    private static FileToData fileToData = new FileToDataImpl();
 
-    private FileReaderImpl() {
+    private FileToDataImpl() {
 
     }
 
-    public static FileReader getInstance() {
-        return fileReader;
+    public static FileToData getInstance() {
+        return fileToData;
     }
 
     @Override
