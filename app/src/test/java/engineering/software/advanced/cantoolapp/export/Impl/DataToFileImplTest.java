@@ -73,11 +73,11 @@ public class DataToFileImplTest {
     public void dbtoJson() throws Exception{
 
         String s = dataToFile.dbToJson("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
-        System.out.print(s);
+        dataToFile.toFile(s,"d:/","test",".json");
     }
     @Test
     public void JsonToDbc() throws Exception{
 
-        dataToFile.jsonToDbc("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
+        dataToFile.jsonToDbc("D:\\test.json");
     }
 }

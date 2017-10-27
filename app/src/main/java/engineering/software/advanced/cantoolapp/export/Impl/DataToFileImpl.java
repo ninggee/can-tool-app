@@ -2,6 +2,7 @@ package engineering.software.advanced.cantoolapp.export.Impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -178,10 +179,12 @@ public class DataToFileImpl implements DataToFile {
             isr = new InputStreamReader(fis);
             br = new BufferedReader(isr);
             s = br.readLine();
-            Set all = json.fromJson(s,Set.class);
-            for(Object cs: all) {
-                System.out.println(cs);
-
+            System.out.println(s);
+            //解析json
+            Set<CanMessageUnionSignal>  canMessageUnionSignals = json.fromJson(s,new TypeToken<Set<CanMessageUnionSignal>>(){}.getType());
+            System.out.println(canMessageUnionSignals.size());
+            for(CanMessageUnionSignal cs: canMessageUnionSignals) {
+                System.out.println(cs.getCanSignals());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
