@@ -34,14 +34,15 @@ public class DataToFileImplTest {
 
     @Test
     public void toFile() throws Exception {
-        Set<Message> messages = processor.decodeMultiple("t03D19C\rt03D19D\r");
+        /*Set<Message> messages = processor.decodeMultiple("t03D19C\rt03D19D\r");
         List<MessagesWrapper> wrappers = new ArrayList<>();
         for (Message message : messages) {
             wrappers.add(new MessagesWrapper("123", message));
         }
 
         dataToFile.toFile(dataToFile.toXml(wrappers),"d:/","test",".xml");
-        dataToFile.toFile(dataToFile.toJson(wrappers),"d:/","test",".json");
+        dataToFile.toFile(dataToFile.toJson(wrappers),"d:/","test",".json");*/
+        dataToFile.toFile(dataToFile.dbToXml("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc"),"d:/","testxml",".xml");
     }
 
     @Test
@@ -57,6 +58,19 @@ public class DataToFileImplTest {
 
     @Test
     public void dbToXml()throws Exception{
+        System.out.print(dataToFile.dbToXml("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc"));
 
+    }
+
+    @Test
+    public void dbtoJson() throws Exception{
+
+        String s = dataToFile.dbToJson("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
+        System.out.print(s);
+    }
+    @Test
+    public void JsonToDbc() throws Exception{
+
+        dataToFile.JsonToDbc("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
     }
 }

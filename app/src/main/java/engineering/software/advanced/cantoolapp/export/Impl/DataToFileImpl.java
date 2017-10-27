@@ -11,15 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
 import engineering.software.advanced.cantoolapp.converter.database.Database;
-import engineering.software.advanced.cantoolapp.converter.database.Impl.CanDecodingImpl;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessageUnionSignal;
 import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
@@ -163,8 +158,39 @@ public class DataToFileImpl implements DataToFile {
     public String dbToXml(String filename) {
         Database db = new DatabaseImpl(filename);
 
-        Set<CanMessageUnionSignal> allMessage = db.setAllMessage();
+        Set<CanMessageUnionSignal> allMessage = db.AllMessageToSet();
 
         return toXml(allMessage);
+    }
+
+    @Override
+    public boolean JsonToDbc(String filename) {
+        Gson json = new Gson();
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        String s = "";
+        String result = "";//写入的内容
+        try {
+            fis = new FileInputStream(new File(filename));
+            isr = new InputStreamReader(fis);
+            br = new BufferedReader(isr);
+            s = br.readLine();
+            result = json.fromJson(s,String.class);
+            System.out.print(result);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                isr.close();
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
