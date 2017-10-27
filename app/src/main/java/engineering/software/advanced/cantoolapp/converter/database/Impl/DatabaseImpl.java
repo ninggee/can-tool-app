@@ -132,7 +132,7 @@ public class DatabaseImpl implements Database {
     }
 
     @Override
-    public Set<CanMessageUnionSignal> setAllMessage() {
+    public Set<CanMessageUnionSignal> AllMessageToSet() {
         Set<CanMessageUnionSignal> all = new HashSet<>();//存放所有信息
         BufferedReader bufferedReader = null;
         InputStreamReader isr = null;
@@ -174,7 +174,7 @@ public class DatabaseImpl implements Database {
     public String searchAllMessage() {
         Gson json = new Gson();
         String result = "";
-        Set<CanMessageUnionSignal> all = setAllMessage();
+        Set<CanMessageUnionSignal> all = AllMessageToSet();
         //转为json
         result = json.toJson(all);
 

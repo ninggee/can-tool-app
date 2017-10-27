@@ -25,7 +25,7 @@ public interface Database {
      * 将数据库的的信息全部找到并且储存在一个set中
      * CanMessageUnionSignal是一条完整的信息
      */
-    public Set<CanMessageUnionSignal> setAllMessage();
+    public Set<CanMessageUnionSignal> AllMessageToSet();
 
     //显示数据库中所有的message信息,并且转成json格式的字符串
     public String searchAllMessage();
