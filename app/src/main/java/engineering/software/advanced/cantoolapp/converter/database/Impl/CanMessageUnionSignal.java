@@ -13,6 +13,10 @@ public class CanMessageUnionSignal {
     private CanMessage canMessage;
     private Set<CanSignal> canSignals;
 
+    public CanMessageUnionSignal() {
+
+    }
+
     public CanMessageUnionSignal(CanMessage canMessage, Set<CanSignal> canSignals) {
         this.canMessage = canMessage;
         this.canSignals = canSignals;

@@ -65,8 +65,8 @@ public class DataToFileImplTest {
 
     @Test
     public void dbToXml()throws Exception{
-        System.out.print(dataToFile.dbToXml("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc"));
-
+        //System.out.print(dataToFile.dbToXml("F:\\db.dbc"));
+        dataToFile.toFile(dataToFile.dbToXml("F:/canmsg-sample.dbc"), "F:/", "db", ".xml");
     }
 
     @Test
