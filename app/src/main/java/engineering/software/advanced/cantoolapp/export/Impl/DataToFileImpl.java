@@ -78,9 +78,10 @@ public class DataToFileImpl implements DataToFile {
 
     private String toXml(Set<CanMessageUnionSignal> unions) {
         String result = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-        result += "<CanMessageUnionSignal>\n";
+        result += "<CanMessageUnionSignalSet>\n";
 
         for (CanMessageUnionSignal union : unions) {
+            result += "<CanMessageUnionSignal>\n";
             CanMessage canMessage = union.getCanMessage();
             result += "<CanMessage>\n";
             result += "<bo>" + canMessage.getBo() + "</bo>\n";
@@ -105,9 +106,10 @@ public class DataToFileImpl implements DataToFile {
                 result += "<nodeName>" + canSignal.getNodeName() + "</nodeName>\n";
                 result += "</CanSignal>\n";
             }
+            result += "</CanMessageUnionSignal>\n";
         }
 
-        result += "</CanMessageUnionSignal>\n";
+        result += "</CanMessageUnionSignalSet>\n";
 
         return result;
     }
@@ -163,6 +165,6 @@ public class DataToFileImpl implements DataToFile {
 
         Set<CanMessageUnionSignal> allMessage = db.setAllMessage();
 
-        return null;
+        return toXml(allMessage);
     }
 }
