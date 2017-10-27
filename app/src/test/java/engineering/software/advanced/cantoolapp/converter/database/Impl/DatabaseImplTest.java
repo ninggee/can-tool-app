@@ -2,7 +2,12 @@ package engineering.software.advanced.cantoolapp.converter.database.Impl;
 
 import org.junit.Test;
 
+import java.util.Set;
+
 import engineering.software.advanced.cantoolapp.converter.database.Database;
+import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
+import engineering.software.advanced.cantoolapp.converter.entity.Message;
 
 /**
  * Created by lhr on 2017/10/26.
@@ -24,5 +29,17 @@ public class DatabaseImplTest {
         String s = db.dbcTreeTojson();
         System.out.print(s);
 
+    }
+
+    @Test
+    public void searchSignalUseMessage() throws Exception {
+        Database db = new DatabaseImpl("F:/Comfort.dbc");
+        CanMessage canMessage = new CanMessage();
+        canMessage.setId(272);
+        Set<CanSignal> set = db.searchSignalUseMessage(canMessage);
+        System.out.println(set.size());
+        for (CanSignal canSignal : set) {
+            System.out.println(canSignal);
+        }
     }
 }

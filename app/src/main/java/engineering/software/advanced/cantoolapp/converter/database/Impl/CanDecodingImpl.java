@@ -49,7 +49,7 @@ public class CanDecodingImpl implements CanDecoding {
     @Override
     public CanSignal signalDecoding(String signal) {
         Pattern pattern = Pattern.compile(
-                "^(.+) (.+) ? (:) ?(\\d+\\|\\d+@\\d\\+) \\((.+),(.+)\\) \\[(.+)\\|(.+)\\] (\".*\") +(.+)$");
+                "^(.+) (.+) ? (:) ?(\\d+\\|\\d+@[0|1][\\+|\\-]) \\((.+),(.+)\\) \\[(.+)\\|(.+)\\] (\".*\") +(.+)$");
         Matcher matcher = pattern.matcher(signal);
         if (matcher.find()) {
 
