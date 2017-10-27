@@ -55,4 +55,8 @@ public class DataToFileImplTest {
         System.out.print(dataToFile.toJson(wrappers));
     }
 
+    @Test
+    public void dbToXml()throws Exception{
+
+    }
 }

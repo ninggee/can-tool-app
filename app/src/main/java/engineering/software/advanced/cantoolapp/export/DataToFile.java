@@ -10,12 +10,29 @@ import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 public interface DataToFile {
 
-    //转换成xml文件
+    //将Can信息转换成xml文件
     public String toXml(List<MessagesWrapper> wrappers);
 
     //将String写入写文件
     public boolean toFile(String str, String  path, String filename, String fomat);
 
-    //装换成json文件
-    public String  toJson(List<MessagesWrapper> wrappers);
+    //将CAN信息转换成json文件
+    public String toJson(List<MessagesWrapper> wrappers);
+
+
+
+    /**
+     *  数据库转json
+     * @param filename 要转换的数据库的完整路径
+     * @return
+     */
+    public String dbToJson(String filename);
+
+
+    /**
+     *  数据库转xml
+     * @param filename
+     * @return
+     */
+    public String dbToXml(String filename);
 }

@@ -2,14 +2,28 @@ package engineering.software.advanced.cantoolapp.export.Impl;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import engineering.software.advanced.cantoolapp.converter.database.CanDecoding;
+import engineering.software.advanced.cantoolapp.converter.database.Database;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.CanDecodingImpl;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessageUnionSignal;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.DataToFile;
 import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
@@ -97,5 +111,23 @@ public class DataToFileImpl implements DataToFile {
         Gson json = new Gson();
 
         return json.toJson(wrappers);
+    }
+
+    @Override
+    public String dbToJson(String filename) {
+        Database db = new DatabaseImpl(filename);
+
+        return db.searchAllMessage();
+    }
+
+
+    @Override
+    public String dbToXml(String filename) {
+        Database db = new DatabaseImpl(filename);
+
+        Set<CanMessageUnionSignal> allMessage = db.setAllMessage();
+
+
+        return null;
     }
 }

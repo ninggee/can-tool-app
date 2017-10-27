@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Set;
 
+import engineering.software.advanced.cantoolapp.converter.database.Impl.CanMessageUnionSignal;
 import engineering.software.advanced.cantoolapp.converter.entity.CanMessage;
 import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 
@@ -20,6 +21,13 @@ public interface Database {
     //根据message寻找后面的signal
     public Set<CanSignal> searchSignalUseMessage(CanMessage message);
 
-    //显示数据库中所有的message信息
+    /**
+     * 将数据库的的信息全部找到并且储存在一个set中
+     * CanMessageUnionSignal是一条完整的信息
+     */
+    public Set<CanMessageUnionSignal> setAllMessage();
+
+    //显示数据库中所有的message信息,并且转成json格式的字符串
     public String searchAllMessage();
+
 }
