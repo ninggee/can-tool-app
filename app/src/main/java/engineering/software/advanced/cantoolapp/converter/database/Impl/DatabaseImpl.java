@@ -35,8 +35,8 @@ public class DatabaseImpl implements Database {
 
 
     public DatabaseImpl() {
-//        filename = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
-                filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
+        filename = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");//读取文件
+//                filename = new File("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");//读取文件
     }
 
     public DatabaseImpl(String  path) {
