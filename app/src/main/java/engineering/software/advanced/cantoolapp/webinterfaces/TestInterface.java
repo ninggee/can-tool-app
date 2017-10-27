@@ -311,8 +311,8 @@ public class TestInterface {
                 .withActivity((Activity) __context)
                 .withRequestCode(REQUESTCODE_FROM_ACTIVITY)
                 .withTitle("文件选择")
-                //.withMaxNum(2)
-                .withNotFoundBooks("至少选择一个文件")
+                .withMaxNum(1)
+                .withNotFoundBooks("请选择一个文件")
                 .withFileFilter(new String[]{"dbc"})
                 .start();
     }

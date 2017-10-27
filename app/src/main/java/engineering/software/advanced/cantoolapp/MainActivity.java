@@ -30,10 +30,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
+import engineering.software.advanced.cantoolapp.utils.Database;
+import engineering.software.advanced.cantoolapp.utils.DatabaseItem;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
 
 public class MainActivity extends AppCompatActivity
@@ -66,47 +70,10 @@ public class MainActivity extends AppCompatActivity
         //init drawer compontent
         __initDrawer();
 
-        //init sharedpreference which stores can settings
-        sharedPreferences = this.getSharedPreferences("engineering.software.advanced.cantoolapp.can_setting", Context.MODE_PRIVATE);
+        //init webview related things
+        __initWebview();
 
-        //init webview and config it
-        webview = (WebView) findViewById(R.id.webview);
-        WebSettings webSettings = webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector(), sharedPreferences), "Android");
 
-        //this is necessary or app will crash when you click a button
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String newUrl = request.getUrl().toString();
-                String oldUrl = webview.getUrl().toString();
-                if (!newUrl.equals(oldUrl) && !newUrl.equals(oldUrl + "?")) {
-                    webview.loadUrl(request.getUrl().toString());
-                }
-                Log.i("webviwe", "attempting to load Url: " + request.getUrl());
-                return true;
-            }
-        });
-
-        webview.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_BACK:
-                            if(webview.canGoBack()) {
-                                webview.goBack();
-                                return true;
-                            }
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
-        webview.loadUrl(urls.get("bluetooth"));
 
         File s= getExternalFilesDir("");
         //wtrie dbc file
@@ -255,14 +222,74 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+//    init webview related things
+    private void __initWebview() {
+        //init sharedpreference which stores can settings
+        sharedPreferences = this.getSharedPreferences("engineering.software.advanced.cantoolapp.can_setting", Context.MODE_PRIVATE);
+
+        //init webview and config it
+        webview = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webview.addJavascriptInterface(new TestInterface(this, new BuletoothConnector(), sharedPreferences), "Android");
+
+        //this is necessary or app will crash when you click a button
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String newUrl = request.getUrl().toString();
+                String oldUrl = webview.getUrl().toString();
+                if (!newUrl.equals(oldUrl) && !newUrl.equals(oldUrl + "?")) {
+                    webview.loadUrl(request.getUrl().toString());
+                }
+                Log.i("webviwe", "attempting to load Url: " + request.getUrl());
+                return true;
+            }
+        });
+
+        webview.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_BACK:
+                            if(webview.canGoBack()) {
+                                webview.goBack();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+        webview.loadUrl(urls.get("bluetooth"));
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 1000) {
+            if (requestCode == 1000) { //select file
                 //List<String> list = data.getStringArrayListExtra(Constant.RESULT_INFO);//Constant.RESULT_INFO == "paths"
+
+                SharedPreferences sharedPreferences = this.getSharedPreferences(Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE);
+                Database database = new Database(sharedPreferences);
+
                 List<String> list = data.getStringArrayListExtra("paths");
-                Toast.makeText(getApplicationContext(), "选中了" + list.size() + "个文件", Toast.LENGTH_SHORT).show();
+                String path = list.get(0);
+                String[] temp = path.split("/");
+                String db_name = temp[temp.length - 1].substring(0, temp[temp.length -1].indexOf(".dbc"));
+
+                String date = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+
+
+                DatabaseItem databaseItem = new DatabaseItem(db_name, date,  false, path);
+                database.add(databaseItem);
+
+                Toast.makeText(getApplicationContext(), "添加数据库：" + db_name + "成功", Toast.LENGTH_SHORT).show();
             }
         }
     }
