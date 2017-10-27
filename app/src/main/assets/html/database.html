@@ -14,10 +14,14 @@
     <div class="uk-card uk-card-default uk-width-1-1">
         <!-- <h2 class="uk-card-title">数据库管理</h2> -->
         <div class="uk-card-header">
-            <div class="uk-card-badge uk-label">默认数据库</div>
+            <div class="uk-card-badge uk-label">{{default_database}}</div>
             <h4 class="uk-card-title">当前数据库</h4>
             <button class="uk-button uk-button-default uk-width-1-1" style="background-color:#526c96;color:#fff" v-on:click="importFile">
                 导入数据库
+            </button>
+
+            <button class="uk-button uk-button-default uk-width-1-1" style="background-color:#f49b42;color:#fff" v-on:click="refresh">
+                刷新列表
             </button>
 
         </div>
@@ -32,12 +36,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="uk-width-medium uk-text-nowrap">默认数据库</td>
-                    <td class="uk-width-medium uk-text-nowrap">2017-08-09</td>
+                <tr v-for="database in databases ">
+                    <td class="uk-width-medium uk-text-nowrap">{{database.name}}</td>
+                    <td class="uk-width-medium uk-text-nowrap">{{database.time}}</td>
                     <td class="uk-width-medium uk-text-nowrap">
-                        <button class="uk-button uk-button-default uk-button-small">设为当前</button>
-                        <button class="uk-button uk-button-default uk-button-small">移除</button>
+                        <button class="uk-button uk-button-secondary uk-button-small" v-on:click="set_default(database.name)" v-if="database.is_in_using == false">设为当前</button>
+                        <button class="uk-button uk-button-danger uk-button-small" v-on:click="remove_database(database.name)" v-if="database.name != '默认数据库' && database.is_in_using == false">移除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -50,10 +54,13 @@
 var app = new Vue({
     el: '#app',
     data: {
-
+        databases: {},
+        default_database: ""
     },
     created: function() {
-
+        result = Android.getAllDatabase()
+        this.default_database = Android.getDefaultDatabase()
+        this.databases = JSON.parse(result)
     },
     computed: {
         buttonClass: function() {
@@ -64,12 +71,31 @@ var app = new Vue({
         }
     },
     methods: {
-        back: function() {
-            console.log("back function called")
-        },
         importFile: function() {
             Android.importFile()
+        },
+        set_default: function(name) {
+            this.default_database = name;
+            Android.setDatabase(name)
+            Android.showToast("设置默认为" + name)
+        },
+        remove_database: function(name) {
+            for(index in this.databases) {
+                database = this.databases[index]
+                if(database.name == name) {
+                    this.databases.splice(index, 1)
+                }
+            }
+
+            Android.removeDatabase(name)
+            Android.showToast("移除数据库：" + name +  "成功")
+        },
+        refresh: function() {
+            result = Android.getAllDatabase()
+            this.default_database = Android.getDefaultDatabase()
+            this.databases = JSON.parse(result)
         }
+
     }
 })
 </script>

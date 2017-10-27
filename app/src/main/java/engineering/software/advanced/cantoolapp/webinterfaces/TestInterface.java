@@ -31,6 +31,7 @@ import engineering.software.advanced.cantoolapp.converter.entity.Message;
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
 import engineering.software.advanced.cantoolapp.export.Export;
 import engineering.software.advanced.cantoolapp.export.Impl.ExportImpl;
+import engineering.software.advanced.cantoolapp.utils.DatabaseItem;
 
 /**
  * Created by ningge on 20/10/2017.
@@ -316,5 +317,56 @@ public class TestInterface {
                 .withFileFilter(new String[]{"dbc"})
                 .start();
     }
+
+    @JavascriptInterface
+    public String getAllDatabase() {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+
+        return database.getAll();
+    }
+
+    @JavascriptInterface
+    public boolean setDatabase(String name) {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+        DatabaseItem now_using = database.getDefault();
+
+        now_using.setIs_in_using(false);
+        database.update(now_using.getName(), now_using);
+
+        DatabaseItem new_use = database.getOne(name);
+        new_use.setIs_in_using(true);
+
+        database.update(new_use.getName(), new_use);
+
+        processor.setDatabase(new_use.getPath());
+
+        return true;
+    }
+
+
+    @JavascriptInterface
+    public String getDefaultDatabase() {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+
+        return database.getDefault().getName();
+    }
+
+    @JavascriptInterface
+    public boolean removeDatabase(String name) {
+        engineering.software.advanced.cantoolapp.utils.Database database = new engineering.software.advanced.cantoolapp.utils.Database(
+                __context.getSharedPreferences(engineering.software.advanced.cantoolapp.utils.Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE)
+        );
+
+        database.remove(name);
+
+        return true;
+    }
+
 
 }

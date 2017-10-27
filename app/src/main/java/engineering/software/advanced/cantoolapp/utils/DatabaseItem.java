@@ -1,5 +1,8 @@
 package engineering.software.advanced.cantoolapp.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by ningge on 2017/10/27.
  */
@@ -15,6 +18,29 @@ public class DatabaseItem {
         this.time = time;
         this.is_in_using = is_in_using;
         this.path = path;
+    }
+
+    public DatabaseItem(String path) {
+        String[] temp = path.split("/");
+        String db_name = temp[temp.length - 1].substring(0, temp[temp.length -1].indexOf(".dbc"));
+
+        String date = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+
+        this.name = db_name;
+        this.time =  date;
+        this.path = path;
+        this.is_in_using = false;
+
+    }
+
+    public DatabaseItem(String name, String path) {
+        String date = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+
+        this.name = name;
+        this.time =  date;
+        this.path = path;
+        this.is_in_using = false;
+
     }
 
     public String getName() {

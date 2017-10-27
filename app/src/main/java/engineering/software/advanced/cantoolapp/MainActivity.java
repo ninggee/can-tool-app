@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity
             isr = new InputStreamReader(is,"GBK");
             br = new BufferedReader(isr);
 
+            String path = "/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc";
+
             osw = new OutputStreamWriter(new FileOutputStream(new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc")),"GBK");
             bw = new BufferedWriter(osw);
             String s = "";
@@ -107,12 +109,17 @@ public class MainActivity extends AppCompatActivity
             }
             bw.flush();
 
-            /*byte[] buffer = new byte[is.available()];
-            int byteCount = 0;
-            while((byteCount=is.read(buffer))!=-1) {//循环从输入流读取 buffer字节
-                Log.e("tag",String.valueOf(byteCount));
-                fout.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
-            }*/
+
+            SharedPreferences sharedPreferences = this.getSharedPreferences(Database.DATABASE_FILE_NAME, Context.MODE_PRIVATE);
+            Database database = new Database(sharedPreferences);
+
+            String db_name = "默认数据库";
+
+            String date = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
+
+
+            DatabaseItem databaseItem = new DatabaseItem(db_name, date,  true, path);
+            database.add(databaseItem);
         }
 
         catch(Exception e){
@@ -283,10 +290,17 @@ public class MainActivity extends AppCompatActivity
                 String[] temp = path.split("/");
                 String db_name = temp[temp.length - 1].substring(0, temp[temp.length -1].indexOf(".dbc"));
 
+                DatabaseItem item = database.getOne(db_name);
+
+                while(item != null) {
+                    db_name = db_name + "(1)";
+                    item = database.getOne(db_name);
+                }
+
                 String date = new SimpleDateFormat("yyyy-MM-dd HH").format(new Date());
 
 
-                DatabaseItem databaseItem = new DatabaseItem(db_name, date,  false, path);
+                DatabaseItem databaseItem = new DatabaseItem(db_name, date,  database.getDefault() == null, path);
                 database.add(databaseItem);
 
                 Toast.makeText(getApplicationContext(), "添加数据库：" + db_name + "成功", Toast.LENGTH_SHORT).show();
