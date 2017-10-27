@@ -1,5 +1,13 @@
 package engineering.software.advanced.cantoolapp.export.Impl;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import engineering.software.advanced.cantoolapp.converter.entity.Signal;
@@ -55,7 +63,39 @@ public class DataToFileImpl implements DataToFile {
     }
 
     @Override
-    public boolean toFile(String str) {
+    public boolean toFile(String str, String  path, String  filename, String fomat) {
+
+        OutputStreamWriter osw = null;
+        BufferedWriter bw  = null;
+
+        try {
+            osw  = new OutputStreamWriter(new FileOutputStream(new File(path + filename + fomat)));
+            bw = new BufferedWriter(osw);
+            bw.write(str);
+            bw.flush();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                bw.close();
+                osw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return false;
+    }
+
+    @Override
+    public String toJson(List<MessagesWrapper> wrappers) {
+
+        Gson json = new Gson();
+
+        return json.toJson(wrappers);
     }
 }

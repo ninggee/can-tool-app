@@ -34,8 +34,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import engineering.software.advanced.cantoolapp.connector.BuletoothConnector;
+import engineering.software.advanced.cantoolapp.converter.database.Impl.DatabaseImpl;
+import engineering.software.advanced.cantoolapp.converter.entity.CanSignal;
 import engineering.software.advanced.cantoolapp.utils.Database;
 import engineering.software.advanced.cantoolapp.utils.DatabaseItem;
 import engineering.software.advanced.cantoolapp.webinterfaces.TestInterface;
@@ -74,17 +77,28 @@ public class MainActivity extends AppCompatActivity
         __initWebview();
 
 
-
-        File s= getExternalFilesDir("");
         //wtrie dbc file
+        File s= getExternalFilesDir("");
+
         writeDBC();
 
+        //Test dbc
+        /*engineering.software.advanced.cantoolapp.converter.database.Database db = new DatabaseImpl();
+        Set<CanSignal> list = db.searchSignalUseMessage(db.searchMessageUseId((long)856));
+        System.out.println(list.size());
+        for(CanSignal cs : list)
+            Log.e("tag",cs.toString());*/
 
     }
 
     private void writeDBC() {
 
+        //判断是否已经存在这个文件
+        File f = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");
+        if(f.exists())
+            return;
 
+        //不存在开始写入
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;

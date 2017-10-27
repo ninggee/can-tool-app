@@ -14,8 +14,10 @@ import engineering.software.advanced.cantoolapp.webinterfaces.MessagesWrapper;
 
 import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
+
 /**
- * Created by Zhang Dongdi on 2017/10/25.
+ * Created by lhr on 2017/10/27.
  */
 public class DataToFileImplTest {
     DataToFile dataToFile = new DataToFileImpl();
@@ -32,7 +34,25 @@ public class DataToFileImplTest {
 
     @Test
     public void toFile() throws Exception {
+        Set<Message> messages = processor.decodeMultiple("t03D19C\rt03D19D\r");
+        List<MessagesWrapper> wrappers = new ArrayList<>();
+        for (Message message : messages) {
+            wrappers.add(new MessagesWrapper("123", message));
+        }
 
+        dataToFile.toFile(dataToFile.toXml(wrappers),"d:/","test",".xml");
+        dataToFile.toFile(dataToFile.toJson(wrappers),"d:/","test",".json");
+    }
+
+    @Test
+    public void toJson()throws Exception {
+        Set<Message> messages = processor.decodeMultiple("t03D19C\rt03D19D\r");
+        List<MessagesWrapper> wrappers = new ArrayList<>();
+        for (Message message : messages) {
+            wrappers.add(new MessagesWrapper("123", message));
+        }
+
+        System.out.print(dataToFile.toJson(wrappers));
     }
 
 }
