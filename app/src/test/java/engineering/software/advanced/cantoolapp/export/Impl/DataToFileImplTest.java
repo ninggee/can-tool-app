@@ -75,11 +75,5 @@ public class DataToFileImplTest {
         String s = dataToFile.dbToJson("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
         dataToFile.toFile(s,"d:/","test",".json");
     }
-    @Test
-    public void JsonToDbc() throws Exception{
 
-
-        dataToFile.jsonToDbc("D:\\test.json");
-
-    }
 }

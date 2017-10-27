@@ -166,39 +166,5 @@ public class DataToFileImpl implements DataToFile {
         return toXml(allMessage);
     }
 
-    @Override
-    public boolean jsonToDbc(String filename) {
-        Gson json = new Gson();
-        FileInputStream fis = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
-        String s = "";
-        String result = "";//写入的内容
-        try {
-            fis = new FileInputStream(new File(filename));
-            isr = new InputStreamReader(fis);
-            br = new BufferedReader(isr);
-            s = br.readLine();
-            System.out.println(s);
-            //解析json
-            Set<CanMessageUnionSignal>  canMessageUnionSignals = json.fromJson(s,new TypeToken<Set<CanMessageUnionSignal>>(){}.getType());
-            System.out.println(canMessageUnionSignals.size());
-            for(CanMessageUnionSignal cs: canMessageUnionSignals) {
-                System.out.println(cs.getCanSignals());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                isr.close();
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
+
 }

@@ -36,10 +36,5 @@ public interface DataToFile {
      */
     public String dbToXml(String filename);
 
-    /**
-     * json文件转成dbc文件
-     * @param filename  完整文件路径
-     * @return  是否成功
-     */
-    public boolean jsonToDbc(String filename);
+
 }

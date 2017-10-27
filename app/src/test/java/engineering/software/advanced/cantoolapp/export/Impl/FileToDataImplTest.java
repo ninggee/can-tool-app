@@ -16,7 +16,7 @@ public class FileToDataImplTest {
 
     @Test
     public void xmlToCanMessageUnionSignal() throws Exception {
-        Set<CanMessageUnionSignal> unions = fileToData.xmlToCanMessageUnionSignal(new FileInputStream("F:/db.xml"));
+        Set<CanMessageUnionSignal> unions = fileToData.xmlToCanMessageUnionSignal("F:/db.xml");
 
         for (CanMessageUnionSignal union : unions) {
             System.out.println(union);
@@ -25,7 +25,10 @@ public class FileToDataImplTest {
 
     @Test
     public void jsonToCanMessageUnionSignal() throws Exception {
-
+        Set<CanMessageUnionSignal> unions = fileToData.jsonToCanMessageUnionSignal("d:/test.json");
+        for (CanMessageUnionSignal union : unions) {
+            System.out.println(union);
+        }
     }
 
 }

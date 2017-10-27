@@ -1,10 +1,18 @@
 package engineering.software.advanced.cantoolapp.export.Impl;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -201,6 +209,36 @@ public class FileToDataImpl implements FileToData {
 
     @Override
     public Set<CanMessageUnionSignal> jsonToCanMessageUnionSignal(String path) {
-        return null;
+        Gson json = new Gson();
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
+        BufferedReader br = null;
+        String s = "";
+        String result = "";//写入的内容
+        Set<CanMessageUnionSignal>  canMessageUnionSignals = new HashSet<>();
+        try {
+            fis = new FileInputStream(new File(path));
+            isr = new InputStreamReader(fis);
+            br = new BufferedReader(isr);
+            s = br.readLine();
+            System.out.println(s);
+            //解析json
+            canMessageUnionSignals = json.fromJson(s,new TypeToken<Set<CanMessageUnionSignal>>(){}.getType());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                isr.close();
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return canMessageUnionSignals;
     }
 }
