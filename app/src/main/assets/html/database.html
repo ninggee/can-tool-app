@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>数据库管理</title>
+    <meta charset="UTF-8">
     <script src="file:///android_asset/js/vue.js"></script>
     <link rel="stylesheet" href="file:///android_asset/css/uikit.min.css" />
 
@@ -40,9 +41,9 @@
                     <td class="uk-width-medium uk-text-nowrap">{{database.name}}</td>
                     <td class="uk-width-medium uk-text-nowrap">{{database.time}}</td>
                     <td class="uk-width-medium uk-text-nowrap">
-                        <button class="uk-button uk-button-small">
-                            <a href="file:///android_asset/html/ztree.html">树形显示</a>
-                        </button>
+                        <a  class="uk-button uk-button-small" style="background-color:#d6ae2c;color:#fff" :href="'file:///android_asset/html/ztree.html?name=' + database.name ">树形显示</a>
+                        <button class="uk-button uk-button-secondary uk-button-small" v-on:click="export_database(database.name, 'json')" style="background-color:#cedb1a;color:#fff" >导出JSON</button>
+                        <button class="uk-button uk-button-secondary uk-button-small" v-on:click="export_database(database.name, 'xml')" style="background-color:#cedb1a;color:#fff" >导出XML</button>
                         <button class="uk-button uk-button-secondary uk-button-small" v-on:click="set_default(database.name)" v-if="database.is_in_using == false">设为当前</button>
                         <button class="uk-button uk-button-danger uk-button-small" v-on:click="remove_database(database.name)" v-if="database.name != '默认数据库' && database.is_in_using == false">移除</button>
                     </td>
@@ -81,6 +82,7 @@ var app = new Vue({
             this.default_database = name;
             Android.setDatabase(name)
             Android.showToast("设置默认为" + name)
+            this.refresh()
         },
         remove_database: function(name) {
             for(index in this.databases) {
@@ -89,7 +91,6 @@ var app = new Vue({
                     this.databases.splice(index, 1)
                 }
             }
-
             Android.removeDatabase(name)
             Android.showToast("移除数据库：" + name +  "成功")
         },
@@ -97,6 +98,10 @@ var app = new Vue({
             result = Android.getAllDatabase()
             this.default_database = Android.getDefaultDatabase()
             this.databases = JSON.parse(result)
+        },
+        export_database: function(name,format) {
+            Android.exportDatabase(name, format);
+            Android.showToast("导出" + name + "成功");
         }
 
     }

@@ -38,23 +38,17 @@
  var app = new Vue({
     el: '#app',
     data: {
-      zNodes: []
+      zNodes: [],
+      name: ""
     },
     created: function() {
-
+        var name_index = window.location.href.indexOf("?name=")
+        this.name = decodeURI(window.location.href.substring(name_index + 6))
+        console.log(this.name)
     },
     mounted: function() {
 
-	   var zNodes = [
-	   		{name:"test1", open:false, children:[
-	      	{name:5}, {name:"test1_2"}]},
-	   		{name:"test2", open:true, children:[
-	      	{name:"test2_1"}, {name:"test2_2"}]},
-	      	{name:"test1", open:true, children:[
-	      	{name:5}, {name:"test1_2"}]},
-	   		{name:"test2", open:true, children:[
-	      	{name:"test2_1"}, {name:"test2_2"}]}
-	   ];
+	   var zNodes = JSON.parse(Android.getDatabaseTreeInfo(this.name));
 
       zTreeObj = $.fn.zTree.init($("#treeDemo"), {}, zNodes);
     },
