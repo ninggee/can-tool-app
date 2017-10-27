@@ -205,11 +205,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_module2) {
             webview.loadUrl(urls.get("messages"));
         } else if (id == R.id.nav_module3) {
-            webview.loadUrl(urls.get("meter"));
+            webview.loadUrl(urls.get("send"));
         } else if (id == R.id.module4) {
             webview.loadUrl(urls.get("command"));
-        } else if (id == R.id.module5) {
-            webview.loadUrl(urls.get("send"));
+        //} else if (id == R.id.module5) {
+//            webview.loadUrl(urls.get("send"));
         } else if (id == R.id.nav_send) {
             webview.loadUrl(urls.get("database"));
         }

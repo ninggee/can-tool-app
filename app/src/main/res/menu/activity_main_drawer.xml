@@ -4,31 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_module1"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="模块一" />
+            android:icon="@drawable/ic_menu_bluetooth"
+            android:title="蓝牙连接" />
         <item
             android:id="@+id/nav_module2"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="模块二" />
+            android:icon="@drawable/ic_menu_list"
+            android:title="接收列表" />
         <item
             android:id="@+id/nav_module3"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="模块三" />
+            android:icon="@drawable/ic_menu_send"
+            android:title="发送信息" />
         <item
             android:id="@+id/module4"
             android:icon="@drawable/ic_menu_manage"
-            android:title="模块四" />
+            android:title="装置设定" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="离线操作">
         <menu>
             <item
-                android:id="@+id/module5"
-                android:icon="@drawable/ic_menu_share"
-                android:title="发送信息" />
-            <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_database"
                 android:title="数据库管理" />
         </menu>
     </item>
