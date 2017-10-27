@@ -118,6 +118,11 @@
             .style("text-anchor", function(d) { return d.children ? "end" : "start"; })  
             .text(function(d) { return d.name; });  
 
+          node.append("text")  
+            .attr("dx", function(d) { return d.children ? -8 : 8; })  
+            .attr("dy", 5)  
+            .style("text-anchor", function(d) { return d.children ? "end" : "start"; })  
+            .text(function(d) { return d.name; }); 
 
     </script>
 
