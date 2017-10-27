@@ -78,6 +78,6 @@ public class DataToFileImplTest {
     @Test
     public void JsonToDbc() throws Exception{
 
-        dataToFile.JsonToDbc("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
+        dataToFile.jsonToDbc("C:\\Users\\lhr\\Desktop\\canmsg-sample.dbc");
     }
 }
