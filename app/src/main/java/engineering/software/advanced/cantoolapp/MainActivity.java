@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity
 
 
         //wtrie dbc file
-        File s= getExternalFilesDir("");
+        String rootPath= getExternalFilesDir("").getAbsolutePath();
 
-        writeDBC();
+        writeDBC(rootPath);
 
         //Test dbc
         /*engineering.software.advanced.cantoolapp.converter.database.Database db = new DatabaseImpl();
@@ -91,10 +91,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void writeDBC() {
+    private void writeDBC(String rootPath) {
 
         //判断是否已经存在这个文件
-        File f = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");
+//        File f = new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc");
+        File f = new File(rootPath,"canmsg-sample.dbc");
         if(f.exists())
             return;
 
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity
             isr = new InputStreamReader(is,"GBK");
             br = new BufferedReader(isr);
 
-            String path = "/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc";
+            String path = rootPath + "/canmsg-sample.dbc";
 
-            osw = new OutputStreamWriter(new FileOutputStream(new File("/storage/emulated/0/Android/data/engineering.software.advanced.cantoolapp/files/canmsg-sample.dbc")),"GBK");
+            osw = new OutputStreamWriter(new FileOutputStream(new File(rootPath,"canmsg-sample.dbc")),"GBK");
             bw = new BufferedWriter(osw);
             String s = "";
             while ((s = br.readLine()) != null) {

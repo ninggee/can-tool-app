@@ -199,7 +199,7 @@ public class DatabaseImpl implements Database {
                 Matcher m1 = pattern.matcher(line);
                 CanMessage message = decoding.messageDecoding(line);
                 if (m1.matches()) {//找到message
-                    Set<CanSignal> set = searchSignalUseMessage(message);
+                    Set<CanSignal> set = searchSignalUseMessage(message);//找signal
                     Set<SingleSignalName> name = new HashSet<>();//将signal的名字存储起来
                     for (CanSignal cs : set){
                         SingleSignalName singleSignalName = new SingleSignalName(cs.getSignalName());
