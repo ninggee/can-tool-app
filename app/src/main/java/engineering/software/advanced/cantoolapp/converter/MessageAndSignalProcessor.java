@@ -100,6 +100,10 @@ public class MessageAndSignalProcessor implements Processor {
         Set<Message> result = new HashSet<Message>();
         for (String str : strList) {
 //            System.out.println("next str: " + str);
+            if (str.startsWith("\007")) {
+                str = str.substring(1);
+            }
+
             result.add(decode(str));
         }
         return result;

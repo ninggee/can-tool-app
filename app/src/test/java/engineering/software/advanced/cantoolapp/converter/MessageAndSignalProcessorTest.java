@@ -1,5 +1,6 @@
 package engineering.software.advanced.cantoolapp.converter;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -13,6 +14,12 @@ import engineering.software.advanced.cantoolapp.converter.entity.Signal;
  */
 public class MessageAndSignalProcessorTest {
     MessageAndSignalProcessor processor = MessageAndSignalProcessor.getInstance();
+
+    @Before
+    public void init() throws Exception {
+        processor.setDatabase("F:/canmsg-sample.dbc");
+    }
+
     @Test
     public void decode() throws Exception {
         Message message = processor.decode("t03D19C");
@@ -25,7 +32,7 @@ public class MessageAndSignalProcessorTest {
 
     @Test
     public void decodeMultiple() throws  Exception {
-        Set<Message> messages = processor.decodeMultiple("t03D19C\\rt03D19D\\r");
+        Set<Message> messages = processor.decodeMultiple("\007t03D19C\rt03D19D\r");
         System.out.println("message number: " + messages.size());
         for (Message message : messages) {
             System.out.println("message: " + message.getName());
