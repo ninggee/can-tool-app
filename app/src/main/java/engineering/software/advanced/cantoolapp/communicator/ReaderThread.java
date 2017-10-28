@@ -76,10 +76,10 @@ public class ReaderThread extends Thread implements Reader {
         int lastR = message_buffer.lastIndexOf("\r");
 
         if(lastB > lastR) {
-            result = message_buffer.substring(0, lastB);
+            result = message_buffer.substring(0, lastB + 1);
             this.message_buffer = this.message_buffer.substring(lastB + 1);
         } else {
-            result = message_buffer.substring(0, lastR);
+            result = message_buffer.substring(0, lastR + 1);
             this.message_buffer = this.message_buffer.substring(lastR + 1);
         }
 
