@@ -51,7 +51,11 @@ public class ReceiverImpl implements Receiver {
             return false;
         }
         else {
-            throw new RuntimeException("Unknown YN message.");
+            String ascii = "";
+            for (int i = 0; i < message.length(); i++) {
+                ascii += " " + Integer.valueOf(message.charAt(i));
+            }
+            throw new RuntimeException("Unknown YN message: " + ascii);
         }
     }
 

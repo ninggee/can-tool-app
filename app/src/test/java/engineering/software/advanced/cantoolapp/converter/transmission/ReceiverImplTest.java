@@ -18,8 +18,8 @@ public class ReceiverImplTest {
 
     @Test
     public void parseYN() throws Exception {
-        System.out.println(receiver.parseYN("\\r"));
-        System.out.println(receiver.parseYN("\\BEL"));
+        System.out.println(receiver.parseYN("\r"));
+        System.out.println(receiver.parseYN("\007\007"));
     }
 
     @Test
